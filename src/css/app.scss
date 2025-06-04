@@ -1,1 +1,87 @@
 // app global css in SCSS form
+body {
+    background-color: #F4F9FD;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    // Nested example
+    h1 {
+        font-size: 2rem;
+        color: #007bff;
+    }
+}
+// app global css in SCSS for header
+.q-toolbar {
+    position: relative;
+    padding: 6px 12px;
+    min-height: 50px;
+    width: 100%;
+    background-color: #f4f9fd;
+}
+.q-layout__section--marginal {
+    background-color: var(--light);
+    color: var(--q-dark);
+}
+.support .postion {
+    position: absolute;
+    bottom: 31px;
+    left: 52px;
+}
+.q-item{
+    min-height:55px;
+}
+.q-item__section--main{
+    font-size:16px;
+    font-weight:500;
+}
+.q-router-link--exact-active {
+    border-right: 6px solid;
+    border-radius: 6px;
+    background-color: #ECEBF1;
+}
+// app global css in SCSS for page data
+.on-left {
+    margin-right: 5px;
+}
+a {
+    font-size: 16px;
+    text-decoration: none;
+}
+.text-subtitle2 {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    letter-spacing: 0.00714em;
+    color: #8B979B;
+}
+.q-col-gutter-md > *{
+    padding-top:0px;
+
+}
+.q-table__top,
+thead tr:first-child th {
+    background-color: #ECEBF1;
+}
+.compact-select .q-field__control {
+    min-height: 32px; /* default is 42px */
+    font-size: 13px;
+}
+compact-checkbox ::v-deep(.q-checkbox) {
+    transform: scale(0.8); /* or 0.7, 0.6 depending on how small you want */
+}
+/* height of all previous header rows */
+tbody {
+    
+    scroll-margin-top: 48px
+}
+/*aside nevigation*/
+
+.mind-area {
+    max-height: 375px;
+    overflow: auto;
+}
+/*font size*/
+.q-toolbar .q-btn {
+    font-size: 14px!important;
+}
