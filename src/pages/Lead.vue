@@ -1,8 +1,9 @@
 <template>
   <br />
-  <a href="IndexPage.vue" target="_blank" rel="noopener" class="text-primary q-ma-lg">
+   
+  <router-link to="/" class="text-primary q-ma-lg">
     <q-icon name="west" /> Back to Dashboard
-  </a>
+  </router-link>
   <q-card class="my-card q-ma-md col-auto ">
     <q-card-section class="q-pb-none ">
       <!-- Header Row with Title and Button on Right -->
@@ -71,7 +72,7 @@
 
           <!-- ❌ Clear All Button -->
           <div class="col-12 col-sm-6 col-md-4 col-lg-2 text-right">
-            <q-btn  outline color="dark"
+            <q-btn outline color="dark"
                    icon-right="cancel"
                    label="Clear All"
                    class="text-capitalize q-pa-s"

@@ -184,21 +184,21 @@
         </div>
         <!-- Field Close -->
         <!-- This is an support link -->
-        <q-item class="support">
+        <!--<q-item class="support">
 
           <img alt="support"
                src="~assets/support.svg"
                style="width: 200px; height: 200px">
           <q-btn color="primary text-capitalize postion" label="Support" icon="chat" />
-        </q-item>
+        </q-item>-->
         <!-- Field Close -->
         <!-- This is an logout link -->
-        <q-item clickable v-ripple to="/login">
+        <!--<q-item clickable v-ripple to="/login">
           <q-item-section avatar>
             <q-icon name="logout" />
           </q-item-section>
           <q-item-section>Logout</q-item-section>
-        </q-item>
+        </q-item>-->
         <!-- Logout Close -->
       </q-list>
     </q-drawer>

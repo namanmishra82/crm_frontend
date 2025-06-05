@@ -2,9 +2,10 @@ const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
+
     //component: () => import('layouts/TopMenu.vue'),
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') },
+      { path: '', component: () => import('pages/IndexPage.vue') },      
       { path: 'Lead', component: () => import('pages/Lead.vue') },
       { path: 'Opportunity', component: () => import('pages/Opportunity.vue') },
       { path: 'Proposal', component: () => import('pages/Proposal.vue') },
