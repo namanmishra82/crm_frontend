@@ -85,7 +85,7 @@
             <q-item-section avatar>
               <q-icon name="layers" />
             </q-item-section>
-            <q-item-section>Lead</q-item-section>
+            <q-item-section>Lead Management </q-item-section>
           </q-item>
           <!-- Lead Close -->
           <!-- This is an Opportunity link -->
@@ -93,7 +93,7 @@
             <q-item-section avatar>
               <q-icon name="online_prediction" />
             </q-item-section>
-            <q-item-section>Opportunity</q-item-section>
+            <q-item-section>Opportunity Management </q-item-section>
           </q-item>
           <!-- Opportunity Close -->
           <!-- This is an Proposal link -->
@@ -103,29 +103,132 @@
             </q-item-section>
             <q-item-section>Proposal</q-item-section>
           </q-item>
-          <q-item clickable v-ripple to="/Proposal">
+          <q-expansion-item icon="science"
+                            label="Trial"
+                            dense
+                            expand-separator>
+            <q-item clickable v-ripple to="/Trial_Request">
+              <q-item-section avatar>
+                <q-icon name="person" />
+              </q-item-section>
+              <q-item-section>Trial Request</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Trial_Extend">
+              <q-item-section avatar>
+                <q-icon name="settings" />
+              </q-item-section>
+              <q-item-section>Trial Extend</q-item-section>
+            </q-item>
+          </q-expansion-item>
+          <q-item clickable v-ripple to="/New_Subscription">
             <q-item-section avatar>
               <q-icon name="workspace_premium" />
             </q-item-section>
             <q-item-section>New Subscription </q-item-section>
           </q-item>
-          <q-item clickable v-ripple to="/Invoice">
-            <q-item-section avatar>
-              <q-icon name="receipt_long" />
-            </q-item-section>
-            <q-item-section>Invoice</q-item-section>
-          </q-item>
+          <q-expansion-item icon="science"
+                            label="Invoice"
+                            dense
+                            expand-separator>
+            <q-item clickable v-ripple to="/Currency_Conversion">
+              <q-item-section>Currency Conversion</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Invoice_Generate">
+              <q-item-section>Invoice Generate</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Invoice_PDF_Generate">
+              <q-item-section>Invoice PDF Generate</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Subscriber_Mapping">
+              <q-item-section>Subscriber Mapping</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Start_Bill_Invoice">
+              <q-item-section>Start Bill Invoice Generate</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Stop_Bill_Generate">
+              <q-item-section>Stop Bill Generate</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Change_Bill_Commercial">
+              <q-item-section>Change Bill Commercial Generate</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Change_Bill_NonCommercial">
+              <q-item-section>Change Bill Non-Commercial Generate</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Manual_Invoice">
+              <q-item-section>Debit Note / Credit Note / Manual Invoice</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/GST_JSON_Generate">
+              <q-item-section>Generate GST Json</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/GST_Upload_Ack">
+              <q-item-section>GST Upload Acknowledgement</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/TDS_Management">
+              <q-item-section>TDS Management</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Invoice_Other">
+              <q-item-section>Invoice Other (Asset sale / scrape)</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Invoice_Email">
+              <q-item-section>Invoice email to AM / customer</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Update_PO">
+              <q-item-section>Option to Update PO Number and validity</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Manage_Notes">
+              <q-item-section>Option to manage invoice notes</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Invoice_Letterhead">
+              <q-item-section>Option to generate invoice with or without letter head</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Invoice_Annexure">
+              <q-item-section>Invoice Annexure</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Change_Invoice_Format">
+              <q-item-section>Change invoice no format</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple to="/Selective_Generation">
+              <q-item-section>Selective invoice generation</q-item-section>
+            </q-item>
+          </q-expansion-item>
+
           <q-item clickable v-ripple to="/Client-Master">
             <q-item-section avatar>
               <q-icon name="supervisor_account" />
             </q-item-section>
             <q-item-section>Client Master</q-item-section>
           </q-item>
+          <q-item clickable v-ripple to="/Smart-Login-Import">
+            <q-item-section avatar>
+              <q-icon name="cloud_download" />
+            </q-item-section>
+            <q-item-section>Smart Login Import</q-item-section>
+          </q-item>
           <q-item clickable v-ripple to="/Action-Log">
             <q-item-section avatar>
               <q-icon name="timeline" />
             </q-item-section>
-            <q-item-section>Action Log</q-item-section>
+            <q-item-section> Daily Activity Tracking </q-item-section>
           </q-item>
           <!-- Opportunity Close -->
           <!-- This is an User link -->
@@ -156,24 +259,14 @@
             <q-item-section>Approvals</q-item-section>
           </q-item>
           <!-- Field Close -->
-          <q-expansion-item icon="science"
-                            label="Trial"
-                            dense
-                            expand-separator>
-            <q-item clickable v-ripple to="/User/Profile">
-              <q-item-section avatar>
-                <q-icon name="person" />
-              </q-item-section>
-              <q-item-section>Trial Request</q-item-section>
-            </q-item>
-
-            <q-item clickable v-ripple to="/User/Settings">
-              <q-item-section avatar>
-                <q-icon name="settings" />
-              </q-item-section>
-              <q-item-section>Extend Trial</q-item-section>
-            </q-item>
-          </q-expansion-item>
+          <!-- This is an Field link -->
+          <q-item clickable v-ripple to="/Email-Template ">
+            <q-item-section avatar>
+              <q-icon name="mail" />
+            </q-item-section>
+            <q-item-section> Email Template </q-item-section>
+          </q-item>
+          <!-- Field Close -->
           <!-- This is an Field link -->
           <q-item clickable v-ripple to="/Reports">
             <q-item-section avatar>

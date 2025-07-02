@@ -1,24 +1,24 @@
 <template>
   <br />
-   
+
   <router-link to="/" class="text-primary q-ma-lg">
     <q-icon name="west" /> Back to Dashboard
   </router-link>
-  <q-card class="my-card q-ma-md col-auto ">
-    <q-card-section class="q-pb-none ">
+  <q-card class="my-card q-ma-sm col-auto">
+    <q-card-section class="q-pb-none">
       <!-- Header Row with Title and Button on Right -->
       <div class="row items-center justify-between">
-        <div class="text-h6">Lead</div>
-        <q-btn color="primary text-capitalize" label="Add Lead" icon="playlist_add" @click="leadadd" />
+        <div class="text-h6">Opportunity</div>
+        <q-btn color="primary text-capitalize" label="Add Opportunity" icon="playlist_add" @click="OpportunityAdd" />
       </div>
       <!-- Subtitle -->
-      <div class="text-subtitle2">Lead Management</div>
+      <div class="text-subtitle2">Opportunity Management</div>
     </q-card-section>
     <q-separator dark inset />
 
     <q-card-section class="q-px-none">
       <!-- page list table  -->
-      <q-page class="q-pa-md" style="height:auto;">
+      <div class="q-pa-md" style="height:auto;">
 
         <div class="row q-col-gutter-md items-center">
 
@@ -63,20 +63,20 @@
 
           </div>
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <q-select dense outlined
-                      v-model="model"
-                      :options="options"
-                      label="Filter by"
-                      dropdown-icon="expand_more" />
-          </div>
-
-          <!-- ❌ Clear All Button -->
-          <div class="col-12 col-sm-6 col-md-4 col-lg-2 text-right">
-            <q-btn outline color="dark"
+            <q-btn outline
                    icon-right="cancel"
                    label="Clear All"
                    class="text-capitalize q-pa-s"
                    @click="model = []" />
+          </div>
+
+          <!-- ❌ Clear All Button -->
+          <div class="col-12 col-sm-6 col-md-4 col-lg-1 text-right m-auto">
+            <q-select dense outlined
+                      v-model="model"
+                      :options="options"
+                      label="Sort By"
+                      dropdown-icon="expand_more" />
           </div>
 
         </div>
@@ -84,22 +84,47 @@
 
         <!--   Data Table -->
         <div class="col-12 q-pt-md">
-          <q-table class="my-sticky-header-table "
+          <q-table class="my-sticky-header-table"
+                   style="max-height: 400px;"
+                   dense
                    flat
                    bordered
                    :rows="rows"
                    :columns="columns"
                    row-key="name"
-                   :selected-rows-label="getSelectedString"
-                   selection="multiple"
-                   v-model:selected="selected" />
-
-          <div class="q-mt-ms">
-            Selected: {{ JSON.stringify(selected) }}
-          </div>
+                   :loading="loading"
+                   virtual-scroll
+                   :virtual-scroll-item-size="48"
+                   :virtual-scroll-sticky-size-start="48"
+                   :pagination="pagination"
+                   :rows-per-page-options="[0]"
+                   @virtual-scroll="onScroll">
+            <template v-slot:body="props">
+              <q-tr :props="props" :class="props.rowIndex % 2 === 0 ? 'even-row' : 'odd-row'">
+                <q-td v-for="col in props.cols"
+                      :key="col.name"
+                      :props="props">
+                  <template v-if="col.name === 'Actions'">
+                    <q-btn dense flat size="10px"
+                           icon="edit"
+                           @click="editRow(props.row)" />
+                    <q-btn dense flat size="10px"
+                           icon="delete"
+                           @click="deleteRow(props.row)" />
+                    <q-btn dense flat size="10px"
+                           icon="info"
+                           @click="infoRow(props.row)" />
+                  </template>
+                  <template v-else>
+                    {{ col.value }}
+                  </template>
+                </q-td>
+              </q-tr>
+            </template>
+          </q-table>
         </div>
 
-      </q-page>
+      </div>
     </q-card-section>
   </q-card>
 </template>
@@ -113,8 +138,8 @@
     setup() {
       const router = useRouter()
 
-      const leadadd = () => {
-        router.push('/LeadAdd') // This route must be defined in your router
+        const OpportunityAdd = () => {
+        router.push('/OpportunityAdd') // This route must be defined in your router
       }
 
       const selected = ref([])
@@ -127,35 +152,39 @@
         {
           name: 'name',
           required: true,
-          label: 'Lead Source',
+          label: 'Opportunity Name',
           align: 'left',
           field: row => row.name,
           format: val => `${val}`,
           sortable: true
         },
-        { name: 'Status', align: 'left', label: 'Status', field: 'Status', sortable: true },
+        { name: 'Account Name', align: 'left', label: 'Account Name ', field: 'Account_Name', sortable: true },
+        { name: 'Opportunity_Type', align: 'left', label: 'Opportunity Type', field: 'Opportunity_Type' },
+        { name: 'Opportunity Source ', align: 'left', label: 'Opportunity Source ', field: 'Opportunity_Source', sortable: true },
+        { name: 'Opportunity Status', align: 'left', label: 'Opportunity Status', field: 'Opportunity_Status', sortable: true },
         { name: 'Assigned_To', align: 'left', label: 'Assigned To', field: 'Assigned_To', sortable: true },
         { name: 'Date created', align: 'left', label: 'Date created', field: 'Date_created' },
-        { name: 'Lead Source Campaign', align: 'left', label: 'Lead Source Campaign', field: 'Lead_Source_Campaign', sortable: true },
-        { name: 'Event Name', align: 'left', label: 'Event Name', field: 'Event_Name', sortable: true },
-        { name: 'Event Date', align: 'left', label: 'Event Date', field: 'Event_Date', sortable: true },
         { name: 'Priority', align: 'left', label: 'Priority', field: 'Priority', sortable: true },
+        { name: 'Created Date ', align: 'left', label: 'Created Date', field: 'Created_Date' },
+        { name: 'Expected Close Date  ', align: 'left', label: 'Expected Close Date ', field: 'Expected_Close_Date' },
         { name: 'Actions', align: 'left', label: 'Actions', field: 'Actions' }
       ]
 
       const rows = Array(12).fill().map(() => ({
-        name: 'Website',
-        Status: 'Active',
+        name: 'New',
+        Account_Name: 'Active',
+        Opportunity_Type: 'New Business',
+        Opportunity_Source: 'From Master',
+        Opportunity_Status: 'Finish',
         Assigned_To: 'JhoneMaslor',
         Date_created: '2025-05-26',
-        Lead_Source_Campaign: 'No Data showing',
-        Event_Name: 'Quick process',
-        Event_Date: '2025-05-26',
-        Priority: 'Medium'
+        Priority: 'Medium',
+        Created_Date: '2025-05-26',
+        Expected_Close_Date: '2025-12-26'
       }))
 
       return {
-        leadadd,
+        OpportunityAdd,
         selected,
         columns,
         rows,

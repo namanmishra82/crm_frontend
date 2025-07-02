@@ -1,7 +1,7 @@
 // app global css in SCSS form
 body {
-    background-color: #F4F9FD;
-    font-family: 'Roboto', sans-serif;
+    background-color: #f4f9fd;
+    font-family: "Roboto", sans-serif;
     margin: 0;
     padding: 0;
     color: #333;
@@ -19,69 +19,126 @@ body {
     width: 100%;
     background-color: #f4f9fd;
 }
+
 .q-layout__section--marginal {
     background-color: var(--light);
     color: var(--q-dark);
 }
+
 .support .postion {
     position: absolute;
     bottom: 31px;
     left: 52px;
 }
-.q-item{
-    min-height:55px;
+.q-item__section--avatar {
+    min-width: 32px;
 }
-.q-item__section--main{
-    font-size:16px;
-    font-weight:500;
+.q-item {
+    min-height: 36px !important;
 }
+.q-menu {
+    max-height: 300px;
+    overflow-y: auto;
+}
+.mind-area {
+    padding: 0;
+    margin: 0;
+}
+.mind-area .q-item {
+    min-height: 31px;
+    margin: 9px 16px;
+}
+
+.q-item__section--main {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.q-item__section--side > .q-icon {
+    font-size: 21px;
+}
+
 .q-router-link--exact-active {
-    border-right: 6px solid;
+    /*border-right: 6px solid;*/
     border-radius: 6px;
-    background-color: #ECEBF1;
+    background-color: #dfeaff;
 }
 // app global css in SCSS for page data
 .on-left {
     margin-right: 5px;
 }
+.field-add-tab {
+    max-height: 600px;
+    overflow-y: auto;
+    height: 68vh;
+}
 a {
     font-size: 16px;
     text-decoration: none;
 }
+
 .text-subtitle2 {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5rem;
     letter-spacing: 0.00714em;
-    color: #8B979B;
+    color: #8b979b;
 }
-.q-col-gutter-md > *{
-    padding-top:0px;
 
+.q-col-gutter-md > * {
+    padding-top: 0px;
+}
+.q-table thead tr, .q-table tbody td {
+    height: 39px;
 }
 .q-table__top,
 thead tr:first-child th {
-    background-color: #ECEBF1;
+    background-color: #7DC1F3;
+    color:#ffffff;
 }
-.compact-select .q-field__control {
-    min-height: 32px; /* default is 42px */
-    font-size: 13px;
+.q-table tr:before {
+    background: #B2DDFD;
 }
-compact-checkbox ::v-deep(.q-checkbox) {
-    transform: scale(0.8); /* or 0.7, 0.6 depending on how small you want */
+.even-row {
+    background-color: #ffffff;
 }
-/* height of all previous header rows */
-tbody {
-    
-    scroll-margin-top: 48px
-}
-/*aside nevigation*/
+ 
+    .odd-row {
+        background-color: #F0F7FF;
+    }
 
-.mind-area {
-   /* max-height: 625px;*/
-    overflow: auto;
+    .compact-select .q-field__control {
+        min-height: 32px; /* default is 42px */
+        font-size: 13px;
+    }
+
+    compact-checkbox ::v-deep(.q-checkbox) {
+        transform: scale(0.8); /* or 0.7, 0.6 depending on how small you want */
+    }
+    /* height of all previous header rows */
+    tbody {
+        scroll-margin-top: 48px;
+    }
+    /*aside nevigation*/
+
+    .mind-area {
+        /* max-height: 625px;*/
+        overflow: auto;
+    }
+    /*font size*/
+    .q-toolbar .q-btn {
+        font-size: 14px !important;
+    }
+.my-sticky-header-table  thead tr th {
+    position: sticky;
+    top: 0;
+     
+    z-index: 1;
 }
-/*font size*/
-.q-toolbar .q-btn {
-    font-size: 14px!important;
+
+.my-sticky-header-table tfoot tr td {
+    position: sticky;
+    bottom: 0;
+     
+    z-index: 1;
 }
