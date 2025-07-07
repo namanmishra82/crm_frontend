@@ -80,6 +80,7 @@
             <q-item-section>Dashboard</q-item-section>
           </q-item>
           <!-- Close -->
+          
           <!-- This is an Lead link -->
           <q-item clickable v-ripple to="/Lead">
             <q-item-section avatar>
@@ -127,10 +128,25 @@
             </q-item-section>
             <q-item-section>New Subscription </q-item-section>
           </q-item>
+          <q-item clickable v-ripple to="/Salvage_Disconnect">
+            <q-item-section avatar>
+              <q-icon name="call_missed_outgoing" />
+            </q-item-section>
+            <q-item-section>Salvage Disconnect </q-item-section>
+          </q-item>
+          <q-item clickable v-ripple to="/Currency_Conversion">
+            <q-item-section avatar>
+              <q-icon name="currency_exchange" />
+            </q-item-section>
+            <q-item-section>Currency Conversion </q-item-section>
+          </q-item>
           <q-expansion-item icon="science"
                             label="Invoice"
                             dense
                             expand-separator>
+            <q-item clickable v-ripple to="/Manual_Invoice">
+              <q-item-section> Manual Invoice</q-item-section>
+            </q-item>
             <q-item clickable v-ripple to="/Currency_Conversion">
               <q-item-section>Currency Conversion</q-item-section>
             </q-item>
@@ -212,12 +228,7 @@
             </q-item>
           </q-expansion-item>
 
-          <q-item clickable v-ripple to="/Client-Master">
-            <q-item-section avatar>
-              <q-icon name="supervisor_account" />
-            </q-item-section>
-            <q-item-section>Client Master</q-item-section>
-          </q-item>
+          
           <q-item clickable v-ripple to="/Smart-Login-Import">
             <q-item-section avatar>
               <q-icon name="cloud_download" />
@@ -230,20 +241,26 @@
             </q-item-section>
             <q-item-section> Daily Activity Tracking </q-item-section>
           </q-item>
+          <q-item clickable v-ripple to="/StopBill">
+            <q-item-section avatar>
+              <q-icon name="request_page" />
+            </q-item-section>
+            <q-item-section> Stop Bill </q-item-section>
+          </q-item>
           <!-- Opportunity Close -->
           <!-- This is an User link -->
           <q-expansion-item icon="receipt"
                             label="Change Bill"
                             dense
                             expand-separator>
-            <q-item clickable v-ripple to="/User/Profile">
+            <q-item clickable v-ripple to="/Commercial">
               <q-item-section avatar>
-                <q-icon name="person" />
+                <q-icon name="person"/>
               </q-item-section>
               <q-item-section>Commercial</q-item-section>
             </q-item>
 
-            <q-item clickable v-ripple to="/User/Settings">
+            <q-item clickable v-ripple to="/NonCommercial">
               <q-item-section avatar>
                 <q-icon name="settings" />
               </q-item-section>
@@ -251,6 +268,18 @@
             </q-item>
           </q-expansion-item>
           <!-- User Close -->
+          <q-item clickable v-ripple to="/Client_Master">
+            <q-item-section avatar>
+              <q-icon name="attribution" />
+            </q-item-section>
+            <q-item-section>Client Master</q-item-section>
+          </q-item>
+          <q-item clickable v-ripple to="/Payments">
+            <q-item-section avatar>
+              <q-icon name="account_balance" />
+            </q-item-section>
+            <q-item-section>Payments</q-item-section>
+          </q-item>
           <!-- This is an Field link -->
           <q-item clickable v-ripple to="/Approvals">
             <q-item-section avatar>

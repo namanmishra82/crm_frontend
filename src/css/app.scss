@@ -53,7 +53,26 @@ body {
     font-size: 14px;
     font-weight: 500;
 }
-
+.counter-screen {
+    width: 100%;
+    height: 100%;
+    margin: 0px 0px;
+    font-size: 18px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.178);
+    text-align: center;
+}
+.client-details{
+    font-size: 15px;
+    padding-bottom: 1px;
+    padding-left: 2px;
+    font-weight: 500;
+    color: #3b346c;
+    border-bottom: 1px solid #ababab;
+    text-transform: capitalize;
+    margin-bottom: 11px;
+}
 .q-item__section--side > .q-icon {
     font-size: 21px;
 }

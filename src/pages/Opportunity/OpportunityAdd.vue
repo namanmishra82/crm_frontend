@@ -424,9 +424,7 @@
         dropdown,
         filteredClients,
         columns,
-        onInput,
-        onBlur,
-        onFocus,
+        
         selectClient,
         options: [
           'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
