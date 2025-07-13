@@ -51,8 +51,8 @@
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <!--   3-Column Table Dropdown -->
                           <div>
-                            <div class="q-pa-md" style="max-width: 600px">
-                              <h6>Search & select a client:</h6>
+                            <div class="" style="max-width: 600px">
+                              
                               <q-input dense
                                        outlined
                                        v-model="search"
@@ -148,9 +148,7 @@
                           </q-input>
                         </div>
                           <div class="col-12 col-sm-6 col-md-4 col-lg-2 d-none">
-
-                          
-
+                             
                           <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Created Date" :hide-bottom-space="true">
                             <template v-slot:append>
                               <q-icon name="event" class="cursor-pointer">
@@ -303,7 +301,7 @@
                       <div class="row q-my-md q-col-gutter-md items-center">
 
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Comments" type="textarea" autogrow :rows="3" />
+                          <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="text" label="LinkedIn Company" />
@@ -360,7 +358,14 @@
 
                         <!--   Date Picker -->
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Competitor Analysis" type="textarea" autogrow :rows="3" />
+                          <q-input dense
+                                   outlined
+                                   v-model="text"
+                                   label="Competitor Analysis"
+                                   type="textarea"
+                                   :rows="3"
+                                   :autogrow="false" />
+                           
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="text" label="Win Percentage " />

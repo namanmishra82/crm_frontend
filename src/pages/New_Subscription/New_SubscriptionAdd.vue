@@ -4,18 +4,18 @@
     <q-icon name="west" /> Back to Dashboard
   </router-link>
 
-  <q-card class="my-card q-ma-md">
+  <q-card class="my-card q-ma-sm col-auto">
     <q-card-section class="q-pb-none">
       <div class="row items-center justify-between">
-        <div class="text-h6">Add Payments </div>
+        <div class="text-h6">Add New Subscription</div>
         <q-btn color="primary text-capitalize" label="Save" icon="save" />
       </div>
-      <div class="text-subtitle2">Payments Management</div>
+      <div class="text-subtitle2">New Subscription Management</div>
     </q-card-section>
 
     <q-separator dark inset />
 
-    <q-card-section class="q-px-none" >
+    <q-card-section class="q-px-none">
       <div class="q-px-none field-add-tab">
         <div class="row q-col-gutter-md items-center">
           <div class="col-12 col-sm-6 col-md-4 col-lg-12">
@@ -30,7 +30,7 @@
                     </q-item-section>
 
                     <q-item-section>
-                      Request information
+                      Field information
                     </q-item-section>
 
 
@@ -41,18 +41,12 @@
                       <div class="row q-col-gutter-md items-center">
 
                         <!--   Date Picker -->
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="form.client" :options="options" label="Select Client" />
-                        </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-select dense outlined  v-model="form.client" :options="Status" label="Select Invoice (s)" />
+                          <q-input dense outlined v-model="Number" label="Subscription No" maxlength="5" mask="##########" />
                         </div>
+
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="form.paymentRefNo" label="Payment Ref No" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <!--   Date Picker -->
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select Payment From" :hide-bottom-space="true">
+                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Subscription Date" :hide-bottom-space="true">
                             <template v-slot:append>
                               <q-icon name="event" class="cursor-pointer">
                                 <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -66,9 +60,56 @@
                             </template>
                           </q-input>
                         </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined v-model="text" label="Subscription Name" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
+                        </div>
+                       
+                      </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <!--   Date Picker -->
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Payment Receipt Date " :hide-bottom-space="true">
+                          <q-input dense outlined v-model="text" label="Request By" />
+                        </div>
+                        
+                     
+                      </div>
+
+                    
+                    </q-card-section>
+                  </q-card>
+                </q-expansion-item>
+
+                <q-separator />
+
+                <q-expansion-item>
+                  <template v-slot:header>
+                    <q-item-section avatar>
+                      <q-avatar icon="contact_support" color="primary" text-color="white" />
+                    </q-item-section>
+
+                    <q-item-section>
+                      User information
+                    </q-item-section>
+                  </template>
+
+                  <q-card class="q-pa-md">
+
+                    <q-card-section>
+                      <div class="row q-col-gutter-md items-center">
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="options" label="Contact Person" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="options" label="Product" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                          <q-input dense outlined v-model="text" label="Add Ons" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Trial Extend Till Date" :hide-bottom-space="true">
                             <template v-slot:append>
                               <q-icon name="event" class="cursor-pointer">
                                 <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -84,30 +125,30 @@
                         </div>
                       </div>
                       <div class="row q-my-md q-col-gutter-md items-center">
-                       
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="form.receivedAmount" label="Received Amount " />
+                          <q-input dense outlined v-model="text" label="User Id" />
+
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="form.tds" label="TDS" />
+                          <q-input dense outlined v-model="password" label="Password" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="form.tdsOnGst" label="TDS on GST" />
+                          <q-input dense outlined v-model="text" label="Workstation Id " />
+
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="form.invoiceAmount" label="Invoice Amount" />
+                          <q-input dense outlined v-model="Number" label="Terminal No" maxlength="5" mask="##########" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
                         </div>
-                         
                       </div>
-
                     </q-card-section>
                   </q-card>
                 </q-expansion-item>
+                <q-separator />
 
-                
+               
               </q-list>
             </div>
           </div>
@@ -122,24 +163,10 @@
     name: 'LeadPage',
     data() {
       return {
-        Status: [
-          'New', 'Contacted', 'Qualified', 'Nurturing', 'Disqualified', 'Converted'
-        ],
         options: [
           'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
         ],
-        form: {
-          client: '',
-          invoice: '',
-          paymentRefNo: '',
-          paymentFrom: '',
-          paymentReceipt: '',
-          receivedAmount: '',
-          tds: '',
-          tdsOnGst: '',
-          invoiceAmount: '',
-          comments: ''
-        }
+        text: ''
       };
     }
   }

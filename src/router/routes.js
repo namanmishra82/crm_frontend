@@ -7,9 +7,12 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: 'Client_Master', component: () => import('pages/Client_Master/Client_Master.vue') },
+      { path: 'Client_Master_View', component: () => import('pages/Client_Master/Client_Master_View.vue') },
       { path: 'Lead', component: () => import('pages/Lead/Lead.vue') },
       { path: 'Proposal', component: () => import('pages/Proposal/Proposal.vue') },
       { path: 'ProposalAdd', component: () => import('pages/Proposal/ProposalAdd.vue') },
+      { path: 'New_Subscription', component: () => import('pages/New_Subscription/New_Subscription.vue') },
+      { path: 'New_SubscriptionAdd', component: () => import('pages/New_Subscription/New_SubscriptionAdd.vue') },
       { path: 'Trial_Request', component: () => import('pages/Trial_Request/Trial_Request.vue') },
       { path: 'Trial_RequestAdd', component: () => import('pages/Trial_Request/Trial_RequestAdd.vue') },
       { path: 'Trial_Extend', component: () => import('pages/Trial_Extend/Trial_Extend.vue') },
@@ -32,7 +35,9 @@ const routes = [
       { path: 'login', component: () => import('pages/login.vue') },
       { path: 'leadadd', component: () => import('pages/Lead/leadadd.vue') },
       { path: 'Opportunity', component: () => import('pages/Opportunity/Opportunity.vue') },
-      { path: 'OpportunityAdd', component: () => import('pages/Opportunity/OpportunityAdd.vue') }
+      { path: 'OpportunityAdd', component: () => import('pages/Opportunity/OpportunityAdd.vue')},
+      { path: 'Smart_Login_Import', component: () => import('pages/Smart_Login_Import/Smart_Login_Import.vue') },
+      { path: 'Smart_Login_ImportAdd', component: () => import('pages/Smart_Login_Import/Smart_Login_ImportAdd.vue') }
     ]
   },
 

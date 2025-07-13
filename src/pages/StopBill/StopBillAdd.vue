@@ -77,7 +77,7 @@
                         </div>
 
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Comments" />
+                          <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <template>

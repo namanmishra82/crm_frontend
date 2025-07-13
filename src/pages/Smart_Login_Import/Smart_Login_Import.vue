@@ -8,11 +8,11 @@
     <q-card-section class="q-pb-none">
       <!-- Header Row with Title and Button on Right -->
       <div class="row items-center justify-between">
-        <div class="text-h6">Client Master</div>
-         
+        <div class="text-h6"> Smart Login Import</div>
+        <q-btn color="primary text-capitalize" label="Add Smart Login Import" icon="playlist_add" @click="Smart_Login_ImportAdd" />
       </div>
       <!-- Subtitle -->
-      <div class="text-subtitle2">Client Management</div>
+      <div class="text-subtitle2"> Smart Login Import Management</div>
     </q-card-section>
     <q-separator dark inset />
 
@@ -24,7 +24,7 @@
 
           <!--   Date Picker -->
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select Date" :hide-bottom-space="true">
+            <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select Import For Date" :hide-bottom-space="true">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -44,21 +44,21 @@
             <q-select dense outlined
                       v-model="model"
                       :options="options"
-                      label="Select a Status"
+                      label="Select Import type"
                       dropdown-icon="expand_more" />
           </div>
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <q-select dense outlined
                       v-model="model"
                       :options="options"
-                      label="Select an compaign"
+                      label="Select File type"
                       dropdown-icon="expand_more" />
           </div>
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <q-select dense outlined
                       v-model="model"
                       :options="options"
-                      label="Priority"
+                      label="Upload By"
                       dropdown-icon="expand_more" />
 
           </div>
@@ -111,9 +111,8 @@
                            icon="delete"
                            @click="deleteRow(props.row)" />
                     <q-btn dense flat size="10px"
-                           icon="visibility"
-                           @click="Client_Master_View" />
-                    
+                           icon="info"
+                           @click="infoRow(props.row)" />
                   </template>
                   <template v-else>
                     {{ col.value }}
@@ -138,8 +137,8 @@
     setup() {
       const router = useRouter()
 
-      const Client_Master_View = () => {
-        router.push('/Client_Master_View') // This route must be defined in your router
+      const Smart_Login_ImportAdd = () => {
+        router.push('/Smart_Login_ImportAdd') // This route must be defined in your router
       }
 
       const selected = ref([])
@@ -149,26 +148,24 @@
       const options = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
 
       const columns = [
-  { name: 'Client_Name', required: true, label: 'Client Name', align: 'left', field: row => row.Client_Name, format: val => `${val}`, sortable: true },
-  { name: 'Userid', align: 'left', label: 'Userid', field: 'Userid', sortable: true },  
-  { name: 'PAN_No', align: 'left', label: 'PAN No', field: 'PAN_No', sortable: true },
-  { name: 'TAN_No', align: 'left', label: 'TAN No', field: 'TAN_No', sortable: true },     
-  { name: 'Website', align: 'left', label: 'Website', field: 'Website', sortable: true },
-  { name: 'Description', align: 'left', label: 'Description', field: 'Description', sortable: true },
-  { name: 'Actions', align: 'left', label: 'Actions', field: 'Actions' }
-]
+        
+        { name: 'Import For Date', align: 'left', label: 'Import For Date', field: 'Import_For_Date' },
+        { name: 'Import Type', align: 'left', label: 'Import Type', field: 'Import_Type', sortable: true },
+        { name: 'File', align: 'left', label: 'File', field: 'File', sortable: true },
+        
+        { name: 'Upload By', align: 'left', label: 'Upload By', field: 'Upload_By', sortable: true },
+        { name: 'Actions', align: 'left', label: 'Actions', field: 'Actions' }
+      ]
 
-const rows = Array(120).fill().map(() => ({
-  Client_Name: 'Acme Corp',
-  Userid: 'AT-001', 
-  PAN_No: 'ABCDE1234F', 
-  TAN_No: 'TENE1234F', 
-  Website: 'www.acme.com',
-  Description: 'Leading tech provider'
-}))
+      const rows = Array(120).fill().map(() => ({
+        Import_For_Date: '2025-05-26',
+        Import_Type: 'Desktop',
+        File: 'Quick process',
+        Upload_By: 'Medium'
+      }))
 
       return {
-        Client_Master_View,
+        Smart_Login_ImportAdd,
         selected,
         columns,
         rows,

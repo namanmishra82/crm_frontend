@@ -24,7 +24,7 @@
 
           <!--   Date Picker -->
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select Date" :hide-bottom-space="true">
+            <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select Conversion Date" :hide-bottom-space="true">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -51,14 +51,14 @@
             <q-select dense outlined
                       v-model="model"
                       :options="options"
-                      label="Select an compaign"
+                      label="Select a Bank"
                       dropdown-icon="expand_more" />
           </div>
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <q-select dense outlined
                       v-model="model"
                       :options="options"
-                      label="Priority"
+                      label="Select Currency"
                       dropdown-icon="expand_more" />
 
           </div>
@@ -71,7 +71,7 @@
           </div>
 
           <!-- ❌ Clear All Button -->
-          <div class="col-12 col-sm-6 col-md-4 col-lg-1 text-right m-auto">
+          <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <q-select dense outlined
                       v-model="model"
                       :options="options"
@@ -84,8 +84,7 @@
 
         <!--   Data Table -->
         <div class="col-12 q-pt-md">
-          <q-table class="my-sticky-header-table"
-                   style="max-height: 400px;"
+          <q-table class="my-sticky-header-table responsive-table-wrapper"
                    dense
                    flat
                    bordered
@@ -97,7 +96,7 @@
                    :virtual-scroll-item-size="48"
                    :virtual-scroll-sticky-size-start="48"
                    :pagination="pagination"
-                   :rows-per-page-options="[0]"
+                   
                    @virtual-scroll="onScroll">
             <template v-slot:body="props">
               <q-tr :props="props" :class="props.rowIndex % 2 === 0 ? 'even-row' : 'odd-row'">
@@ -149,15 +148,15 @@
       const options = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
 
       const columns = [
-        { name: 'Conversion_Date', align: 'left', label: 'Conversion_Date', field: 'Conversion_Date' },
+        { name: 'Conversion_Date', align: 'left', label: 'Conversion Date', field: 'Conversion_Date' },
         { name: 'Bank', align: 'left', label: 'Bank', field: 'Bank', sortable: true },
-        { name: 'From_Currency', align: 'left', label: 'From_Currency', field: 'From_Currency', sortable: true },
+        { name: 'From_Currency', align: 'left', label: 'From Currency', field: 'From_Currency', sortable: true },
         { name: 'To Currency', align: 'left', label: 'To Currency', field: 'To Currency', sortable: true },
-        { name: 'Conversion_Rate', align: 'left', label: 'Conversion_Rate', field: 'Conversion_Rate', sortable: true },
+        { name: 'Conversion_Rate', align: 'left', label: 'Conversion Rate', field: 'Conversion_Rate', sortable: true },
         { name: 'Actions', align: 'left', label: 'Actions', field: 'Actions' }
       ]
 
-      const rows = Array(12).fill().map(() => ({
+      const rows = Array(120).fill().map(() => ({
         Conversion_Date: '2025-05-26',
         Bank: 'ICICI',
         From_Currency: '$',

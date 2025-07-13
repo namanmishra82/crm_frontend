@@ -8,12 +8,12 @@
     <q-card-section class="q-pb-none">
       <div class="row items-center justify-between">
         <div class="text-h6">
-          Add Stop Bill
+          Add Salvage Disconnect
         </div>
         <q-btn color="primary text-capitalize" label="Save" icon="save" />
       </div>
       <div class="text-subtitle2">
-        Stop Bill
+        Salvage Disconnect 
         Management
       </div>
     </q-card-section>
@@ -77,7 +77,7 @@
                         </div>
 
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Comments" />
+                          <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <template>

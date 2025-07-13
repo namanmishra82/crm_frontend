@@ -11,6 +11,7 @@ body {
         color: #007bff;
     }
 }
+
 // app global css in SCSS for header
 .q-toolbar {
     position: relative;
@@ -46,13 +47,20 @@ body {
 }
 .mind-area .q-item {
     min-height: 31px;
-    margin: 9px 16px;
+    margin: 9px 9px;
+    padding: 9px;
 }
-
+.q-item__section .column.q-item__section--main .justify-center {
+    padding-left: 9px;
+}
+.q-hoverable:hover {
+    border-radius: 6px;
+}
 .q-item__section--main {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
 }
+
 .counter-screen {
     width: 100%;
     height: 100%;
@@ -74,9 +82,11 @@ body {
     margin-bottom: 11px;
 }
 .q-item__section--side > .q-icon {
-    font-size: 21px;
+    font-size: 19px;
 }
-
+.q-item__section--side {
+    padding-right: 11px;
+}
 .q-router-link--exact-active {
     /*border-right: 6px solid;*/
     border-radius: 6px;
@@ -158,6 +168,36 @@ thead tr:first-child th {
 .my-sticky-header-table tfoot tr td {
     position: sticky;
     bottom: 0;
-     
     z-index: 1;
+    
 }
+.submenu-indent {
+    padding-left: 36px; /* Adjust based on how deep you want it */
+}
+.responsive-table-wrapper {
+    height: calc(100vh - 100px); /* Adjust for headers or other top UI */
+    overflow-y: auto;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .responsive-table-wrapper {
+        height: calc(100vh - 80px);
+    }
+}
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .responsive-table-wrapper {
+        height: calc(100vh - 90px);
+    }
+}
+
+/* Desktop */
+@media (min-width: 1025px) {
+    .responsive-table-wrapper {
+        height: calc(74vh - 100px);
+    }
+}
+
+ 

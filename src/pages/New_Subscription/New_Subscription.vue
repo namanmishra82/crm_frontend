@@ -8,11 +8,11 @@
     <q-card-section class="q-pb-none">
       <!-- Header Row with Title and Button on Right -->
       <div class="row items-center justify-between">
-        <div class="text-h6">Client Master</div>
-         
+        <div class="text-h6">New Subscription</div>
+        <q-btn color="primary text-capitalize" label="Add Subscription" icon="playlist_add" @click="New_SubscriptionAdd" />
       </div>
       <!-- Subtitle -->
-      <div class="text-subtitle2">Client Management</div>
+      <div class="text-subtitle2">Subscription Management</div>
     </q-card-section>
     <q-separator dark inset />
 
@@ -24,7 +24,7 @@
 
           <!--   Date Picker -->
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select Date" :hide-bottom-space="true">
+            <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select Start Date" :hide-bottom-space="true">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -41,11 +41,19 @@
 
           <!--   4 Select Filters -->
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <q-select dense outlined
-                      v-model="model"
-                      :options="options"
-                      label="Select a Status"
-                      dropdown-icon="expand_more" />
+            <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select End Date" :hide-bottom-space="true">
+              <template v-slot:append>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <q-date v-model="date">
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Close" color="primary" flat />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
           </div>
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <q-select dense outlined
@@ -54,7 +62,7 @@
                       label="Select an compaign"
                       dropdown-icon="expand_more" />
           </div>
-          <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+          <div class="col-12 col-sm-6 col-md-4 col-lg-2 d-none">
             <q-select dense outlined
                       v-model="model"
                       :options="options"
@@ -84,7 +92,8 @@
 
         <!--   Data Table -->
         <div class="col-12 q-pt-md">
-          <q-table class="my-sticky-header-table responsive-table-wrapper" 
+          <q-table class="my-sticky-header-table responsive-table-wrapper"
+                    
                    dense
                    flat
                    bordered
@@ -111,9 +120,8 @@
                            icon="delete"
                            @click="deleteRow(props.row)" />
                     <q-btn dense flat size="10px"
-                           icon="visibility"
-                           @click="Client_Master_View" />
-                    
+                           icon="info"
+                           @click="infoRow(props.row)" />
                   </template>
                   <template v-else>
                     {{ col.value }}
@@ -138,8 +146,8 @@
     setup() {
       const router = useRouter()
 
-      const Client_Master_View = () => {
-        router.push('/Client_Master_View') // This route must be defined in your router
+      const New_SubscriptionAdd = () => {
+        router.push('/New_SubscriptionAdd') // This route must be defined in your router
       }
 
       const selected = ref([])
@@ -149,26 +157,44 @@
       const options = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
 
       const columns = [
-  { name: 'Client_Name', required: true, label: 'Client Name', align: 'left', field: row => row.Client_Name, format: val => `${val}`, sortable: true },
-  { name: 'Userid', align: 'left', label: 'Userid', field: 'Userid', sortable: true },  
-  { name: 'PAN_No', align: 'left', label: 'PAN No', field: 'PAN_No', sortable: true },
-  { name: 'TAN_No', align: 'left', label: 'TAN No', field: 'TAN_No', sortable: true },     
-  { name: 'Website', align: 'left', label: 'Website', field: 'Website', sortable: true },
-  { name: 'Description', align: 'left', label: 'Description', field: 'Description', sortable: true },
-  { name: 'Actions', align: 'left', label: 'Actions', field: 'Actions' }
-]
+        {
+          name: 'name',
+          required: true,
+          label: ' Subscription No',
+          align: 'left',
+          field: row => row.name,
+          format: val => `${val}`,
+          sortable: true
+        },
+        { name: 'Subscription Date', align: 'left', label: 'Subscription Date', field: 'Subscription_Date', sortable: true },
+        { name: 'Client Name', align: 'left', label: 'Client Name', field: 'Client_Name' },
+        { name: 'Comments', align: 'left', label: 'Comments', field: 'Comments', sortable: true },
+        { name: 'Subscription By', align: 'left', label: 'Subscription By', field: 'Subscription_By', sortable: true },
+        { name: 'Contact Person', align: 'left', label: 'Contact Person ', field: 'Contact_Person', sortable: true },
+        { name: 'Add Ons', align: 'left', label: 'Add Ons', field: 'Add_Ons' },
+         
+        { name: ' Start Date ', align: 'left', label: ' Start Date ', field: 'Trial_Start_Date' },
+        { name: ' End Date', align: 'left', label: ' End Date', field: 'Trial_End_Date' },
+        { name: 'User Id', align: 'left', label: 'User Id', field: 'User_Id' },
+        { name: 'Actions', align: 'left', label: 'Actions', field: 'Actions' }
+      ]
 
-const rows = Array(120).fill().map(() => ({
-  Client_Name: 'Acme Corp',
-  Userid: 'AT-001', 
-  PAN_No: 'ABCDE1234F', 
-  TAN_No: 'TENE1234F', 
-  Website: 'www.acme.com',
-  Description: 'Leading tech provider'
-}))
+      const rows = Array(12).fill().map(() => ({
+        name: '235',
+        Subscription_Date: '2025-05-26',
+        Client_Name: 'JhoneMaslor',
+        Comments: 'From Master',
+        Subscription_By: 'Nilon',
+        Contact_Person: 'Contact information would be fetched from contact master',
+        Add_Ons: 'JhoneMaslor',
+         
+        Trial_Start_Date: '2025-05-26',
+        Trial_End_Date: '2025-06-26',
+        User_Id: 'Admin'
+      }))
 
       return {
-        Client_Master_View,
+        New_SubscriptionAdd,
         selected,
         columns,
         rows,

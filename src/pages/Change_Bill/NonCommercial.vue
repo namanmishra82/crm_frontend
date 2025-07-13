@@ -71,7 +71,7 @@
           </div>
 
           <!-- ❌ Clear All Button -->
-          <div class="col-12 col-sm-6 col-md-4 col-lg-1 text-right m-auto">
+          <div class="col-12 col-sm-6 col-md-4 col-lg-2 text-right m-auto">
             <q-select dense outlined
                       v-model="model"
                       :options="options"
@@ -84,8 +84,7 @@
 
         <!--   Data Table -->
         <div class="col-12 q-pt-md">
-          <q-table class="my-sticky-header-table"
-                   style="max-height: 400px;"
+          <q-table class="my-sticky-header-table responsive-table-wrapper"
                    dense
                    flat
                    bordered
@@ -97,7 +96,7 @@
                    :virtual-scroll-item-size="48"
                    :virtual-scroll-sticky-size-start="48"
                    :pagination="pagination"
-                   :rows-per-page-options="[0]"
+                   
                    @virtual-scroll="onScroll">
             <template v-slot:body="props">
               <q-tr :props="props" :class="props.rowIndex % 2 === 0 ? 'even-row' : 'odd-row'">
@@ -151,17 +150,17 @@
       const columns = [
         { name: 'Client', required: true, label: 'Client', align: 'left', field: row => row.Client, format: val => `${val}`, sortable: true },
         { name: 'SMS_Id', align: 'left', label: 'SMS Id', field: 'SMS_Id', sortable: true },
-        { name: 'Effective_From', align: 'left', label: 'Effective_From', field: 'Effective_From', sortable: true },
-        { name: 'Change_Client_Name', align: 'left', label: 'Change_Client_Name', field: 'Change_Client_Name', sortable: true },
-        { name: 'New_client_name', align: 'left', label: 'New_client_name', field: 'New_client_name', sortable: true },
-        { name: 'Change_Billing_Address', align: 'left', label: 'Change_Billing_Address', field: 'Change_Billing_Address', sortable: true },
-        { name: 'Address_selection', align: 'left', label: 'Address_selection', field: 'Address_selection', sortable: true },
+        { name: 'Effective_From', align: 'left', label: 'Effective From', field: 'Effective_From', sortable: true },
+        { name: 'Change_Client_Name', align: 'left', label: 'Change Client Name', field: 'Change_Client_Name', sortable: true },
+        { name: 'New_client_name', align: 'left', label: 'New client name', field: 'New_client_name', sortable: true },
+        { name: 'Change_Billing_Address', align: 'left', label: 'Change Billing Address', field: 'Change_Billing_Address', sortable: true },
+        { name: 'Address_selection', align: 'left', label: 'Address selection', field: 'Address_selection', sortable: true },
         { name: 'Comments', align: 'left', label: 'Comments', field: 'Comments', sortable: true },
         { name: 'Documents', align: 'left', label: 'Documents', field: 'Documents' },
         { name: 'Actions', align: 'left', label: 'Actions', field: 'Actions' }
       ]
 
-      const rows = Array(12).fill().map(() => ({
+      const rows = Array(120).fill().map(() => ({
         Client: 'Acme Corp',
         SMS_Id: 'SMS123',
         Effective_From: '2025-07-01',

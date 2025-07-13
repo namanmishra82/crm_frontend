@@ -71,7 +71,7 @@
           </div>
 
           <!-- ❌ Clear All Button -->
-          <div class="col-12 col-sm-6 col-md-4 col-lg-1 text-right m-auto">
+          <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <q-select dense outlined
                       v-model="model"
                       :options="options"
@@ -84,8 +84,7 @@
 
         <!--   Data Table -->
         <div class="col-12 q-pt-md">
-          <q-table class="my-sticky-header-table"
-                   style="max-height: 400px;"
+          <q-table class="my-sticky-header-table responsive-table-wrapper"
                    dense
                    flat
                    bordered
@@ -97,7 +96,7 @@
                    :virtual-scroll-item-size="48"
                    :virtual-scroll-sticky-size-start="48"
                    :pagination="pagination"
-                   :rows-per-page-options="[0]"
+                   
                    @virtual-scroll="onScroll">
             <template v-slot:body="props">
               <q-tr :props="props" :class="props.rowIndex % 2 === 0 ? 'even-row' : 'odd-row'">
@@ -172,7 +171,7 @@
         { name: 'Actions', align: 'left', label: 'Actions', field: 'Actions' }
       ]
 
-      const rows = Array(12).fill().map(() => ({
+      const rows = Array(120).fill().map(() => ({
         name: 'New',
         Proposal_No: 'System',
         Account_Name: 'New Business',

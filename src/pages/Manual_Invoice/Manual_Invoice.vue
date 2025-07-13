@@ -8,7 +8,7 @@
     <q-card-section class="q-pb-none">
       <!-- Header Row with Title and Button on Right -->
       <div class="row items-center justify-between">
-        <div class="text-h6">Invoice LisT </div>
+        <div class="text-h6">Invoice List </div>
         <q-btn color="primary text-capitalize" label="Add Invoice" icon="playlist_add" @click="InvoiceAdd" />
       </div>
       <!-- Subtitle -->
@@ -24,7 +24,7 @@
 
           <!--   Date Picker -->
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select Date" :hide-bottom-space="true">
+            <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select Invoice Date" :hide-bottom-space="true">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -44,21 +44,21 @@
             <q-select dense outlined
                       v-model="model"
                       :options="options"
-                      label="Select a Status"
+                      label="Select a Document"
                       dropdown-icon="expand_more" />
           </div>
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <q-select dense outlined
                       v-model="model"
                       :options="options"
-                      label="Select an compaign"
+                      label="Select a Month"
                       dropdown-icon="expand_more" />
           </div>
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <q-select dense outlined
                       v-model="model"
                       :options="options"
-                      label="Priority"
+                      label="Select Currency"
                       dropdown-icon="expand_more" />
 
           </div>
@@ -71,7 +71,7 @@
           </div>
 
           <!-- ❌ Clear All Button -->
-          <div class="col-12 col-sm-6 col-md-4 col-lg-1 text-right m-auto">
+          <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <q-select dense outlined
                       v-model="model"
                       :options="options"
@@ -84,8 +84,8 @@
 
         <!--   Data Table -->
         <div class="col-12 q-pt-md">
-          <q-table class="my-sticky-header-table"
-                   style="max-height: 400px;"
+          <q-table class="my-sticky-header-table responsive-table-wrapper"
+                    
                    dense
                    flat
                    bordered
@@ -97,7 +97,7 @@
                    :virtual-scroll-item-size="48"
                    :virtual-scroll-sticky-size-start="48"
                    :pagination="pagination"
-                   :rows-per-page-options="[0]"
+                   
                    @virtual-scroll="onScroll">
             <template v-slot:body="props">
               <q-tr :props="props" :class="props.rowIndex % 2 === 0 ? 'even-row' : 'odd-row'">
@@ -173,7 +173,7 @@
       ]
 
 
-      const rows = Array(12).fill().map(() => ({
+      const rows = Array(120).fill().map(() => ({
         Client: 'Acme Corp',
         Document_Type: 'Invoice',
         Ref_Invoice: 'INV-2025-001',
