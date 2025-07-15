@@ -49,49 +49,13 @@
                         </div>
 
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <!--   3-Column Table Dropdown -->
-                          <div>
-                            <div class="" style="max-width: 600px">
-                              
-                              <q-input dense
-                                       outlined
-                                       v-model="search"
-                                       label="Search Client"
-                                       @focus="dropdown = true"
-                                       @input="dropdown = true"
-                                       debounce="200"
-                                       ref="searchInput">
-                                <template v-slot:append>
-                                  <q-icon name="search" />
-                                </template>
-
-                                <q-menu v-model="dropdown"
-                                        anchor="bottom left"
-                                        self="top left"
-                                        :cover="false"
-                                        :offset="[0, 8]"
-                                        fit
-                                        style="min-width: 400px">
-                                  <q-table :rows="filteredClients"
-                                           :columns="columns"
-                                           row-key="id"
-                                           dense
-                                           flat
-                                           hide-bottom
-                                           separator="horizontal"
-                                           @row-click="selectClient">
-                                  </q-table>
-                                </q-menu>
-                              </q-input>
-
-                              <div v-if="model" class="q-mt-md">
-                                <strong>Selected:</strong>
-                                <div>Name: {{ model.name }}</div>
-                                <div>Email: {{ model.email }}</div>
-                                <div>Company: {{ model.company }}</div>
-                              </div>
-                            </div>
-                          </div>
+                          <SearchableSelect
+                            label="Search Client"
+                            :data="clients"
+                            :columns="columns"
+                            v-model="selectedClient"
+                            @select="onClientSelect"
+                          />
                         </div>
                       </div>
                       <div class="row q-my-md q-col-gutter-md items-center">
@@ -387,50 +351,27 @@
   </q-card>
 </template>
 <script>
-  import { ref, computed } from 'vue'
-
-  const search = ref('')
-  const dropdown = ref(false)
-  const model = ref(null)
-
-  const clients = ref([
-    { id: 1, name: 'John Doe', email: 'john@example.com', company: 'Acme Inc.' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', company: 'Globex Corp' },
-    { id: 3, name: 'Alice Brown', email: 'alice@example.com', company: 'Initech' },
-    { id: 4, name: 'Bob Johnson', email: 'bob@example.com', company: 'Umbrella LLC' },
-    { id: 5, name: 'Eve Davis', email: 'eve@example.com', company: 'Stark Industries' },
-  ])
-
-  const columns = [
-    { name: 'name', required: true, label: 'Name', align: 'left', field: row => row.name },
-    { name: 'email', label: 'Email', align: 'left', field: row => row.email },
-    { name: 'company', label: 'Company', align: 'left', field: row => row.company },
-  ]
-
-  const filteredClients = computed(() => {
-    const term = search.value.toLowerCase()
-    return clients.value.filter(c =>
-      c.name.toLowerCase().includes(term) ||
-      c.email.toLowerCase().includes(term) ||
-      c.company.toLowerCase().includes(term)
-    )
-  })
-
-  function selectClient(row) {
-    model.value = row
-    search.value = row.name
-    dropdown.value = false
-  }
+  import SearchableSelect from '../../components/SearchableSelect.vue'
   export default {
     name: 'LeadPage',
+    components: {
+      SearchableSelect
+    },
     data() {
       return {
-        search,
-        dropdown,
-        filteredClients,
-        columns,
-        
-        selectClient,
+        selectedClient: null,
+        clients: [
+          { id: 1, name: 'John Doe', email: 'john@example.com', company: 'Acme Inc.' },
+          { id: 2, name: 'Jane Smith', email: 'jane@example.com', company: 'Globex Corp' },
+          { id: 3, name: 'Alice Brown', email: 'alice@example.com', company: 'Initech' },
+          { id: 4, name: 'Bob Johnson', email: 'bob@example.com', company: 'Umbrella LLC' },
+          { id: 5, name: 'Eve Davis', email: 'eve@example.com', company: 'Stark Industries' },
+        ],
+        columns: [
+          { name: 'name', required: true, label: 'Name', align: 'left', field: 'name' },
+          { name: 'email', label: 'Email', align: 'left', field: 'email' },
+          { name: 'company', label: 'Company', align: 'left', field: 'company' },
+        ],
         options: [
           'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
         ],
@@ -443,8 +384,17 @@
         optype: [
           'New Business', 'Existing'
         ],
-        text: ''
+        text: '',
+        date: '',
+        model: null,
+        Number: '',
+        message: ''
       };
+    },
+    methods: {
+      onClientSelect(client) {
+        console.log('Selected client:', client)
+      }
     }
   }
 </script>
