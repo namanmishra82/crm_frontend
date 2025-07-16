@@ -8,11 +8,11 @@
     <q-card-section class="q-pb-none">
       <!-- Header Row with Title and Button on Right -->
       <div class="row items-center justify-between">
-        <div class="text-h6">Lead</div>
+        <div class="text-h6">Payments</div>
         <q-btn color="primary text-capitalize" label="Add Payment" icon="playlist_add" @click="PaymentsAdd" />
       </div>
       <!-- Subtitle -->
-      <div class="text-subtitle2">Lead Management</div>
+      <div class="text-subtitle2">Payments Management</div>
     </q-card-section>
     <q-separator dark inset />
 

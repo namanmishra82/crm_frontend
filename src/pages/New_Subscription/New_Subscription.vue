@@ -62,20 +62,20 @@
                       label="Select an compaign"
                       dropdown-icon="expand_more" />
           </div>
-          <div class="col-12 col-sm-6 col-md-4 col-lg-2 d-none">
-            <q-select dense outlined
-                      v-model="model"
-                      :options="options"
-                      label="Priority"
-                      dropdown-icon="expand_more" />
-
-          </div>
-          <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+          <div class="col-12 col-sm-6 col-md-4 col-lg-2 ">
             <q-btn outline
                    icon-right="cancel"
                    label="Clear All"
                    class="text-capitalize q-pa-s"
                    @click="model = []" />
+
+          </div>
+          <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+            <q-select dense outlined
+                      v-model="model"
+                      :options="options"
+                      label="Priority"
+                      dropdown-icon="expand_more" class="d-none" />
           </div>
 
           <!-- ❌ Clear All Button -->

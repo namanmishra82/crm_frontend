@@ -8,7 +8,7 @@
     <q-card-section class="q-pb-none">
       <div class="row items-center justify-between">
         <div class="text-h6">Add File</div>
-        <q-btn color="primary text-capitalize" label="Save" icon="save" />
+         
       </div>
       <div class="text-subtitle2">Lead Management</div>
     </q-card-section>
@@ -61,16 +61,10 @@
                           <q-select dense outlined v-model="model" :options="Status" label="Select Import Type " />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                           Uplode
+                            <q-btn color="primary text-capitalize" label="Upload" icon="Upload" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <template>
-                            <div class="q-pa-md">
-                              <q-uploader url="http://localhost:9000/upload"
-                                          :headers="[{name: 'X-Custom-Timestamp', value: 1550240306080}]"
-                                          style="max-width: 300px" />
-                            </div>
-                          </template>
+                         
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
 

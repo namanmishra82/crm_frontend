@@ -57,338 +57,202 @@
       </q-toolbar>
     </q-header>
 
-    <!-- Left Side Drawer -->
-    <q-drawer v-model="leftDrawerOpen"
-              show-if-above
-              bordered
-              :width="250">
-      <q-list padding>
-        <!-- This is logo section -->
-        <q-item>
-          <img alt="logo"
-               src="~assets/logo.png"
-               style="width: 150px; height: auto">
+    <!-- Left Side Drawer --><q-drawer v-model="leftDrawerOpen" show-if-above bordered :width="250">
+  <q-list padding>
+    <q-item>
+      <img alt="logo" src="~assets/logo.png" style="width: 150px; height: auto">
+    </q-item>
 
-        </q-item>
-        <!-- Close -->
-        <!-- This is an Dashboard link -->
-        <div class="mind-area">
-          <q-item clickable v-ripple to="/" exact>
-            <q-item-section avatar>
-              <q-icon name="grid_view" />
-            </q-item-section>
-            <q-item-section>Dashboard</q-item-section>
-          </q-item>
-          <!-- Close -->
-          <!-- This is an Lead link -->
-          <q-item clickable v-ripple to="/Lead">
-            <q-item-section avatar>
-              <q-icon name="layers" />
-            </q-item-section>
-            <q-item-section>Lead Management </q-item-section>
-          </q-item>
-          <!-- Lead Close -->
-          <!-- This is an Opportunity link -->
-          <q-item clickable v-ripple to="/Opportunity">
-            <q-item-section avatar>
-              <q-icon name="online_prediction" />
-            </q-item-section>
-            <q-item-section>Opportunity Management </q-item-section>
-          </q-item>
-          <!-- Opportunity Close -->
-          <!-- This is an Proposal link -->
-          <q-item clickable v-ripple to="/Proposal">
-            <q-item-section avatar>
-              <q-icon name="flight" />
-            </q-item-section>
-            <q-item-section>Proposal</q-item-section>
-          </q-item>
-          <q-expansion-item icon="science"
-                            label="Trial"
-                            dense
-                            expand-separator>
-            <q-item clickable v-ripple to="/Trial_Request" class="q-pl-md">
-              <q-item-section avatar>
-                <q-icon name="person" />
-              </q-item-section>
-              <q-item-section>Trial Request</q-item-section>
-            </q-item>
+    <q-expansion-item icon="group" label="CRM" dense expand-separator>
+      <q-item clickable v-ripple to="/Prospects" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="person_add" /></q-item-section>
+        <q-item-section>Prospects</q-item-section>
+      </q-item>
 
-            <q-item clickable v-ripple to="/Trial_Extend">
-              <q-item-section avatar>
-                <q-icon name="settings" />
-              </q-item-section>
-              <q-item-section>Trial Extend</q-item-section>
-            </q-item>
-          </q-expansion-item>
-          <q-item clickable v-ripple to="/New_Subscription">
-            <q-item-section avatar>
-              <q-icon name="workspace_premium" />
-            </q-item-section>
-            <q-item-section>New Subscription </q-item-section>
-          </q-item>
-          <q-item clickable v-ripple to="/Salvage_Disconnect">
-            <q-item-section avatar>
-              <q-icon name="call_missed_outgoing" />
-            </q-item-section>
-            <q-item-section>Salvage Disconnect </q-item-section>
-          </q-item>
-          <q-item clickable v-ripple to="/Currency_Conversion">
-            <q-item-section avatar>
-              <q-icon name="currency_exchange" />
-            </q-item-section>
-            <q-item-section>Currency Conversion </q-item-section>
-          </q-item>
-          <q-expansion-item icon="science"
-                            label="Invoice"
-                            dense
-                            expand-separator>
-            <q-item clickable v-ripple to="/Manual_Invoice">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Manual Invoice</q-item-section>
-            </q-item>
+      <q-item clickable v-ripple to="/Lead" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="layers" /></q-item-section>
+        <q-item-section>Leads</q-item-section>
+      </q-item>
 
-            <q-item clickable v-ripple to="/Currency_Conversion">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Currency Conversion</q-item-section>
-            </q-item>
+      <q-item clickable v-ripple to="/Opportunity" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="online_prediction" /></q-item-section>
+        <q-item-section>Opportunities</q-item-section>
+      </q-item>
 
-            <q-item clickable v-ripple to="/Invoice_Generate">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Invoice Generate</q-item-section>
-            </q-item>
+      <q-item clickable v-ripple to="/Proposal" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="flight" /></q-item-section>
+        <q-item-section>Proposal</q-item-section>
+      </q-item>
 
-            <q-item clickable v-ripple to="/Invoice_PDF_Generate">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Invoice PDF Generate</q-item-section>
-            </q-item>
+      <q-item clickable v-ripple to="/Smart_Login_Import" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="cloud_download" /></q-item-section>
+        <q-item-section>Smart Login Import</q-item-section>
+      </q-item>
+    </q-expansion-item>
 
-            <q-item clickable v-ripple to="/Subscriber_Mapping">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Subscriber Mapping</q-item-section>
-            </q-item>
+    <q-item clickable v-ripple to="/Action-Log">
+      <q-item-section avatar><q-icon name="timeline" /></q-item-section>
+      <q-item-section>Action Log</q-item-section>
+    </q-item>
 
-            <q-item clickable v-ripple to="/Start_Bill_Invoice">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Start Bill Invoice Generate</q-item-section>
-            </q-item>
+    <q-expansion-item icon="science" label="Product Trial" dense expand-separator>
+      <q-item clickable v-ripple to="/Trial_Request" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="person" /></q-item-section>
+        <q-item-section>Trial Management</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/Trial_Extend" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="settings" /></q-item-section>
+        <q-item-section>Extend Trial</q-item-section>
+      </q-item>
+    </q-expansion-item>
 
-            <q-item clickable v-ripple to="/Stop_Bill_Generate">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Stop Bill Generate</q-item-section>
-            </q-item>
+    <q-item clickable v-ripple to="/Client_Master">
+      <q-item-section avatar><q-icon name="attribution" /></q-item-section>
+      <q-item-section>Client Master</q-item-section>
+    </q-item>
+    <q-expansion-item icon="assignment" label="Requests" dense expand-separator>
+      <q-item clickable v-ripple to="/New_Subscription" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="workspace_premium" /></q-item-section>
+        <q-item-section>New Subscription</q-item-section>
+      </q-item>
 
-            <q-item clickable v-ripple to="/Change_Bill_Commercial">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Change Bill Commercial Generate</q-item-section>
-            </q-item>
+      <q-item clickable v-ripple to="/Commercial" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="receipt" /></q-item-section>
+        <q-item-section>Change Bill Commercial</q-item-section>
+      </q-item>
 
-            <q-item clickable v-ripple to="/Change_Bill_NonCommercial">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Change Bill Non-Commercial Generate</q-item-section>
-            </q-item>
+      <q-item clickable v-ripple to="/NonCommercial" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="receipt" /></q-item-section>
+        <q-item-section>Change Bill Non-Commercial</q-item-section>
+      </q-item>
 
-            <q-item clickable v-ripple to="/Manual_Invoice">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Debit Note / Credit Note / Manual Invoice</q-item-section>
-            </q-item>
+      <q-item clickable v-ripple to="/StopBill" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="request_page" /></q-item-section>
+        <q-item-section>Stop Bill</q-item-section>
+      </q-item>
 
-            <q-item clickable v-ripple to="/GST_JSON_Generate">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Generate GST Json</q-item-section>
-            </q-item>
+      <q-item clickable v-ripple to="/Salvage_Disconnect" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="call_missed_outgoing" /></q-item-section>
+        <q-item-section>Salvage Disconnect</q-item-section>
+      </q-item>
+    </q-expansion-item>
 
-            <q-item clickable v-ripple to="/GST_Upload_Ack">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>GST Upload Acknowledgement</q-item-section>
-            </q-item>
+    <q-expansion-item icon="receipt_long" label="Invoice (Billing Module)" dense expand-separator>
+      <q-item clickable v-ripple to="/Currency_Conversion" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="currency_exchange" /></q-item-section>
+        <q-item-section>Currency Conversion</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/Manual_Invoice" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="receipt" /></q-item-section>
+        <q-item-section>Invoice Management</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/Invoice_Generate" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="receipt" /></q-item-section>
+        <q-item-section>Invoice Generate</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/Invoice_PDF_Generate" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="picture_as_pdf" /></q-item-section>
+        <q-item-section>Invoice PDF Generate</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/Subscriber_Mapping" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="hub" /></q-item-section>
+        <q-item-section>Subscriber Mapping</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/Start_Bill_Invoice" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="play_arrow" /></q-item-section>
+        <q-item-section>Start Bill Invoice</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/Stop_Bill_Generate" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="stop" /></q-item-section>
+        <q-item-section>Stop Bill Invoice</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/Change_Bill_Commercial" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="receipt" /></q-item-section>
+        <q-item-section>Change Bill Commercial Generate</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/Change_Bill_NonCommercial" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="receipt" /></q-item-section>
+        <q-item-section>Change Bill Non-Commercial Generate</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/Debit_Credit_Note" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="swap_horiz" /></q-item-section>
+        <q-item-section>Debit Note / Credit Note</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/GST_JSON_Generate" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="data_object" /></q-item-section>
+        <q-item-section>Generate GST JSON</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/GST_Upload_Ack" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="cloud_upload" /></q-item-section>
+        <q-item-section>GST Acknowledgement Upload</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/TDS_Management" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="percent" /></q-item-section>
+        <q-item-section>TDS Management</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/Invoice_Other" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="delete_sweep" /></q-item-section>
+        <q-item-section>Invoice Other</q-item-section>
+      </q-item>
+    </q-expansion-item>
 
-            <q-item clickable v-ripple to="/TDS_Management">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>TDS Management</q-item-section>
-            </q-item>
+    <q-expansion-item icon="payments" label="Payments" dense expand-separator>
+      <q-item clickable v-ripple to="/Payments" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="account_balance" /></q-item-section>
+        <q-item-section>Payment Receipt</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/TallyExport" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="file_upload" /></q-item-section>
+        <q-item-section>Export to Tally</q-item-section>
+      </q-item>
+    </q-expansion-item>
 
-            <q-item clickable v-ripple to="/Invoice_Other">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Invoice Other (Asset sale / scrape)</q-item-section>
-            </q-item>
-
-            <q-item clickable v-ripple to="/Invoice_Email">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Invoice email to AM / customer</q-item-section>
-            </q-item>
-
-            <q-item clickable v-ripple to="/Update_PO">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Option to Update PO Number and validity</q-item-section>
-            </q-item>
-
-            <q-item clickable v-ripple to="/Manage_Notes">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Option to manage invoice notes</q-item-section>
-            </q-item>
-
-            <q-item clickable v-ripple to="/Invoice_Letterhead">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Option to generate invoice with or without letter head</q-item-section>
-            </q-item>
-
-            <q-item clickable v-ripple to="/Invoice_Annexure">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Invoice Annexure</q-item-section>
-            </q-item>
-
-            <q-item clickable v-ripple to="/Change_Invoice_Format">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Change invoice no format</q-item-section>
-            </q-item>
-
-            <q-item clickable v-ripple to="/Selective_Generation">
-              <q-item-section avatar>
-                <q-icon name="receipt_long" />
-              </q-item-section>
-              <q-item-section>Selective invoice generation</q-item-section>
-            </q-item>
-          </q-expansion-item>
-
-
-
-          <q-item clickable v-ripple to="/Smart_Login_Import">
-            <q-item-section avatar>
-              <q-icon name="cloud_download" />
-            </q-item-section>
-            <q-item-section>Smart Login Import</q-item-section>
-          </q-item>
-          <q-item clickable v-ripple to="/Action-Log">
-            <q-item-section avatar>
-              <q-icon name="timeline" />
-            </q-item-section>
-            <q-item-section> Daily Activity Tracking </q-item-section>
-          </q-item>
-          <q-item clickable v-ripple to="/StopBill">
-            <q-item-section avatar>
-              <q-icon name="request_page" />
-            </q-item-section>
-            <q-item-section> Stop Bill </q-item-section>
-          </q-item>
-          <!-- Opportunity Close -->
-          <!-- This is an User link -->
-          <q-expansion-item icon="receipt"
-                            label="Change Bill"
-                            dense
-                            expand-separator>
-            <q-item clickable v-ripple to="/Commercial">
-              <q-item-section avatar>
-                <q-icon name="person" />
-              </q-item-section>
-              <q-item-section>Commercial</q-item-section>
-            </q-item>
-
-            <q-item clickable v-ripple to="/NonCommercial">
-              <q-item-section avatar>
-                <q-icon name="settings" />
-              </q-item-section>
-              <q-item-section>Non-Commercial</q-item-section>
-            </q-item>
-          </q-expansion-item>
-          <!-- User Close -->
-          <q-item clickable v-ripple to="/Client_Master">
-            <q-item-section avatar>
-              <q-icon name="attribution" />
-            </q-item-section>
-            <q-item-section>Client Master</q-item-section>
-          </q-item>
-          <q-item clickable v-ripple to="/Payments">
-            <q-item-section avatar>
-              <q-icon name="account_balance" />
-            </q-item-section>
-            <q-item-section>Payments</q-item-section>
-          </q-item>
-          <!-- This is an Field link -->
-          <q-item clickable v-ripple to="/Approvals">
-            <q-item-section avatar>
-              <q-icon name="check_circle" />
-            </q-item-section>
-            <q-item-section>Approvals</q-item-section>
-          </q-item>
-          <!-- Field Close -->
-          <!-- This is an Field link -->
-          <q-item clickable v-ripple to="/Email-Template ">
-            <q-item-section avatar>
-              <q-icon name="mail" />
-            </q-item-section>
-            <q-item-section> Email Template </q-item-section>
-          </q-item>
-          <!-- Field Close -->
-          <!-- This is an Field link -->
-          <q-item clickable v-ripple to="/Reports">
-            <q-item-section avatar>
-              <q-icon name="bar_chart" />
-            </q-item-section>
-            <q-item-section>Reports</q-item-section>
-          </q-item>
-        </div>
-        <!-- Field Close -->
-        <!-- This is an support link -->
-        <!--<q-item class="support">
-
-          <img alt="support"
-               src="~assets/support.svg"
-               style="width: 200px; height: 200px">
-          <q-btn color="primary text-capitalize postion" label="Support" icon="chat" />
-        </q-item>-->
-        <!-- Field Close -->
-        <!-- This is an logout link -->
-        <!--<q-item clickable v-ripple to="/login">
-          <q-item-section avatar>
-            <q-icon name="logout" />
-          </q-item-section>
-          <q-item-section>Logout</q-item-section>
-        </q-item>-->
-        <!-- Logout Close -->
-      </q-list>
-    </q-drawer>
-
+    <q-expansion-item icon="bar_chart" label="Reports" dense expand-separator>
+      <q-item clickable v-ripple to="/SalesRegister" class="q-pl-lg">
+        <q-item-section>Sales Register</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/SalesRegisterIDWise" class="q-pl-lg">
+        <q-item-section>Sales Register (ID wise)</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/PriceTracker" class="q-pl-lg">
+        <q-item-section>Price Change Tracker</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/SubscriptionTracker" class="q-pl-lg">
+        <q-item-section>Subscription Tracker</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/BilledRevenue" class="q-pl-lg">
+        <q-item-section>Billed Revenue Report</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/UnbilledRevenue" class="q-pl-lg">
+        <q-item-section>Unbilled Revenue Report</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/InvoiceBifurcation" class="q-pl-lg">
+        <q-item-section>Invoice Bifurcation</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/PendingReport" class="q-pl-lg">
+        <q-item-section>Pending Report</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/CollectionReport" class="q-pl-lg">
+        <q-item-section>Collection Report</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/PendingBucket" class="q-pl-lg">
+        <q-item-section>Pending Bucket</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/CustomerSegments" class="q-pl-lg">
+        <q-item-section>Customer Segmentations</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/SubscribersExport" class="q-pl-lg">
+        <q-item-section>Subscribers Export</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/InvoiceExport" class="q-pl-lg">
+        <q-item-section>Invoice Export</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/AuditReports" class="q-pl-lg">
+        <q-item-section>Audit Reports</q-item-section>
+      </q-item>
+    </q-expansion-item>
+  </q-list>
+</q-drawer>
     <!-- Page Content -->
     <q-page-container>
       <router-view />
@@ -411,4 +275,5 @@
   .q-expansion-item .q-item {
     padding-left: 28px;
   }
+
 </style>

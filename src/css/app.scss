@@ -56,6 +56,7 @@ body {
 .q-hoverable:hover {
     border-radius: 6px;
 }
+
 .q-item__section--main {
     font-size: 13px;
     font-weight: 500;
@@ -92,6 +93,24 @@ body {
     border-radius: 6px;
     background-color: #dfeaff;
 }
+
+/*.q-expansion-item__container .q-item {
+    padding-left: 40px !important; // Adjust this value as needed for indentation
+}*/
+  .q-list .q-item,
+.q-expansion-item {
+    margin-bottom: 8px; // Adds a small gap below each item/expansion item
+}
+  
+.q-expansion-item .q-list .q-item {
+    padding-left: 40px;  
+}
+ .q-item__section--avatar {
+    min-width: 48px; // Ensures consistent icon alignment
+    padding-right: 16px; // Adjust space between icon and text
+}
+
+
 // app global css in SCSS for page data
 .on-left {
     margin-right: 5px;
@@ -164,12 +183,14 @@ thead tr:first-child th {
      
     z-index: 1;
 }
+.d-none{
+    display:none;
+}
 
 .my-sticky-header-table tfoot tr td {
     position: sticky;
     bottom: 0;
     z-index: 1;
-    
 }
 .submenu-indent {
     padding-left: 36px; /* Adjust based on how deep you want it */
