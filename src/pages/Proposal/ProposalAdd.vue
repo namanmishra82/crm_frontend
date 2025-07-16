@@ -19,8 +19,6 @@
       <div class="q-px-none field-add-tab">
         <div class="row q-col-gutter-md items-center">
           <div class="col-12 col-sm-6 col-md-4 col-lg-12">
-            <!-- Date Picker goes here -->
-
             <div class="q-pa-md">
               <q-list bordered class="rounded-borders">
                 <q-expansion-item>
@@ -32,21 +30,17 @@
                     <q-item-section>
                       Proposal Information
                     </q-item-section>
-
-
                   </template>
 
                   <q-card class="q-pa-md">
                     <q-card-section>
                       <div class="row q-col-gutter-md items-center">
 
-                        <!--   Date Picker -->
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="text" label="Proposal Name" />
                         </div>
 
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <!--   Date Picker -->
                           <q-select dense outlined v-model="model" :options="options" label="Select Account Name" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
@@ -55,7 +49,7 @@
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                           <q-select dense outlined v-model="model" :options="options" label="Opportunity" />
                         </div>
-                       
+
                       </div>
                       <div class="row q-my-md q-col-gutter-md items-center">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
@@ -83,7 +77,7 @@
                             </template>
                           </q-input>
                         </div>
-                        
+
                       </div>
                     </q-card-section>
                   </q-card>
@@ -107,18 +101,49 @@
                     <q-card-section>
                       <div class="row q-col-gutter-md items-center">
 
-                        <!--   Date Picker -->
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="Number" label="Proposal Amount" maxlength="8" mask="##########" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Product (s)" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="text" label="No of IDs" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="text" label="TAX " />
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-12">
+                          <q-page>
+
+                            <q-table :rows="rows"
+                                     :columns="columns"
+                                     row-key="id" flat
+                                     bordered>
+                              <template v-slot:body-cell-rate="props">
+                                <q-td :props="props">
+                                  <q-input v-model.number="props.row.rate" type="number" dense borderless />
+                                </q-td>
+                              </template>
+
+                              <template v-slot:body-cell-quantity="props">
+                                <q-td :props="props">
+                                  <q-input v-model.number="props.row.quantity" type="number" dense borderless />
+                                </q-td>
+                              </template>
+
+                              <template v-slot:body-cell-total="props">
+                                <q-td :props="props">
+                                  {{ (props.row.rate * props.row.quantity) || 0 }}
+                                </q-td>
+                              </template>
+
+                              <template v-slot:body-cell-actions="props">
+                                <q-td :props="props" class="text-center">
+                                  <q-btn flat round icon="delete" color="red" @click="removeRow(props.row.id)" />
+                                </q-td>
+                              </template>
+                            </q-table>
+
+                            <div class="q-mt-md">
+                              <q-btn label="Add Row" icon="add" color="primary" @click="addRow" />
+                            </div>
+
+                            <div class="q-mt-md text-right">
+                              <div>Subtotal: <strong>{{ subtotal.toFixed(2) }}</strong></div>
+                              <div>Tax (18%): <strong>{{ tax }}</strong></div>
+                              <div>Grand Total: <strong>{{ grandTotal }}</strong></div>
+                            </div>
+                          </q-page>
+
                         </div>
                       </div>
 
@@ -144,7 +169,6 @@
                     <q-card-section>
                       <div class="row q-col-gutter-md items-center">
 
-                        <!--   Date Picker -->
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-select dense outlined v-model="model" :options="options" label="Select Terms and conditions " />
                         </div>
@@ -155,15 +179,14 @@
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="text" label="Payment Terms" />
                         </div>
-                         
 
                       </div>
-                   
+
                     </q-card-section>
                   </q-card>
                 </q-expansion-item>
                 <q-separator />
-                
+
               </q-list>
             </div>
           </div>
@@ -173,25 +196,53 @@
     </q-card-section>
   </q-card>
 </template>
-<script>
-  export default {
-    name: 'LeadPage',
-    data() {
-      return {
-        ProposalType: [
-          'New Business', 'Existing', 'Upsell' 
-        ],
-        ProposalStatus: [
-          'Draft', 'Submitted', 'Approved', 'Rejected'
-        ],
-        Priority: [
-          'High', 'Medium', 'Low'
-        ],
-        options: [
-          'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
-        ],
-        text: ''
-      };
-    }
-  }
+<script setup>
+  import { ref, computed } from 'vue';
+
+  const ProposalType = ['New Business', 'Existing', 'Upsell'];
+
+  const Priority = ['High', 'Medium', 'Low'];
+  const options = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'];
+
+  const text = ref(''); // Note: These 'text' and 'model' refs are shared by multiple inputs
+  const model = ref(null); // Be aware of this if you want independent values for each input
+  const date = ref('');
+
+  // --- Table Data and Configuration ---
+  let nextId = 1; // Used to generate unique IDs for new rows
+
+  // Table rows (updated to include 'id' for better row-key management)
+  const rows = ref([
+    { id: nextId++, name: 'MSOffice', rate: 250, quantity: 2 },
+    { id: nextId++, name: 'XP', rate: 300, quantity: 5 },
+    { id: nextId++, name: 'Linux', rate: 400, quantity: 1 }, // Corrected 'Linex' to 'Linux'
+  ]);
+
+  // Columns config
+  const columns = [
+    { name: 'name', label: 'Product', field: 'name', align: 'left' },
+    { name: 'rate', label: 'Rate', field: 'rate', align: 'right' },
+    { name: 'quantity', label: 'No Of Ids', field: 'quantity', align: 'right' },
+    { name: 'total', label: 'Total', field: 'total', align: 'right' },
+    { name: 'actions', label: '', field: 'actions', align: 'center' } // Placeholder for action buttons
+  ];
+
+  // Add row function
+  const addRow = () => {
+    rows.value.push({ id: nextId++, name: 'New Product', rate: 0, quantity: 1 });
+  };
+
+  // Remove row function (now filters by unique 'id')
+  const removeRow = (idToRemove) => {
+    rows.value = rows.value.filter(row => row.id !== idToRemove);
+  };
+
+  // Calculations for totals
+  const subtotal = computed(() =>
+    // Use parseFloat and default to 0 to handle potential non-numeric inputs
+    rows.value.reduce((acc, row) => acc + (parseFloat(row.rate || 0) * parseFloat(row.quantity || 0)), 0)
+  );
+
+  const tax = computed(() => (subtotal.value * 0.18).toFixed(2));
+  const grandTotal = computed(() => (subtotal.value + parseFloat(tax.value)).toFixed(2));
 </script>

@@ -61,7 +61,7 @@
                           <q-select dense outlined v-model="model" :options="Status" label="Select Import Type " />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                            <q-btn color="primary text-capitalize" label="Upload" icon="Upload" />
+                            <q-btn color="primary text-capitalize" label="Upload" icon="arrow_upload_ready" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                          

@@ -37,54 +37,79 @@
 
                   <q-card class="q-pa-md">
                     <q-card-section>
+
                       <div class="row q-col-gutter-md items-center">
-                        <div class="col-12 q-pt-md">
-                          <div class="client-info">
-                            <div class="client-details">
-                              <div>Customer information</div>
-                            </div>
-                          </div>
-                          <q-table class="my-sticky-header-table"
-                                   style="max-height: 400px;"
-                                   dense
-                                   flat
-                                   bordered
-                                   :rows="rows"
-                                   :columns="columns"
-                                   row-key="name"
-                                   :loading="loading"
-                                   virtual-scroll
-                                   :virtual-scroll-item-size="48"
-                                   :virtual-scroll-sticky-size-start="48"
-                                   :pagination="pagination"
-                                   :rows-per-page-options="[0]"
-                                   @virtual-scroll="onScroll">
-                            <template v-slot:body="props">
-                              <q-tr :props="props" :class="props.rowIndex % 2 === 0 ? 'even-row' : 'odd-row'">
-                                <q-td v-for="col in props.cols"
-                                      :key="col.name"
-                                      :props="props">
-                                  <template v-if="col.name === 'Actions'">
-                                    <q-btn dense flat size="10px"
-                                           icon="edit"
-                                           @click="editRow(props.row)" />
-                                    <q-btn dense flat size="10px"
-                                           icon="delete"
-                                           @click="deleteRow(props.row)" />
-                                    <q-btn dense flat size="10px"
-                                           icon="info"
-                                           @click="infoRow(props.row)" />
-                                  </template>
-                                  <template v-else>
-                                    {{ col.value }}
-                                  </template>
-                                </q-td>
-                              </q-tr>
-                            </template>
-                          </q-table>
+
+                        <!--   Date Picker -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined v-model="text" label="Client Name " />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined v-model="text" label="Client  Billing Name " />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="options" label=" Customer Segment 1" />
                         </div>
 
                       </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="options" label=" Customer Segment 2" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                          <q-select dense outlined v-model="model" :options="options" label="Customer Segment 3" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                          <q-select dense outlined v-model="model" :options="options" label="Account Type Id" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                          <q-select dense outlined v-model="model" :options="options" label="Customer Group" />
+
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                          <q-checkbox v-model="val" label="Listed Company" />
+                        </div>
+
+
+                      </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="options" label="Industry" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                          <q-input dense outlined v-model="text" label="PAN No" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                          <q-input dense outlined v-model="text" label="TAN No" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="options" label="Billing Branch" />
+                        </div>
+                      </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="options" label="TDS Rate Applicable" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                          <q-input dense outlined v-model="text" label="Annual Revenue" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                          <q-input dense outlined v-model="text" label="Employees" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="options" label="Owner" />
+                        </div>
+
+                      </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined v-model="text" label="Website" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined type="textarea" v-model="message" placeholder="Description" rows="2" />
+                        </div>
+                      </div>
+
                     </q-card-section>
                   </q-card>
                 </q-expansion-item>
@@ -374,66 +399,17 @@
 </template>
 <script>
   import { ref } from 'vue'
-  import { useRouter } from 'vue-router'
-
+    
   export default {
     name: 'AboutPage',
     setup() {
-      const router = useRouter()
-
-      const leadadd = () => {
-        router.push('/LeadAdd') // This route must be defined in your router
-      }
-
       const selected = ref([])
       const date = ref('2019/02/01')
       const model = ref(null)
-
       const options = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
-       // < !--Customer information -->
-      const columns = [
-        { name: 'Client_Name', required: true, label: 'Client Name', align: 'left', field: row => row.Client_Name, format: val => `${val}`, sortable: true },
-        { name: 'Client_Billing_Name', align: 'left', label: 'Client Billing Name', field: 'Client_Billing_Name', sortable: true },
-        { name: 'Customer_Segment_1', align: 'left', label: 'Customer Segment 1', field: 'Customer_Segment_1', sortable: true },
-        { name: 'Customer_Segment_2', align: 'left', label: 'Customer Segment 2', field: 'Customer_Segment_2', sortable: true },
-        { name: 'Customer_Segment_3', align: 'left', label: 'Customer Segment 3', field: 'Customer_Segment_3', sortable: true },
-        { name: 'Account_Type_Id', align: 'left', label: 'Account Type Id', field: 'Account_Type_Id', sortable: true },
-        { name: 'Customer_Group', align: 'left', label: 'Customer Group', field: 'Customer_Group', sortable: true },
-        { name: 'Listed_Company', align: 'left', label: 'Listed Company', field: 'Listed_Company', sortable: true },
-        { name: 'Industry', align: 'left', label: 'Industry', field: 'Industry', sortable: true },
-        { name: 'PAN_No', align: 'left', label: 'PAN No', field: 'PAN_No', sortable: true },
-        { name: 'TAN_No', align: 'left', label: 'TAN No', field: 'TAN_No', sortable: true },
-        { name: 'Billing_Branch', align: 'left', label: 'Billing Branch', field: 'Billing_Branch', sortable: true },
-        { name: 'TDS_Rate_Applicable_S', align: 'left', label: 'TDS Rate Applicable S', field: 'TDS_Rate_Applicable_S', sortable: true },
-        { name: 'Annual_Revenue', align: 'left', label: 'Annual Revenue', field: 'Annual_Revenue', sortable: true },
-        { name: 'Employees', align: 'left', label: 'Employees', field: 'Employees', sortable: true },
-        { name: 'Owner_Selection', align: 'left', label: 'Owner Selection', field: 'Owner_Selection', sortable: true },
-        { name: 'Website', align: 'left', label: 'Website', field: 'Website', sortable: true },
-        { name: 'Description', align: 'left', label: 'Description', field: 'Description', sortable: true },
-        { name: 'Actions', align: 'left', label: 'Actions', field: 'Actions' }
-      ]
+       
 
-      const rows = Array(12).fill().map(() => ({
-        Client_Name: 'Acme Corp',
-        Client_Billing_Name: 'Acme Billing',
-        Customer_Segment_1: 'Retail',
-        Customer_Segment_2: 'Online',
-        Customer_Segment_3: 'Premium',
-        Account_Type_Id: 'AT-001',
-        Customer_Group: 'Group A',
-        Listed_Company: 'Yes',
-        Industry: 'Technology',
-        PAN_No: 'ABCDE1234F',
-        TAN_No: 'TAN1234567',
-        Billing_Branch: 'Mumbai',
-        TDS_Rate_Applicable_S: '10%',
-        Annual_Revenue: '$5M',
-        Employees: '200',
-        Owner_Selection: 'John Doe',
-        Website: 'www.acme.com',
-        Description: 'Leading tech provider'
-      }))
-        //< !--close Customer information -->
+        
         // < !--Customer Contact Persons-- >
          const columns_con = [
         { name: 'Type_of_Contact', required: true, label: 'Type of Contact', align: 'left', field: row => row.Type_of_Contact, format: val => `${val}`, sortable: true },
@@ -545,10 +521,9 @@
       // < !--close Customer po-- >
 
       return {
-        leadadd,
+         
         selected,
-        columns,
-        rows,
+        
         rows_con,
         columns_con,
         rowsAdd,

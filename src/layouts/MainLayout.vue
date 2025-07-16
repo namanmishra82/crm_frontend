@@ -62,7 +62,9 @@
     <q-item>
       <img alt="logo" src="~assets/logo.png" style="width: 150px; height: auto">
     </q-item>
-
+    <q-item>
+      <q-input dense outlined v-model="text" label="Search Menu" style="width:100%;" />
+    </q-item>
     <q-expansion-item icon="group" label="CRM" dense expand-separator>
       <q-item clickable v-ripple to="/Prospects" class="q-pl-lg">
         <q-item-section avatar><q-icon name="person_add" /></q-item-section>

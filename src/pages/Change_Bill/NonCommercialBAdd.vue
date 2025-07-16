@@ -90,13 +90,7 @@
                           <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <template>
-                            <div class="q-pa-md">
-                              <q-uploader url="http://localhost:9000/upload"
-                                          :headers="[{name: 'X-Custom-Timestamp', value: 1550240306080}]"
-                                          style="max-width: 300px" />
-                            </div>
-                          </template>
+                          <q-btn color="primary text-capitalize" label="Upload" icon="arrow_upload_ready" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
 
