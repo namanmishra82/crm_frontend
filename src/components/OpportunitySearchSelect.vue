@@ -36,20 +36,13 @@
 </template>
 
 <script>
+/* eslint-disable vue/multi-word-component-names */
 export default {
-  name: 'SearchableSelect',
+  name: 'OpportunitySearchSelect',
   props: {
     label: {
       type: String,
-      default: 'Search'
-    },
-    data: {
-      type: Array,
-      required: true
-    },
-    columns: {
-      type: Array,
-      required: true
+      default: 'Search Opportunity'
     },
     modelValue: {
       type: Object,
@@ -65,15 +58,29 @@ export default {
     return {
       search: '',
       dropdown: false,
-      selectedItem: this.modelValue
+      selectedItem: this.modelValue,
+      // Opportunity data
+      opportunities: [
+        { id: 1, name: 'Cloud Migration', value: 25000, status: 'Open' },
+        { id: 2, name: 'Software Upgrade', value: 15000, status: 'Open' },
+        { id: 3, name: 'Security Implementation', value: 35000, status: 'Qualified' },
+        { id: 4, name: 'Data Center Relocation', value: 50000, status: 'Negotiation' },
+        { id: 5, name: 'Network Expansion', value: 20000, status: 'Proposal' },
+      ],
+      // Opportunity columns
+      columns: [
+        { name: 'name', required: true, label: 'Name', align: 'left', field: 'name' },
+        { name: 'value', label: 'Value', align: 'right', field: 'value' },
+        { name: 'status', label: 'Status', align: 'left', field: 'status' },
+      ]
     }
   },
   computed: {
     filteredData() {
       const term = this.search.toLowerCase()
-      if (!term) return this.data
+      if (!term) return this.opportunities
       
-      return this.data.filter(item => {
+      return this.opportunities.filter(item => {
         return this.columns.some(col => {
           const value = item[col.field]
           return value && value.toString().toLowerCase().includes(term)

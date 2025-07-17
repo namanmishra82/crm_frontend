@@ -61,7 +61,13 @@
                           </q-input>
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Client Name" />
+                          <SearchableSelect
+                            label="Search Account"
+                            :data="clients"
+                            :columns="columns"
+                            v-model="selectedClient"
+                            @select="onClientSelect"
+                          />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
@@ -181,8 +187,31 @@
         options: [
           'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
         ],
-        text: ''
+        text: '',
+        date: '',
+        Number: '',
+        message: '',
+        password: '',
+        model: null,
+        selectedClient: null,
+        clients: [
+          { id: 1, name: 'John Doe', email: 'john@example.com', company: 'Acme Inc.' },
+          { id: 2, name: 'Jane Smith', email: 'jane@example.com', company: 'Globex Corp' },
+          { id: 3, name: 'Alice Brown', email: 'alice@example.com', company: 'Initech' },
+          { id: 4, name: 'Bob Johnson', email: 'bob@example.com', company: 'Umbrella LLC' },
+          { id: 5, name: 'Eve Davis', email: 'eve@example.com', company: 'Stark Industries' },
+        ],
+        columns: [
+          { name: 'name', required: true, label: 'Name', align: 'left', field: 'name' },
+          { name: 'email', label: 'Email', align: 'left', field: 'email' },
+          { name: 'company', label: 'Company', align: 'left', field: 'company' },
+        ]
       };
+    },
+    methods: {
+      onClientSelect(client) {
+        console.log('Selected client:', client)
+      }
     }
   }
 </script>

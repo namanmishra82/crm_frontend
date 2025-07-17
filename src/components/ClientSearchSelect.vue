@@ -36,20 +36,13 @@
 </template>
 
 <script>
+/* eslint-disable vue/multi-word-component-names */
 export default {
-  name: 'SearchableSelect',
+  name: 'ClientSearchSelect',
   props: {
     label: {
       type: String,
-      default: 'Search'
-    },
-    data: {
-      type: Array,
-      required: true
-    },
-    columns: {
-      type: Array,
-      required: true
+      default: 'Search Client'
     },
     modelValue: {
       type: Object,
@@ -65,15 +58,29 @@ export default {
     return {
       search: '',
       dropdown: false,
-      selectedItem: this.modelValue
+      selectedItem: this.modelValue,
+      // Client data
+      clients: [
+        { id: 1, name: 'John Doe', email: 'john@example.com', company: 'Acme Inc.' },
+        { id: 2, name: 'Jane Smith', email: 'jane@example.com', company: 'Globex Corp' },
+        { id: 3, name: 'Alice Brown', email: 'alice@example.com', company: 'Initech' },
+        { id: 4, name: 'Bob Johnson', email: 'bob@example.com', company: 'Umbrella LLC' },
+        { id: 5, name: 'Eve Davis', email: 'eve@example.com', company: 'Stark Industries' },
+      ],
+      // Client columns
+      columns: [
+        { name: 'name', required: true, label: 'Name', align: 'left', field: 'name' },
+        { name: 'email', label: 'Email', align: 'left', field: 'email' },
+        { name: 'company', label: 'Company', align: 'left', field: 'company' },
+      ]
     }
   },
   computed: {
     filteredData() {
       const term = this.search.toLowerCase()
-      if (!term) return this.data
+      if (!term) return this.clients
       
-      return this.data.filter(item => {
+      return this.clients.filter(item => {
         return this.columns.some(col => {
           const value = item[col.field]
           return value && value.toString().toLowerCase().includes(term)

@@ -45,14 +45,8 @@
                           <q-input dense outlined v-model="text" label="Opportunity Name " />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Select Account Name" />
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <SearchableSelect
-                            label="Search Client"
-                            :data="clients"
-                            :columns="columns"
+                          <ClientSearchSelect
+                            label="Search Account"
                             v-model="selectedClient"
                             @select="onClientSelect"
                           />
@@ -351,27 +345,16 @@
   </q-card>
 </template>
 <script>
-  import SearchableSelect from '../../components/SearchableSelect.vue'
+  /* eslint-disable vue/multi-word-component-names */
+  import ClientSearchSelect from '../../components/ClientSearchSelect.vue'
   export default {
     name: 'LeadPage',
     components: {
-      SearchableSelect
+      ClientSearchSelect
     },
     data() {
       return {
         selectedClient: null,
-        clients: [
-          { id: 1, name: 'John Doe', email: 'john@example.com', company: 'Acme Inc.' },
-          { id: 2, name: 'Jane Smith', email: 'jane@example.com', company: 'Globex Corp' },
-          { id: 3, name: 'Alice Brown', email: 'alice@example.com', company: 'Initech' },
-          { id: 4, name: 'Bob Johnson', email: 'bob@example.com', company: 'Umbrella LLC' },
-          { id: 5, name: 'Eve Davis', email: 'eve@example.com', company: 'Stark Industries' },
-        ],
-        columns: [
-          { name: 'name', required: true, label: 'Name', align: 'left', field: 'name' },
-          { name: 'email', label: 'Email', align: 'left', field: 'email' },
-          { name: 'company', label: 'Company', align: 'left', field: 'company' },
-        ],
         options: [
           'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
         ],

@@ -41,13 +41,21 @@
                         </div>
 
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Select Account Name" />
+                          <ClientSearchSelect
+                            label="Search Account"
+                            v-model="selectedClient"
+                            @select="onClientSelect"
+                          />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                           <q-input dense outlined v-model="text" label="Proposal No" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-select dense outlined v-model="model" :options="options" label="Opportunity" />
+                          <OpportunitySearchSelect
+                            label="Search Opportunity"
+                            v-model="selectedOpportunity"
+                            @select="onOpportunitySelect"
+                          />
                         </div>
 
                       </div>
@@ -105,7 +113,7 @@
                           <q-page>
 
                             <q-table :rows="rows"
-                                     :columns="columns"
+                                     :columns="tableColumns"
                                      row-key="id" flat
                                      bordered>
                               <template v-slot:body-cell-rate="props">
@@ -197,6 +205,7 @@
   </q-card>
 </template>
 <script setup>
+/* eslint-disable vue/multi-word-component-names */
   import { ref, computed } from 'vue';
 
   const ProposalType = ['New Business', 'Existing', 'Upsell'];
@@ -204,42 +213,48 @@
   const Priority = ['High', 'Medium', 'Low'];
   const options = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'];
 
-  const text = ref(''); // Note: These 'text' and 'model' refs are shared by multiple inputs
-  const model = ref(null); // Be aware of this if you want independent values for each input
+  const text = ref('');
+  const model = ref(null);
   const date = ref('');
+  
+  // Client and opportunity data
+  const selectedClient = ref(null);
+  const selectedOpportunity = ref(null);
+  
+  const onClientSelect = (client) => {
+    console.log('Selected client:', client);
+  };
+  
+  const onOpportunitySelect = (opportunity) => {
+    console.log('Selected opportunity:', opportunity);
+  };
 
   // --- Table Data and Configuration ---
-  let nextId = 1; // Used to generate unique IDs for new rows
+  let nextId = 1;
 
-  // Table rows (updated to include 'id' for better row-key management)
   const rows = ref([
     { id: nextId++, name: 'MSOffice', rate: 250, quantity: 2 },
     { id: nextId++, name: 'XP', rate: 300, quantity: 5 },
-    { id: nextId++, name: 'Linux', rate: 400, quantity: 1 }, // Corrected 'Linex' to 'Linux'
+    { id: nextId++, name: 'Linux', rate: 400, quantity: 1 },
   ]);
 
-  // Columns config
-  const columns = [
+  const tableColumns = [
     { name: 'name', label: 'Product', field: 'name', align: 'left' },
     { name: 'rate', label: 'Rate', field: 'rate', align: 'right' },
     { name: 'quantity', label: 'No Of Ids', field: 'quantity', align: 'right' },
     { name: 'total', label: 'Total', field: 'total', align: 'right' },
-    { name: 'actions', label: '', field: 'actions', align: 'center' } // Placeholder for action buttons
+    { name: 'actions', label: '', field: 'actions', align: 'center' }
   ];
 
-  // Add row function
   const addRow = () => {
     rows.value.push({ id: nextId++, name: 'New Product', rate: 0, quantity: 1 });
   };
 
-  // Remove row function (now filters by unique 'id')
   const removeRow = (idToRemove) => {
     rows.value = rows.value.filter(row => row.id !== idToRemove);
   };
 
-  // Calculations for totals
   const subtotal = computed(() =>
-    // Use parseFloat and default to 0 to handle potential non-numeric inputs
     rows.value.reduce((acc, row) => acc + (parseFloat(row.rate || 0) * parseFloat(row.quantity || 0)), 0)
   );
 
