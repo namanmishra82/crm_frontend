@@ -94,7 +94,7 @@
         <q-item-section avatar><q-icon name="person" /></q-item-section>
         <q-item-section>Trial Extend</q-item-section>
       </q-item>
-      <q-item clickable v-ripple to="/Action-Log" class="q-pl-lg">
+      <q-item clickable v-ripple to="/Action_Log" class="q-pl-lg">
         <q-item-section avatar><q-icon name="timeline" /></q-item-section>
         <q-item-section>Action Log</q-item-section>
       </q-item>

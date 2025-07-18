@@ -7,15 +7,15 @@
   <q-card class="my-card q-ma-sm col-auto">
     <q-card-section class="q-pb-none">
       <div class="row items-center justify-between">
-        <div class="text-h6">Add Trial Request</div>
-        <q-btn color="primary text-capitalize" label="Save" icon="save" />
+        <div class="text-h6">Add Activity Log</div>
+           <q-btn color="primary text-capitalize" label="Save" icon="save" />
       </div>
-      <div class="text-subtitle2">Trial Request Management</div>
+      <div class="text-subtitle2">Activity Management</div>
     </q-card-section>
 
     <q-separator dark inset />
 
-    <q-card-section class="q-px-none">
+    <q-card-section class="q-px-none" >
       <div class="q-px-none field-add-tab">
         <div class="row q-col-gutter-md items-center">
           <div class="col-12 col-sm-6 col-md-4 col-lg-12">
@@ -30,7 +30,7 @@
                     </q-item-section>
 
                     <q-item-section>
-                      Field information
+                      Lead information
                     </q-item-section>
 
 
@@ -41,12 +41,24 @@
                       <div class="row q-col-gutter-md items-center">
 
                         <!--   Date Picker -->
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="Number" label="Trial Request No" maxlength="5" mask="##########" />
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="options" label="Select Lead Source" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="Status" label="Select Activity Type" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined v-model="text" label="Task Name" />
                         </div>
 
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Request Date" :hide-bottom-space="true">
+
+                      </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined v-model="text" label="Location" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Activity Date Time" :hide-bottom-space="true">
                             <template v-slot:append>
                               <q-icon name="event" class="cursor-pointer">
                                 <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -61,54 +73,28 @@
                           </q-input>
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Client Name" />
-                        </div> 
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Request By" />
+                          <q-input dense outlined v-model="text" label="Duration" />
                         </div>
+
                       </div>
                       <div class="row q-my-md q-col-gutter-md items-center">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
+                          <q-input dense outlined v-model="text" label="Search User" />
                         </div>
-                        
-                     
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined type="textarea" v-model="message" placeholder="Remark" rows="2" />
+                        </div>
                       </div>
-
-                    
-                    </q-card-section>
-                  </q-card>
-                </q-expansion-item>
-
-                <q-separator />
-
-                <q-expansion-item default-opened>
-                  <template v-slot:header>
-                    <q-item-section avatar>
-                      <q-avatar icon="contact_support" color="primary" text-color="white" />
-                    </q-item-section>
-
-                    <q-item-section>
-                      User information
-                    </q-item-section>
-                  </template>
-
-                  <q-card class="q-pa-md">
-
-                    <q-card-section>
-                      <div class="row q-col-gutter-md items-center">
-
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Contact Person" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Product" />
+                      <div class="row q-my-md q-col-gutter-md items-center">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                          <q-radio dense v-model="shape" val="line" label="Next Activity" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="text" label="Add Ons" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Trial Extend Till Date" :hide-bottom-space="true">
+                          
+                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Follow up Activity On" :hide-bottom-space="true">
                             <template v-slot:append>
                               <q-icon name="event" class="cursor-pointer">
                                 <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -122,32 +108,23 @@
                             </template>
                           </q-input>
                         </div>
-                      </div>
-                      <div class="row q-my-md q-col-gutter-md items-center">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="text" label="User Id" />
-
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="password" label="Password" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="text" label="Workstation Id " />
-
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="Number" label="Terminal No" maxlength="5" mask="##########" />
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="options" label="Select Follow up activity Type" />
+                          
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
+                          <q-btn color="primary text-capitalize" label="Upload" icon="arrow_upload_ready" />
+
                         </div>
+
+
                       </div>
                     </q-card-section>
                   </q-card>
                 </q-expansion-item>
-                <q-separator />
 
                
+                
               </q-list>
             </div>
           </div>
@@ -158,15 +135,49 @@
   </q-card>
 </template>
 <script>
+  import { ref } from 'vue'
   export default {
     name: 'LeadPage',
     data() {
       return {
+        shape: ref('line'),
+        Status: [
+          'New', 'Contacted', 'Qualified', 'Nurturing', 'Disqualified', 'Converted'
+        ],
+        Priority: [
+          'High', 'Medium', 'Low' 
+        ],
+        Timeframe: [
+          'Immediate', '1-3 Months', '3-6 Months', '6+ Months'
+        ],
         options: [
           'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
         ],
-        text: ''
+        selectedClient: null,
+        clients: [
+          { id: 1, name: 'John Doe', email: 'john@example.com', company: 'Acme Inc.' },
+          { id: 2, name: 'Jane Smith', email: 'jane@example.com', company: 'Globex Corp' },
+          { id: 3, name: 'Alice Brown', email: 'alice@example.com', company: 'Initech' },
+          { id: 4, name: 'Bob Johnson', email: 'bob@example.com', company: 'Umbrella LLC' },
+          { id: 5, name: 'Eve Davis', email: 'eve@example.com', company: 'Stark Industries' },
+        ],
+        columns: [
+          { name: 'name', required: true, label: 'Name', align: 'left', field: 'name' },
+          { name: 'email', label: 'Email', align: 'left', field: 'email' },
+          { name: 'company', label: 'Company', align: 'left', field: 'company' },
+        ],
+        text: '',
+        date: '',
+        Number: '',
+        message: '',
+        time: ref('10:56'),
+        timeWithSeconds: ref('10:56:00')
       };
+    },
+    methods: {
+      onClientSelect(client) {
+        console.log('Selected client:', client)
+      }
     }
   }
 </script>

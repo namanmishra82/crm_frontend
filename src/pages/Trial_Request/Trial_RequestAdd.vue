@@ -7,10 +7,10 @@
   <q-card class="my-card q-ma-sm col-auto">
     <q-card-section class="q-pb-none">
       <div class="row items-center justify-between">
-        <div class="text-h6">Add Trial Extend</div>
+        <div class="text-h6">Add Trial </div>
         <q-btn color="primary text-capitalize" label="Save" icon="save" />
       </div>
-      <div class="text-subtitle2">Trial Extend Management</div>
+      <div class="text-subtitle2">Trial Management</div>
     </q-card-section>
 
     <q-separator dark inset />
@@ -61,24 +61,22 @@
                           </q-input>
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <SearchableSelect
-                            label="Search Account"
-                            :data="clients"
-                            :columns="columns"
-                            v-model="selectedClient"
-                            @select="onClientSelect"
-                          />
+                          <SearchableSelect label="Search Account"
+                                            :data="clients"
+                                            :columns="columns"
+                                            v-model="selectedClient"
+                                            @select="onClientSelect" />
                         </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined v-model="text" label="Request By" />
+                        </div>
+
+                      </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
+                       
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
                         </div>
-                       
-                      </div>
-                      <div class="row q-my-md q-col-gutter-md items-center">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="text" label="Request By" />
-                        </div>
-                        
                      
                       </div>
 
@@ -108,13 +106,15 @@
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-select dense outlined v-model="model" :options="options" label="Contact Person" />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-select dense outlined v-model="model" :options="options" label="Product" />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="text" label="Add Ons" />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                      </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Trial Start Date" :hide-bottom-space="true">
                             <template v-slot:append>
                               <q-icon name="event" class="cursor-pointer">
@@ -129,7 +129,7 @@
                             </template>
                           </q-input>
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Trial End Date" :hide-bottom-space="true">
                             <template v-slot:append>
                               <q-icon name="event" class="cursor-pointer">
@@ -144,22 +144,27 @@
                             </template>
                           </q-input>
                         </div>
-                      </div>
-                      <div class="row q-my-md q-col-gutter-md items-center">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="text" label="User Id" />
 
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                      </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="password" label="Password" />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="text" label="Workstation Id " />
 
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="Number" label="Terminal No" maxlength="5" mask="##########" />
                         </div>
+                      </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
                         </div>

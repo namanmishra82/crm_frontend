@@ -45,30 +45,30 @@
                           <q-input dense outlined v-model="text" label="Opportunity Name " />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <ClientSearchSelect
-                            label="Search Account"
-                            v-model="selectedClient"
-                            @select="onClientSelect"
-                          />
+                          <ClientSearchSelect label="Search Account"
+                                              v-model="selectedClient"
+                                              @select="onClientSelect" />
                         </div>
-                      </div>
-                      <div class="row q-my-md q-col-gutter-md items-center">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-select dense outlined v-model="model" :options="options" label="Select Opportunity Source" />
                         </div>
+                      </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
+
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-select dense outlined v-model="model" :options="options" label="Select Opportunity Status" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-select dense outlined v-model="model" :options="options" label="Select Assigned To" />
                         </div>
-                      </div>
-                      <div class="row q-my-md q-col-gutter-md items-center">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-select dense outlined v-model="model" :options="options" label="Select Competitor to be Replaced " />
 
 
                         </div>
+                      </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
+                        
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                           <q-select dense outlined v-model="model" :options="Priority" label="Select Priority" />
                         </div>

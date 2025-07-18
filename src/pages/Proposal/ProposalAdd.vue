@@ -39,38 +39,7 @@
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="text" label="Proposal Name" />
                         </div>
-
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <ClientSearchSelect
-                            label="Search Account"
-                            v-model="selectedClient"
-                            @select="onClientSelect"
-                          />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="text" label="Proposal No" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <OpportunitySearchSelect
-                            label="Search Opportunity"
-                            v-model="selectedOpportunity"
-                            @select="onOpportunitySelect"
-                          />
-                        </div>
-
-                      </div>
-                      <div class="row q-my-md q-col-gutter-md items-center">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-select dense outlined v-model="model" :options="ProposalType" label="Proposal Type" />
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-select dense outlined v-model="model" :options="options" label="Select Competitor to be Replaced " />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-select dense outlined v-model="model" :options="Priority" label="Select Priority" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                           <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Proposal Start Date" :hide-bottom-space="true">
                             <template v-slot:append>
                               <q-icon name="event" class="cursor-pointer">
@@ -86,6 +55,41 @@
                           </q-input>
                         </div>
 
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined v-model="text" label="Proposal No" />
+                        </div>
+
+
+                      </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <ClientSearchSelect label="Search Account"
+                                              v-model="selectedClient"
+                                              @select="onClientSelect" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <OpportunitySearchSelect label="Search Opportunity"
+                                                   v-model="selectedOpportunity"
+                                                   @select="onOpportunitySelect" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="ProposalType" label="Proposal Type" />
+                        </div>
+
+
+
+                      </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Proposal Date" :hide-bottom-space="true" :disable="isInputDisabled" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="options" label="Select Competitor to be Replaced " />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="Priority" label="Select Priority" />
+                        </div>
                       </div>
                     </q-card-section>
                   </q-card>
@@ -107,40 +111,48 @@
                   <q-card class="q-pa-md">
 
                     <q-card-section>
-                      <div class="row q-col-gutter-md items-center">
+                      <div class="row q-col-gutter-md items-center ">
 
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-12">
-                          <q-page>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-10 m-auto">
 
-                            <q-table :rows="rows"
-                                     :columns="tableColumns"
-                                     row-key="id" flat
-                                     bordered>
-                              <template v-slot:body-cell-rate="props">
-                                <q-td :props="props">
-                                  <q-input v-model.number="props.row.rate" type="number" dense borderless />
-                                </q-td>
-                              </template>
+                          <q-table :rows="rows"
+                                   :columns="tableColumns"
+                                   row-key="id"
+                                   :pagination="{ rowsPerPage: 0 }"
+                                   :rows-per-page-options="[0]"
+                                   flat
+                                   bordered>
+                            <template v-slot:body-cell-name="props">
+                              <q-td :props="props" width="400">
+                                <q-select v-model="props.row.name" outlined :options="productOptions" dense borderless />
+                              </q-td>
+                            </template>
 
-                              <template v-slot:body-cell-quantity="props">
-                                <q-td :props="props">
-                                  <q-input v-model.number="props.row.quantity" type="number" dense borderless />
-                                </q-td>
-                              </template>
+                            <template v-slot:body-cell-rate="props">
+                              <q-td :props="props" width="200">
+                                <q-input v-model.number="props.row.rate" input-class="text-right" type="number" outlined dense borderless />
+                              </q-td>
+                            </template>
 
-                              <template v-slot:body-cell-total="props">
-                                <q-td :props="props">
-                                  {{ (props.row.rate * props.row.quantity) || 0 }}
-                                </q-td>
-                              </template>
+                            <template v-slot:body-cell-quantity="props">
+                              <q-td :props="props" width="200">
+                                <q-input v-model.number="props.row.quantity" input-class="text-right" type="number" outlined dense borderless />
+                              </q-td>
+                            </template>
 
-                              <template v-slot:body-cell-actions="props">
-                                <q-td :props="props" class="text-center">
-                                  <q-btn flat round icon="delete" color="red" @click="removeRow(props.row.id)" />
-                                </q-td>
-                              </template>
-                            </q-table>
+                            <template v-slot:body-cell-total="props">
+                              <q-td :props="props" width="200" outlined>
+                                {{ (props.row.rate * props.row.quantity) || 0 }}
+                              </q-td>
+                            </template>
 
+                            <template v-slot:body-cell-actions="props">
+                              <q-td :props="props" class="text-center" width="50">
+                                <q-btn flat round icon="delete" color="red" @click="removeRow(props.row.id)" />
+                              </q-td>
+                            </template>
+                          </q-table>
+                          <div class="flex justify-between">
                             <div class="q-mt-md">
                               <q-btn label="Add Row" icon="add" color="primary" @click="addRow" />
                             </div>
@@ -150,13 +162,10 @@
                               <div>Tax (18%): <strong>{{ tax }}</strong></div>
                               <div>Grand Total: <strong>{{ grandTotal }}</strong></div>
                             </div>
-                          </q-page>
-
+                          </div>
                         </div>
-                      </div>
-
+                        </div>
                     </q-card-section>
-
                   </q-card>
                 </q-expansion-item>
 
@@ -173,12 +182,20 @@
                     </q-item-section>
                   </template>
 
-                  <q-card class="q-pa-md" style="max-height: 400px; overflow-y: auto;">
+                  <q-card class="q-pa-md">
                     <q-card-section>
                       <div class="row q-col-gutter-md items-center">
 
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Select Terms and conditions " />
+                          <q-select outlined
+                                    v-model="model"
+                                    multiple
+                                    :options="options"
+                                    counter
+                                    dense
+                                    hint="With counter"
+                                    label="Select Terms and conditions"/>
+                           
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="text" label="Delivery Schedule " />
@@ -199,38 +216,38 @@
             </div>
           </div>
         </div>
-
       </div>
     </q-card-section>
   </q-card>
 </template>
+
 <script setup>
-/* eslint-disable vue/multi-word-component-names */
   import { ref, computed } from 'vue';
-
   const ProposalType = ['New Business', 'Existing', 'Upsell'];
-
   const Priority = ['High', 'Medium', 'Low'];
-  const options = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'];
+  const options = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']; // Common options for selects
 
   const text = ref('');
   const model = ref(null);
   const date = ref('');
-  
-  // Client and opportunity data
+  const isInputDisabled = ref(true);
+
   const selectedClient = ref(null);
   const selectedOpportunity = ref(null);
-  
+
   const onClientSelect = (client) => {
     console.log('Selected client:', client);
   };
-  
+
   const onOpportunitySelect = (opportunity) => {
     console.log('Selected opportunity:', opportunity);
   };
 
   // --- Table Data and Configuration ---
   let nextId = 1;
+
+  // Product options for the dropdown in the table
+  const productOptions = ref(['MSOffice', 'XP', 'Linux', 'Windows Server', 'SQL Server']);
 
   const rows = ref([
     { id: nextId++, name: 'MSOffice', rate: 250, quantity: 2 },
@@ -247,7 +264,8 @@
   ];
 
   const addRow = () => {
-    rows.value.push({ id: nextId++, name: 'New Product', rate: 0, quantity: 1 });
+    // New rows will have 'name' as null initially for the q-select
+    rows.value.push({ id: nextId++, name: null, rate: 0, quantity: 1 });
   };
 
   const removeRow = (idToRemove) => {
