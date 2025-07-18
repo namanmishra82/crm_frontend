@@ -65,12 +65,8 @@
     <q-item>
       <q-input dense outlined v-model="text" label="Search Menu" style="width:100%;" />
     </q-item>
-    <q-expansion-item icon="group" label="CRM" dense expand-separator>
-      <q-item clickable v-ripple to="/Prospects" class="q-pl-lg">
-        <q-item-section avatar><q-icon name="person_add" /></q-item-section>
-        <q-item-section>Prospects</q-item-section>
-      </q-item>
-
+    <q-expansion-item icon="group" label="CRM" dense default-opened>
+     
       <q-item clickable v-ripple to="/Lead" class="q-pl-lg">
         <q-item-section avatar><q-icon name="layers" /></q-item-section>
         <q-item-section>Leads</q-item-section>
@@ -90,29 +86,18 @@
         <q-item-section avatar><q-icon name="cloud_download" /></q-item-section>
         <q-item-section>Smart Login Import</q-item-section>
       </q-item>
-    </q-expansion-item>
-
-    <q-item clickable v-ripple to="/Action-Log">
-      <q-item-section avatar><q-icon name="timeline" /></q-item-section>
-      <q-item-section>Action Log</q-item-section>
-    </q-item>
-
-    <q-expansion-item icon="science" label="Product Trial" dense expand-separator>
       <q-item clickable v-ripple to="/Trial_Request" class="q-pl-lg">
         <q-item-section avatar><q-icon name="person" /></q-item-section>
         <q-item-section>Trial Management</q-item-section>
       </q-item>
-      <q-item clickable v-ripple to="/Trial_Extend" class="q-pl-lg">
-        <q-item-section avatar><q-icon name="settings" /></q-item-section>
-        <q-item-section>Extend Trial</q-item-section>
+      <q-item clickable v-ripple to="/Action-Log" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="timeline" /></q-item-section>
+        <q-item-section>Action Log</q-item-section>
       </q-item>
     </q-expansion-item>
 
-    <q-item clickable v-ripple to="/Client_Master">
-      <q-item-section avatar><q-icon name="attribution" /></q-item-section>
-      <q-item-section>Client Master</q-item-section>
-    </q-item>
-    <q-expansion-item icon="assignment" label="Requests" dense expand-separator>
+    
+    <q-expansion-item icon="assignment" label="Requests" dense >
       <q-item clickable v-ripple to="/New_Subscription" class="q-pl-lg">
         <q-item-section avatar><q-icon name="workspace_premium" /></q-item-section>
         <q-item-section>New Subscription</q-item-section>
@@ -139,7 +124,12 @@
       </q-item>
     </q-expansion-item>
 
-    <q-expansion-item icon="receipt_long" label="Invoice (Billing Module)" dense expand-separator>
+    <q-item clickable v-ripple to="/Client_Master">
+      <q-item-section avatar><q-icon name="attribution" /></q-item-section>
+      <q-item-section>Accounts</q-item-section>
+    </q-item>
+
+    <q-expansion-item icon="receipt_long" label="Finance" dense >
       <q-item clickable v-ripple to="/Currency_Conversion" class="q-pl-lg">
         <q-item-section avatar><q-icon name="currency_exchange" /></q-item-section>
         <q-item-section>Currency Conversion</q-item-section>
@@ -198,7 +188,7 @@
       </q-item>
     </q-expansion-item>
 
-    <q-expansion-item icon="payments" label="Payments" dense expand-separator>
+    <q-expansion-item icon="payments" label="Payments" dense >
       <q-item clickable v-ripple to="/Payments" class="q-pl-lg">
         <q-item-section avatar><q-icon name="account_balance" /></q-item-section>
         <q-item-section>Payment Receipt</q-item-section>
@@ -209,7 +199,7 @@
       </q-item>
     </q-expansion-item>
 
-    <q-expansion-item icon="bar_chart" label="Reports" dense expand-separator>
+    <q-expansion-item icon="bar_chart" label="Reports" dense >
       <q-item clickable v-ripple to="/SalesRegister" class="q-pl-lg">
         <q-item-section>Sales Register</q-item-section>
       </q-item>
