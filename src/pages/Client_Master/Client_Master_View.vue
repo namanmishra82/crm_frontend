@@ -22,7 +22,7 @@
 
             <div class="q-pa-md">
               <q-list bordered class="rounded-borders">
-                <q-expansion-item>
+                <q-expansion-item default-opened>
                   <template v-slot:header>
                     <q-item-section avatar>
                       <q-avatar icon="info" color="primary" text-color="white" />
@@ -116,7 +116,7 @@
 
                 <q-separator />
 
-                <q-expansion-item>
+                <q-expansion-item default-opened>
                   <template v-slot:header>
                     <q-item-section avatar>
                       <q-avatar icon="contact_support" color="primary" text-color="white" />
@@ -187,7 +187,7 @@
 
                 <q-separator />
 
-                <q-expansion-item>
+                <q-expansion-item default-opened>
                   <template v-slot:header>
                     <q-item-section avatar>
                       <q-avatar icon="attractions" color="primary" text-color="white" />
@@ -255,7 +255,7 @@
                 </q-expansion-item>
                 <q-separator />
 
-                <q-expansion-item>
+                <q-expansion-item default-opened>
                   <template v-slot:header>
                     <q-item-section avatar>
                       <q-avatar icon="attractions" color="primary" text-color="white" />
@@ -322,7 +322,7 @@
                   </q-card>
                 </q-expansion-item>
                 <q-separator />
-                <q-expansion-item>
+                <q-expansion-item default-opened>
                   <template v-slot:header>
                     <q-item-section avatar>
                       <q-avatar icon="attractions" color="primary" text-color="white" />
