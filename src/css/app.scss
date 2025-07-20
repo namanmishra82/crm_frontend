@@ -53,6 +53,10 @@ body {
 .q-item__section .column.q-item__section--main .justify-center {
     padding-left: 9px;
 }
+
+.q-list.rounded-borders .q-expansion-item .q-item {
+    background-color: #f5f5f5;
+}
 .q-hoverable:hover {
     border-radius: 6px;
 }
@@ -118,9 +122,9 @@ body {
     margin-right: 5px;
 }
 .field-add-tab {
-    max-height: 600px;
-    overflow-y: auto;
-    height: 68vh;
+
+    height: calc(100vh - 250px);
+  overflow-y: auto;
 }
 a {
     font-size: 16px;

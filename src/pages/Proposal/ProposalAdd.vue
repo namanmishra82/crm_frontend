@@ -122,6 +122,12 @@
                                    :rows-per-page-options="[0]"
                                    flat
                                    bordered>
+                            <template v-slot:body-cell-product_type="props">
+                              <q-td :props="props" width="200">
+                                <q-select v-model="props.row.product_type" outlined :options="productTypeOptions" dense borderless />
+                              </q-td>
+                            </template>
+
                             <template v-slot:body-cell-name="props">
                               <q-td :props="props" width="400">
                                 <q-select v-model="props.row.name" outlined :options="productOptions" dense borderless />
@@ -248,14 +254,18 @@
 
   // Product options for the dropdown in the table
   const productOptions = ref(['MSOffice', 'XP', 'Linux', 'Windows Server', 'SQL Server']);
+  
+  // Product type options for the dropdown in the table
+  const productTypeOptions = ref(['Package', 'Add On', 'Other Charges']);
 
   const rows = ref([
-    { id: nextId++, name: 'MSOffice', rate: 250, quantity: 2 },
-    { id: nextId++, name: 'XP', rate: 300, quantity: 5 },
-    { id: nextId++, name: 'Linux', rate: 400, quantity: 1 },
+    { id: nextId++, product_type:"Package", name: 'MSOffice', rate: 250, quantity: 2 },
+    { id: nextId++, product_type:"Add On", name: 'XP', rate: 300, quantity: 5 },
+    { id: nextId++, product_type:"Add on", name: 'Linux', rate: 400, quantity: 1 },
   ]);
 
   const tableColumns = [
+    { name: 'product_type', label: 'Product Type', field: 'product_type', align: 'left' },  
     { name: 'name', label: 'Product', field: 'name', align: 'left' },
     { name: 'rate', label: 'Rate', field: 'rate', align: 'right' },
     { name: 'quantity', label: 'No Of Ids', field: 'quantity', align: 'right' },
@@ -265,7 +275,7 @@
 
   const addRow = () => {
     // New rows will have 'name' as null initially for the q-select
-    rows.value.push({ id: nextId++, name: null, rate: 0, quantity: 1 });
+    rows.value.push({ id: nextId++, product_type: null, name: null, rate: 0, quantity: 1 });
   };
 
   const removeRow = (idToRemove) => {

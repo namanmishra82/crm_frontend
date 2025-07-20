@@ -50,37 +50,8 @@
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                           <q-select dense outlined v-model="model" :options="options" label="Select Assigned To" />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <!--   Date Picker -->
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select Date" :hide-bottom-space="true">
-                            <template v-slot:append>
-                              <q-icon name="event" class="cursor-pointer">
-                                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                                  <q-date v-model="date">
-                                    <div class="row items-center justify-end">
-                                      <q-btn v-close-popup label="Close" color="primary" flat />
-                                    </div>
-                                  </q-date>
-                                </q-popup-proxy>
-                              </q-icon>
-                            </template>
-                          </q-input>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <!--   Date Picker -->
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select Date" :hide-bottom-space="true">
-                            <template v-slot:append>
-                              <q-icon name="event" class="cursor-pointer">
-                                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                                  <q-date v-model="date">
-                                    <div class="row items-center justify-end">
-                                      <q-btn v-close-popup label="Close" color="primary" flat />
-                                    </div>
-                                  </q-date>
-                                </q-popup-proxy>
-                              </q-icon>
-                            </template>
-                          </q-input>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="model" :options="Priority" label="Select Priority" />
                         </div>
                       </div>
                       <div class="row q-my-md q-col-gutter-md items-center">
@@ -91,9 +62,23 @@
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="text" label="Event Name" />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="Priority" label="Select Priority" />
+                                                <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                          <!--   Date Picker -->
+                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Event Date" :hide-bottom-space="true">
+                            <template v-slot:append>
+                              <q-icon name="event" class="cursor-pointer">
+                                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                                  <q-date v-model="date">
+                                    <div class="row items-center justify-end">
+                                      <q-btn v-close-popup label="Close" color="primary" flat />
+                                    </div>
+                                  </q-date>
+                                </q-popup-proxy>
+                              </q-icon>
+                            </template>
+                          </q-input>
                         </div>
+                        
                       </div>
 
                     </q-card-section>
@@ -233,43 +218,7 @@
                         </div>
 
                       </div>
-                      <div class="row q-my-md q-col-gutter-md items-center">
-
-                        <!--   Date Picker -->
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select Date" :hide-bottom-space="true">
-                            <template v-slot:append>
-                              <q-icon name="event" class="cursor-pointer">
-                                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                                  <q-date v-model="date">
-                                    <div class="row items-center justify-end">
-                                      <q-btn v-close-popup label="Close" color="primary" flat />
-                                    </div>
-                                  </q-date>
-                                </q-popup-proxy>
-                              </q-icon>
-                            </template>
-                          </q-input>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select Date" :hide-bottom-space="true">
-                            <template v-slot:append>
-                              <q-icon name="event" class="cursor-pointer">
-                                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                                  <q-date v-model="date">
-                                    <div class="row items-center justify-end">
-                                      <q-btn v-close-popup label="Close" color="primary" flat />
-                                    </div>
-                                  </q-date>
-                                </q-popup-proxy>
-                              </q-icon>
-                            </template>
-                          </q-input>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                        </div>
-
-                      </div>
+                      
                     </q-card-section>
                   </q-card>
                 </q-expansion-item>
