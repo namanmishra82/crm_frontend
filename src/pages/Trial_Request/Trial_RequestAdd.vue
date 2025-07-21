@@ -65,6 +65,7 @@
                                             :data="clients"
                                             :columns="columns"
                                             v-model="selectedClient"
+                                            :showSelected="false"
                                             @select="onClientSelect" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
@@ -72,14 +73,6 @@
                         </div>
 
                       </div>
-                      <div class="row q-my-md q-col-gutter-md items-center">
-                       
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
-                        </div>
-                     
-                      </div>
-
                     
                     </q-card-section>
                   </q-card>
@@ -164,17 +157,42 @@
                           <q-input dense outlined v-model="Number" label="Terminal No" maxlength="5" mask="##########" />
                         </div>
                       </div>
-                      <div class="row q-my-md q-col-gutter-md items-center">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
-                        </div>
-                      </div>
                     </q-card-section>
                   </q-card>
                 </q-expansion-item>
                 <q-separator />
 
-               
+               <q-separator />
+
+                <q-expansion-item default-opened>
+                  <template v-slot:header>
+                    <q-item-section avatar>
+                      <q-avatar icon="attractions" color="primary" text-color="white" />
+                    </q-item-section>
+
+                    <q-item-section>
+                      Remarks
+                    </q-item-section>
+                  </template>
+
+                  <q-card class="q-pa-md">
+                    <q-card-section>
+                      
+                      <div class="row q-col-gutter-md items-center">
+                        <div class="col-12">
+                          <q-input 
+                            type="textarea" 
+                            outlined 
+                            v-model="remarks" 
+                            label="Remarks" 
+                            autogrow 
+                            :rows="4" 
+                          />
+                        </div>
+                      </div>
+                    </q-card-section>
+                  </q-card>
+                </q-expansion-item>
               </q-list>
             </div>
           </div>
@@ -195,10 +213,10 @@
         text: '',
         date: '',
         Number: '',
-        message: '',
         password: '',
         model: null,
         selectedClient: null,
+        remarks: '',
         clients: [
           { id: 1, name: 'John Doe', email: 'john@example.com', company: 'Acme Inc.' },
           { id: 2, name: 'Jane Smith', email: 'jane@example.com', company: 'Globex Corp' },
