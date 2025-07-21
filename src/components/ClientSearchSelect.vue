@@ -50,7 +50,7 @@ export default {
     },
     showSelected: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   emits: ['update:modelValue', 'select'],
@@ -61,17 +61,17 @@ export default {
       selectedItem: this.modelValue,
       // Client data
       clients: [
-        { id: 1, name: 'John Doe', email: 'john@example.com', company: 'Acme Inc.' },
-        { id: 2, name: 'Jane Smith', email: 'jane@example.com', company: 'Globex Corp' },
-        { id: 3, name: 'Alice Brown', email: 'alice@example.com', company: 'Initech' },
-        { id: 4, name: 'Bob Johnson', email: 'bob@example.com', company: 'Umbrella LLC' },
-        { id: 5, name: 'Eve Davis', email: 'eve@example.com', company: 'Stark Industries' },
+        { id: 1, name: 'Acme Corporation', category: 'Enterprise', industry: 'Manufacturing' },
+        { id: 2, name: 'Globex Corporation', category: 'Enterprise', industry: 'Technology' },
+        { id: 3, name: 'Initech', category: 'SMB', industry: 'Software' },
+        { id: 4, name: 'Umbrella Corporation', category: 'Enterprise', industry: 'Pharmaceuticals' },
+        { id: 5, name: 'Stark Industries', category: 'Enterprise', industry: 'Defense' },
       ],
       // Client columns
       columns: [
-        { name: 'name', required: true, label: 'Name', align: 'left', field: 'name' },
-        { name: 'email', label: 'Email', align: 'left', field: 'email' },
-        { name: 'company', label: 'Company', align: 'left', field: 'company' },
+        { name: 'name', required: true, label: 'Account Name', align: 'left', field: 'name' },
+        { name: 'category', label: 'Category', align: 'left', field: 'category' },
+        { name: 'industry', label: 'Industry', align: 'left', field: 'industry' },
       ]
     }
   },

@@ -40,7 +40,7 @@
                           <q-input dense outlined v-model="text" label="Proposal Name" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Proposal Start Date" :hide-bottom-space="true">
+                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Proposal Date" :hide-bottom-space="true">
                             <template v-slot:append>
                               <q-icon name="event" class="cursor-pointer">
                                 <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -71,10 +71,11 @@
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <OpportunitySearchSelect label="Search Opportunity"
                                                    v-model="selectedOpportunity"
+                                                   :showSelected="false"
                                                    @select="onOpportunitySelect" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="ProposalType" label="Proposal Type" />
+                          <q-select dense outlined v-model="selectedProposalType" :options="ProposalType" label="Proposal Type" />
                         </div>
 
 
@@ -82,13 +83,10 @@
                       </div>
                       <div class="row q-my-md q-col-gutter-md items-center">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Proposal Date" :hide-bottom-space="true" :disable="isInputDisabled" />
+                          <q-select dense outlined v-model="selectedCompetitor" :options="competitors" label="Select Competitor to be Replaced" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Select Competitor to be Replaced " />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="Priority" label="Select Priority" />
+                          <q-select dense outlined v-model="selectedPriority" :options="Priority" label="Select Priority" />
                         </div>
                       </div>
                     </q-card-section>
@@ -193,16 +191,59 @@
                       <div class="row q-col-gutter-md items-center">
 
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select outlined
-                                    v-model="model"
-                                    multiple
-                                    :options="options"
-                                    counter
-                                    dense
-                                    hint="With counter"
-                                    label="Select Terms and conditions"/>
-                           
+                          <q-btn color="primary" label="Select Terms and Conditions" @click="openTermsDialog" />
                         </div>
+                        
+                        <div class="col-12">
+                          <q-table
+                            v-if="selectedTermsDetails.length > 0"
+                            :rows="selectedTermsDetails"
+                            :columns="[
+                              { name: 'name', label: 'Term', field: 'name', align: 'left' },
+                              { name: 'description', label: 'Standard Description', field: 'description', align: 'left' },
+                              { name: 'customDescription', label: 'Custom Description', field: 'customDescription', align: 'left' },
+                              { name: 'actions', label: 'Actions', field: 'actions', align: 'center' }
+                            ]"
+                            row-key="id"
+                            flat
+                            bordered
+                            class="q-mt-md">
+                            
+                            <template v-slot:body-cell-customDescription="props">
+                              <q-td :props="props">
+                                <q-input v-model="props.row.customDescription" outlined dense />
+                              </q-td>
+                            </template>
+                            
+                            <template v-slot:body-cell-actions="props">
+                              <q-td :props="props" class="text-center">
+                                <q-btn flat round icon="delete" color="red" @click="selectedTermsDetails = selectedTermsDetails.filter(term => term.id !== props.row.id)" />
+                              </q-td>
+                            </template>
+                          </q-table>
+                        </div>
+                      </div>
+                      
+                    </q-card-section>
+                  </q-card>
+                </q-expansion-item>
+                <q-separator />
+
+                <q-expansion-item default-opened>
+                  <template v-slot:header>
+                    <q-item-section avatar>
+                      <q-avatar icon="attractions" color="primary" text-color="white" />
+                    </q-item-section>
+
+                    <q-item-section>
+                      Delivery Schedule and Payment Terms
+                    </q-item-section>
+                  </template>
+
+                  <q-card class="q-pa-md">
+                    <q-card-section>
+                      
+                      <div class="row q-col-gutter-md items-center">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="text" label="Delivery Schedule " />
 
@@ -217,7 +258,35 @@
                   </q-card>
                 </q-expansion-item>
                 <q-separator />
+                <q-expansion-item default-opened>
+                  <template v-slot:header>
+                    <q-item-section avatar>
+                      <q-avatar icon="attractions" color="primary" text-color="white" />
+                    </q-item-section>
 
+                    <q-item-section>
+                      Remarks
+                    </q-item-section>
+                  </template>
+
+                  <q-card class="q-pa-md">
+                    <q-card-section>
+                      
+                      <div class="row q-col-gutter-md items-center">
+                        <div class="col-12">
+                          <q-input 
+                            type="textarea" 
+                            outlined 
+                            v-model="remarks" 
+                            label="Remarks" 
+                            autogrow 
+                            :rows="4" 
+                          />
+                        </div>
+                      </div>
+                    </q-card-section>
+                  </q-card>
+                </q-expansion-item>
               </q-list>
             </div>
           </div>
@@ -225,21 +294,73 @@
       </div>
     </q-card-section>
   </q-card>
+  
+  <!-- Terms and Conditions Dialog -->
+  <q-dialog v-model="termsDialogVisible" persistent>
+    <q-card style="min-width: 700px">
+      <q-card-section class="row items-center q-pb-none">
+        <div class="text-h6">Select Terms and Conditions</div>
+        <q-space />
+        <q-btn icon="close" flat round dense v-close-popup />
+      </q-card-section>
+      
+      <q-card-section>
+        <q-table
+          :rows="termsOptions"
+          :columns="[
+            { name: 'select', label: 'Select', field: 'select', align: 'center' },
+            { name: 'name', label: 'Term', field: 'name', align: 'left' },
+            { name: 'description', label: 'Description', field: 'description', align: 'left' }
+          ]"
+          row-key="id"
+          flat
+          bordered>
+          
+          <template v-slot:body-cell-select="props">
+            <q-td :props="props" class="text-center">
+              <q-checkbox v-model="props.row.selected" />
+            </q-td>
+          </template>
+        </q-table>
+      </q-card-section>
+      
+      <q-card-section align="right">
+        <q-btn color="primary" label="Select" @click="selectTerms" v-close-popup />
+      </q-card-section>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script setup>
   import { ref, computed } from 'vue';
   const ProposalType = ['New Business', 'Existing', 'Upsell'];
   const Priority = ['High', 'Medium', 'Low'];
-  const options = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']; // Common options for selects
+  const competitors = ['Microsoft', 'IBM', 'SAP', 'Salesforce', 'Oracle', 'Adobe', 'Workday', 'ServiceNow', 'Tableau', 'Zendesk'];
 
   const text = ref('');
-  const model = ref(null);
   const date = ref('');
-  const isInputDisabled = ref(true);
+  const remarks = ref('');
+  const termsDialogVisible = ref(false);
 
   const selectedClient = ref(null);
   const selectedOpportunity = ref(null);
+  const selectedProposalType = ref(null);
+  const selectedCompetitor = ref(null);
+  const selectedPriority = ref(null);
+  //const selectedTerms = ref([]);
+  
+  // Terms and conditions data
+  const termsOptions = ref([
+    { id: 1, name: 'Payment Terms', description: 'Payment due within 30 days of invoice', selected: false },
+    { id: 2, name: 'Delivery Terms', description: 'Delivery within 14 days of order confirmation', selected: false },
+    { id: 3, name: 'Warranty', description: '12 months warranty on all products', selected: false },
+    { id: 4, name: 'Support', description: '24/7 technical support included', selected: false },
+    { id: 5, name: 'Cancellation', description: 'Cancellation fee applies if cancelled within 7 days of delivery', selected: false },
+    { id: 6, name: 'Confidentiality', description: 'All information shared is confidential', selected: false },
+    { id: 7, name: 'Intellectual Property', description: 'All IP rights remain with the provider', selected: false }
+  ]);
+  
+  const selectedTermsDetails = ref([]);
 
   const onClientSelect = (client) => {
     console.log('Selected client:', client);
@@ -247,6 +368,27 @@
 
   const onOpportunitySelect = (opportunity) => {
     console.log('Selected opportunity:', opportunity);
+  };
+  
+  const openTermsDialog = () => {
+    // Reset selections
+    termsOptions.value.forEach(term => {
+      term.selected = selectedTermsDetails.value.some(detail => detail.id === term.id);
+    });
+    // Open the dialog to select terms
+    termsDialogVisible.value = true;
+  };
+  
+  const selectTerms = () => {
+    // When terms are selected from the dialog, create detailed entries for each
+    selectedTermsDetails.value = termsOptions.value
+      .filter(term => term.selected)
+      .map(term => ({
+        id: term.id,
+        name: term.name,
+        description: term.description,
+        customDescription: ''
+      }));
   };
 
   // --- Table Data and Configuration ---

@@ -50,27 +50,29 @@
                                               @select="onClientSelect" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Select Opportunity Source" />
-                        </div>
+                          <ContactPersonSearchSelect 
+                            label="Select Contact Person"
+                            v-model="selectedContact"
+                            :clientId="selectedClient?.id"
+                            @select="onContactSelect" />
+                        </div>                        
                       </div>
                       <div class="row q-my-md q-col-gutter-md items-center">
 
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Select Opportunity Status" />
+                          <q-select dense outlined v-model="selectedStatus" :options="options" label="Select Opportunity Status" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Select Assigned To" />
+                          <q-select dense outlined v-model="selectedUser" :options="users" label="Select Assigned To" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Select Competitor to be Replaced " />
-
-
+                          <q-select dense outlined v-model="selectedCompetitor" :options="competitors" label="Select Competitor to be Replaced" />
                         </div>
                       </div>
                       <div class="row q-my-md q-col-gutter-md items-center">
                         
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-select dense outlined v-model="model" :options="Priority" label="Select Priority" />
+                          <q-select dense outlined v-model="selectedPriority" :options="priorities" label="Select Priority" />
                         </div>
                         
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
@@ -88,38 +90,9 @@
                             </template>
                           </q-input>
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2 d-none">
 
-
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Date created" :hide-bottom-space="true">
-                            <template v-slot:append>
-                              <q-icon name="event" class="cursor-pointer">
-                                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                                  <q-date v-model="date">
-                                    <div class="row items-center justify-end">
-                                      <q-btn v-close-popup label="Close" color="primary" flat />
-                                    </div>
-                                  </q-date>
-                                </q-popup-proxy>
-                              </q-icon>
-                            </template>
-                          </q-input>
-                        </div>
-                          <div class="col-12 col-sm-6 col-md-4 col-lg-2 d-none">
-                             
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Created Date" :hide-bottom-space="true">
-                            <template v-slot:append>
-                              <q-icon name="event" class="cursor-pointer">
-                                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                                  <q-date v-model="date">
-                                    <div class="row items-center justify-end">
-                                      <q-btn v-close-popup label="Close" color="primary" flat />
-                                    </div>
-                                  </q-date>
-                                </q-popup-proxy>
-                              </q-icon>
-                            </template>
-                          </q-input>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="selectedSource" :options="opportunitySources" label="Select Opportunity Source" />
                         </div>
                       </div>
                     </q-card-section>
@@ -128,44 +101,12 @@
 
                 <q-separator />
 
-                <q-expansion-item default-opened>
-                  <template v-slot:header>
-                    <q-item-section avatar>
-                      <q-avatar icon="contact_support" color="primary" text-color="white" />
-                    </q-item-section>
-
-                    <q-item-section>
-                      Opportunity Value
-                    </q-item-section>
-                  </template>
-
-                  <q-card class="q-pa-md">
-
-                    <q-card-section>
-                      <div class="row q-col-gutter-md items-center">
-
-                        <!--   Date Picker -->
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Select Product" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="Number" label="No of IDs" maxlength="10" mask="##########" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="Number" label="Opportunity Amount" maxlength="10" mask="##########" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="text" label="Probability" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="text" label="Discount" />
-                        </div>
-                      </div>
-
-                    </q-card-section>
-
-                  </q-card>
-                </q-expansion-item>
+                <!-- Use the ProductValueTable component here -->
+                <ProductValueTable 
+                  title="Opportunity Value" 
+                  :initialRows="productRows" 
+                  @update:rows="updateProductRows" 
+                />
 
                 <q-separator />
 
@@ -189,18 +130,19 @@
                           <q-select dense outlined v-model="model" :options="options" label="Select Salutation" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="text" label="First Name" />
+                          <q-input dense outlined v-model="firstName" label="First Name" />
 
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                          <q-input dense outlined v-model="text" label="Last Name" />
+                          <q-input dense outlined v-model="lastName" label="Last Name" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <!--   Date Picker -->
-                          <q-input dense outlined v-model="text" label="Email Address" />
+                          <q-input dense outlined v-model="emailAddress" label="Email Address" />
                         </div>
 
                       </div>
+
                       <div class="row q-my-md q-col-gutter-md items-center">
 
                         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
@@ -259,9 +201,6 @@
                       <div class="row q-my-md q-col-gutter-md items-center">
 
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="text" label="LinkedIn Company" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
@@ -270,9 +209,10 @@
 
                       </div>
                     </q-card-section>
-                  </q-card>
+                    </q-card>
                 </q-expansion-item>
-                <q-separator />
+                    <q-separator />
+
                 <q-expansion-item default-opened>
                   <template v-slot:header>
                     <q-item-section avatar>
@@ -280,104 +220,114 @@
                     </q-item-section>
 
                     <q-item-section>
-                      Opportunity Status and Closure
+                      Remarks
                     </q-item-section>
                   </template>
 
-                  <q-card class="q-pa-md" style="max-height: 400px; overflow-y: auto;">
+                  <q-card class="q-pa-md">
                     <q-card-section>
+                      
                       <div class="row q-col-gutter-md items-center">
-
-                        <!--   Date Picker -->
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="opstatus" label="Select Opportunity Status" />
+                        <div class="col-12">
+                          <q-input 
+                            type="textarea" 
+                            outlined 
+                            v-model="remarks" 
+                            label="Remarks" 
+                            autogrow 
+                            :rows="4" 
+                          />
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Reason Won/Lost" type="textarea" autogrow :rows="3" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Closed Date" :hide-bottom-space="true">
-                            <template v-slot:append>
-                              <q-icon name="event" class="cursor-pointer">
-                                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                                  <q-date v-model="date">
-                                    <div class="row items-center justify-end">
-                                      <q-btn v-close-popup label="Close" color="primary" flat />
-                                    </div>
-                                  </q-date>
-                                </q-popup-proxy>
-                              </q-icon>
-                            </template>
-                          </q-input>
-                        </div>
-
-                      </div>
-                      <div class="row q-my-md q-col-gutter-md items-center">
-
-                        <!--   Date Picker -->
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense
-                                   outlined
-                                   v-model="text"
-                                   label="Competitor Analysis"
-                                   type="textarea"
-                                   :rows="3"
-                                   :autogrow="false" />
-                           
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Win Percentage " />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                        </div>
-
                       </div>
                     </q-card-section>
                   </q-card>
                 </q-expansion-item>
+                  
               </q-list>
             </div>
           </div>
         </div>
-
       </div>
     </q-card-section>
   </q-card>
 </template>
+
 <script>
-  /* eslint-disable vue/multi-word-component-names */
-  import ClientSearchSelect from '../../components/ClientSearchSelect.vue'
-  export default {
-    name: 'LeadPage',
-    components: {
-      ClientSearchSelect
+import ClientSearchSelect from '../../components/ClientSearchSelect.vue';
+import ContactPersonSearchSelect from '../../components/ContactPersonSearchSelect.vue';
+import ProductValueTable from '../../components/ProductValueTable.vue';
+
+export default {
+  name: 'OpportunityPage',
+  components: {
+    ClientSearchSelect,
+    ContactPersonSearchSelect,
+    ProductValueTable
+  },
+  data() {
+    return {
+      selectedClient: null,
+      selectedContact: null,
+      selectedCompetitor: null,
+      selectedUser: null,
+      selectedPriority: null,
+      selectedSource: null,
+      selectedStatus: null,
+      options: [
+        'New', 'Contacted', 'Qualified', 'Proposal Sent', 'Negotiation', 'Closed Won', 'Closed Lost', 'On Hold', 'Cancelled'
+      ],
+      competitors: [
+        'Microsoft', 'IBM', 'SAP', 'Salesforce', 'Oracle', 'Adobe', 'Workday', 'ServiceNow', 'Tableau', 'Zendesk'
+      ],
+      users: [
+        'John Smith', 'Sarah Johnson', 'Michael Brown', 'Emily Davis', 'David Wilson', 'Jessica Taylor', 'Robert Martinez'
+      ],
+      opportunitySources: [
+        'Website', 'Referral', 'Email Campaign', 'Trade Show', 'Cold Call', 'Social Media', 'Partner'
+      ],
+      priorities: [
+        'High', 'Medium', 'Low'
+      ],
+      opstatus: [
+        'Open', 'Closed-Won', 'Closed-Lost'
+      ],
+      optype: [
+        'New Business', 'Existing'
+      ],
+      text: '',
+      date: '',
+      model: null,
+      Number: '',
+      remarks: '', // Added remarks field he
+      // Contact information fields
+      firstName: '',
+      lastName: '',
+      emailAddress: '',
+      productRows: [
+        { id: 1, product_type: "Package", name: 'Equity', rate: 250, quantity: 2 },
+        { id: 2, product_type: "Add On", name: 'Mobile', rate: 300, quantity: 5 }
+      ]
+    };
+  },
+  methods: {
+    onClientSelect(client) {
+      console.log('Selected client:', client);
+      // Reset contact person when client changes
+      this.selectedContact = null;
     },
-    data() {
-      return {
-        selectedClient: null,
-        options: [
-          'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
-        ],
-        Priority: [
-          'High', 'Medium', 'Low'
-        ],
-        opstatus: [
-          'Open', 'Closed-Won', 'Closed-Lost'
-        ],
-        optype: [
-          'New Business', 'Existing'
-        ],
-        text: '',
-        date: '',
-        model: null,
-        Number: '',
-        message: ''
-      };
-    },
-    methods: {
-      onClientSelect(client) {
-        console.log('Selected client:', client)
+    onContactSelect(contact) {
+      console.log('Selected contact:', contact);
+      if (contact) {
+        // Split the name into first and last name
+        const nameParts = contact.name.split(' ');
+        this.firstName = nameParts[0] || '';
+        this.lastName = nameParts.slice(1).join(' ') || '';
+        this.emailAddress = contact.email || '';
       }
+    },
+    updateProductRows(rows) {
+      this.productRows = rows;
     }
   }
+}
 </script>
