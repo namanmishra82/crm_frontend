@@ -253,15 +253,15 @@
   let nextId = 1;
 
   // Product options for the dropdown in the table
-  const productOptions = ref(['MSOffice', 'XP', 'Linux', 'Windows Server', 'SQL Server']);
+  const productOptions = ref(['Equity', 'Mobile', 'Money', 'Money Plus', 'General']);
   
   // Product type options for the dropdown in the table
   const productTypeOptions = ref(['Package', 'Add On', 'Other Charges']);
 
   const rows = ref([
-    { id: nextId++, product_type:"Package", name: 'MSOffice', rate: 250, quantity: 2 },
-    { id: nextId++, product_type:"Add On", name: 'XP', rate: 300, quantity: 5 },
-    { id: nextId++, product_type:"Add on", name: 'Linux', rate: 400, quantity: 1 },
+    { id: nextId++, product_type:"Package", name: 'Equity', rate: 250, quantity: 2 },
+    { id: nextId++, product_type:"Add On", name: 'Mobile', rate: 300, quantity: 5 },
+    { id: nextId++, product_type:"Add on", name: 'Finance', rate: 400, quantity: 1 },
   ]);
 
   const tableColumns = [
