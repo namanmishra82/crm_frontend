@@ -106,7 +106,7 @@
                   <template v-if="col.name === 'Actions'">
                     <q-btn dense flat size="10px"
                            icon="edit"
-                           @click="editRow(props.row)" />
+                           @click="leadEdit" title="edit" />
                     <q-btn dense flat size="10px"
                            icon="delete"
                            @click="deleteRow(props.row)" />
@@ -139,6 +139,9 @@
 
       const leadadd = () => {
         router.push('/LeadAdd') // This route must be defined in your router
+      }
+      const leadEdit = () => {
+        router.push('/leadEdit') // This route must be defined in your router
       }
 
       const selected = ref([])
@@ -180,6 +183,7 @@
 
       return {
         leadadd,
+        leadEdit,
         selected,
         columns,
         rows,

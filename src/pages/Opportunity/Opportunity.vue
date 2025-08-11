@@ -106,13 +106,16 @@
                   <template v-if="col.name === 'Actions'">
                     <q-btn dense flat size="10px"
                            icon="edit"
-                           @click="editRow(props.row)" />
+                           @click="OpportunityEdit" title="Edit" />
                     <q-btn dense flat size="10px"
                            icon="delete"
-                           @click="deleteRow(props.row)" />
+                           @click="deleteRow(props.row)" title="Delete"/>
                     <q-btn dense flat size="10px"
                            icon="info"
-                           @click="infoRow(props.row)" />
+                           @click="infoRow(props.row)" title="Information" />
+                    <q-btn dense flat size="10px" 
+                           icon="flight"
+                           @click="Proposal" color="green" title="ProposalList" />
                   </template>
                   <template v-else>
                     {{ col.value }}
@@ -139,8 +142,15 @@
 
         const OpportunityAdd = () => {
         router.push('/OpportunityAdd') // This route must be defined in your router
+         
+        }
+      const OpportunityEdit = () => {
+        router.push('/OpportunityEdit') // This route must be defined in your router
+         
+        }
+      const Proposal = () => {
+        router.push('/Proposal') // This route must be defined in your router
       }
-
       const selected = ref([])
       const date = ref('2019/02/01')
       const model = ref(null)
@@ -184,6 +194,8 @@
 
       return {
         OpportunityAdd,
+        OpportunityEdit,
+        Proposal,
         selected,
         columns,
         rows,

@@ -1,4 +1,4 @@
-// app global css in SCSS form
+﻿// app global css in SCSS form
 body {
     background-color: #f4f9fd;
     font-family: "Roboto", sans-serif;
@@ -192,7 +192,64 @@ thead tr:first-child th {
 .d-none{
     display:none;
 }
+.progress-container {
+    display: flex;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    justify-content: end;
+}
 
+.step {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 25px 0 0 25px;
+    font-weight: 600;
+    color: white;
+}
+
+.step.active {
+    background-color: #28a745;
+}
+
+.step.active::before {
+    content: "✔";
+    margin-right: 8px;
+}
+
+.step.contact {
+    background-color: #004085;
+    color: white;
+    border-radius: 0;
+}
+
+.step.inactive {
+    background-color: #f1f1f1;
+    color: #888;
+    border-radius: 0;
+}
+
+.step:last-child {
+    border-radius: 0 25px 25px 0;
+}
+
+.arrow {
+    width: 0;
+    height: 0;
+    margin-right: -10px;
+    z-index: 1;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+}
+.arrow-working {
+    border-left: 10px solid #28a745;
+}
+.arrow-contact {
+    border-left: 10px solid #004085;
+}
+.arrow-inactive {
+    /*border-left: 10px solid #004085;*/
+}
 .my-sticky-header-table tfoot tr td {
     position: sticky;
     bottom: 0;
