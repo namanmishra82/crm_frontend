@@ -61,15 +61,17 @@
                           </q-input>
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <SearchableSelect label="Search Account"
-                                            :data="clients"
-                                            :columns="columns"
-                                            v-model="selectedClient"
-                                            :showSelected="false"
-                                            @select="onClientSelect" />
+                          <ClientSearchSelect 
+                            label="Search Account"
+                            v-model="selectedClient"
+                            @select="onClientSelect" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Request By" />
+                          <ContactPersonSearchSelect 
+                            label="Select Contact Person"
+                            v-model="selectedContact"
+                            :clientId="selectedClient?.id"
+                            @select="onContactSelect" />
                         </div>
 
                       </div>
@@ -96,14 +98,15 @@
                     <q-card-section>
                       <div class="row q-col-gutter-md items-center">
 
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Contact Person" />
-                        </div>
+                        
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-select dense outlined v-model="model" :options="options" label="Product" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="text" label="Add Ons" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined v-model="Number" label="Terminal No" maxlength="5" mask="##########" />
                         </div>
                       </div>
                       <div class="row q-my-md q-col-gutter-md items-center">
@@ -137,24 +140,16 @@
                             </template>
                           </q-input>
                         </div>
-
-
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="User Id" />
-
-                        </div>
                       </div>
                       <div class="row q-my-md q-col-gutter-md items-center">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-input dense outlined v-model="text" label="User Id" />
+                        </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="password" label="Password" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-input dense outlined v-model="text" label="Workstation Id " />
-
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="Number" label="Terminal No" maxlength="5" mask="##########" />
                         </div>
                       </div>
                     </q-card-section>
@@ -203,12 +198,19 @@
   </q-card>
 </template>
 <script>
+  import ClientSearchSelect from '../../components/ClientSearchSelect.vue'
+  import ContactPersonSearchSelect from '../../components/ContactPersonSearchSelect.vue'
+  
   export default {
-    name: 'LeadPage',
+    name: 'TrialRequestPage',
+    components: {
+      ClientSearchSelect,
+      ContactPersonSearchSelect
+    },
     data() {
       return {
         options: [
-          'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
+          'Equity', 'Finance', 'Mobile', 'Agri'
         ],
         text: '',
         date: '',
@@ -216,24 +218,16 @@
         password: '',
         model: null,
         selectedClient: null,
-        remarks: '',
-        clients: [
-          { id: 1, name: 'John Doe', email: 'john@example.com', company: 'Acme Inc.' },
-          { id: 2, name: 'Jane Smith', email: 'jane@example.com', company: 'Globex Corp' },
-          { id: 3, name: 'Alice Brown', email: 'alice@example.com', company: 'Initech' },
-          { id: 4, name: 'Bob Johnson', email: 'bob@example.com', company: 'Umbrella LLC' },
-          { id: 5, name: 'Eve Davis', email: 'eve@example.com', company: 'Stark Industries' },
-        ],
-        columns: [
-          { name: 'name', required: true, label: 'Name', align: 'left', field: 'name' },
-          { name: 'email', label: 'Email', align: 'left', field: 'email' },
-          { name: 'company', label: 'Company', align: 'left', field: 'company' },
-        ]
+        selectedContact: null,
+        remarks: ''
       };
     },
     methods: {
       onClientSelect(client) {
         console.log('Selected client:', client)
+      },
+      onContactSelect(contact) {
+        console.log('Selected contact:', contact)
       }
     }
   }
