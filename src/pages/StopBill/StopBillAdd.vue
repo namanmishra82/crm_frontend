@@ -13,19 +13,16 @@
         <q-btn color="primary text-capitalize" label="Save" icon="save" />
       </div>
       <div class="text-subtitle2">
-        Stop Bill
-        Management
+        Stop Bill Management
       </div>
     </q-card-section>
 
     <q-separator dark inset />
 
-    <q-card-section class="q-px-none" >
+    <q-card-section class="q-px-none">
       <div class="q-px-none field-add-tab">
         <div class="row q-col-gutter-md items-center">
           <div class="col-12 col-sm-6 col-md-4 col-lg-12">
-            <!-- Date Picker goes here -->
-
             <div class="q-pa-md">
               <q-list bordered class="rounded-borders">
                 <q-expansion-item default-opened>
@@ -33,33 +30,33 @@
                     <q-item-section avatar>
                       <q-avatar icon="info" color="primary" text-color="white" />
                     </q-item-section>
-
                     <q-item-section>
-                      Request information
+                      Request Information
                     </q-item-section>
-
-
                   </template>
 
                   <q-card class="q-pa-md">
                     <q-card-section>
                       <div class="row q-col-gutter-md items-center">
-
-                        <!--   Date Picker -->
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Select Client" />
+                          <AccountSearchSelect 
+                            label="Search Account"
+                            v-model="selectedAccount"
+                            @select="onAccountSelect" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="Status" label="Select SMS Id" />
+                          <SmsIdMultiSelect 
+                            label="Select SMS IDs"
+                            v-model="selectedSmsIds"
+                            @change="onSmsIdsChange"
+                            :show-selected-in-form="false" />
                         </div>
-
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <!--   Date Picker -->
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Select Effective From" :hide-bottom-space="true">
+                          <q-input dense outlined v-model="effectiveDate" mask="date" :rules="['date']" label="Select Effective From" :hide-bottom-space="true">
                             <template v-slot:append>
                               <q-icon name="event" class="cursor-pointer">
                                 <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                                  <q-date v-model="date">
+                                  <q-date v-model="effectiveDate">
                                     <div class="row items-center justify-end">
                                       <q-btn v-close-popup label="Close" color="primary" flat />
                                     </div>
@@ -70,20 +67,62 @@
                           </q-input>
                         </div>
                       </div>
-                      <div class="row q-my-md q-col-gutter-md items-center">
-
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="options" label="Reason for Disconnect" />
+                      
+                      <!-- Selected SMS IDs Display Row -->
+                      <div v-if="selectedSmsIds.length > 0" class="row q-mt-md">
+                        <div class="col-12">
+                          <q-table
+                            :rows="selectedSmsIds"
+                            :columns="smsDisplayColumns"
+                            row-key="id"
+                            dense
+                            flat
+                            hide-bottom
+                            class="selected-sms-table">
+                            <template v-slot:body-cell-actions="props">
+                              <q-td :props="props">
+                                <q-btn flat round icon="close" size="sm" color="red" @click="removeSmsId(props.row)" />
+                              </q-td>
+                            </template>
+                          </q-table>
                         </div>
-
+                      </div>
+                      <div class="row q-my-md q-col-gutter-md items-center">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined type="textarea" v-model="message" placeholder="Comment" rows="2" />
+                          <q-select dense outlined v-model="selectedReason" :options="disconnectReasons" label="Reason for Disconnect" />
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                           <q-btn color="primary text-capitalize" label="Upload" icon="arrow_upload_ready" />
                         </div>
                       </div>
+                    </q-card-section>
+                  </q-card>
+                </q-expansion-item>
 
+                <q-expansion-item default-opened>
+                  <template v-slot:header>
+                    <q-item-section avatar>
+                      <q-avatar icon="attractions" color="primary" text-color="white" />
+                    </q-item-section>
+                    <q-item-section>
+                      Remarks
+                    </q-item-section>
+                  </template>
+
+                  <q-card class="q-pa-md">
+                    <q-card-section>
+                      <div class="row q-col-gutter-md items-center">
+                        <div class="col-12">
+                          <q-input 
+                            type="textarea" 
+                            outlined 
+                            v-model="remarks" 
+                            label="Remarks" 
+                            autogrow 
+                            :rows="4" 
+                          />
+                        </div>
+                      </div>
                     </q-card-section>
                   </q-card>
                 </q-expansion-item>
@@ -91,42 +130,65 @@
             </div>
           </div>
         </div>
-
       </div>
     </q-card-section>
   </q-card>
 </template>
 <script>
+import AccountSearchSelect from '../../components/AccountSearchSelect.vue'
+import SmsIdMultiSelect from '../../components/SmsIdMultiSelect.vue'
 
-  import { ref } from 'vue'
-  export default {    
-    name: 'FileUploader',
-    data() {
-      return {
-        headers: [
-          {
-            name: 'X-Custom-Timestamp',
-            value: String(Date.now())
-          }
-        ],
-        val: ref(true),
-        Status: [
-          'New', 'Contacted', 'Qualified', 'Nurturing', 'Disqualified', 'Converted'
-        ],
-        Priority: [
-          'High', 'Medium', 'Low' 
-        ],
-        Complimentarym: [
-          '1', '2', '3', '4', '5', '6', '7', '8', '9' 
-        ],
-        Timeframe: [
-          'Immediate', '1-3 Months', '3-6 Months', '6+ Months'
-        ],
-        options: [
-          'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
-        ],
-        text: ''
-      };
+export default {
+  name: 'StopBillAdd',
+  components: {
+    AccountSearchSelect,
+    SmsIdMultiSelect
+  },
+  data() {
+    return {
+      selectedAccount: null,
+      selectedSmsIds: [],
+      effectiveDate: '',
+      selectedReason: null,
+      remarks: '',
+      disconnectReasons: [
+        'Customer Request',
+        'Non-Payment',
+        'Service Migration',
+        'Technical Issues',
+        'Contract Expiry',
+        'Business Closure',
+        'Other'
+      ],
+      smsDisplayColumns: [
+        { name: 'sms_id', label: 'SMS ID', field: 'sms_id', align: 'left' },
+        { name: 'name', label: 'Name', field: 'name', align: 'left' },
+        { name: 'package', label: 'Package', field: 'package', align: 'left' },
+        { name: 'last_invoice_date', label: 'Last Invoice Date', field: 'last_invoice_date', align: 'left' },
+        { name: 'actions', label: 'Actions', field: 'actions', align: 'center' }
+      ]
+    }
+  },
+  methods: {
+    onAccountSelect(account) {
+      console.log('Selected account:', account)
+    },
+    onSmsIdsChange(smsIds) {
+      console.log('Selected SMS IDs:', smsIds)
+    },
+    removeSmsId(smsId) {
+      const index = this.selectedSmsIds.findIndex(item => item.id === smsId.id)
+      if (index > -1) {
+        this.selectedSmsIds.splice(index, 1)
+      }
     }
   }
+}
 </script>
+
+<style scoped>
+.selected-sms-table {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+</style>

@@ -15,15 +15,28 @@ onMounted(() => {
   new Chart(chartCanvas.value, {
     type: 'pie',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green'],
+      labels: ['Data Feed', 'Terminal', 'Consulting', 'Support'],
       datasets: [{
-        label: 'Votes',
-        data: [12, 19, 3, 5],
-        backgroundColor: ['#f87171', '#60a5fa', '#facc15', '#34d399']
+        label: 'Sales by Product',
+        data: [450, 320, 180, 150],
+        backgroundColor: ['#1976d2', '#388e3c', '#f57c00', '#7b1fa2']
       }]
     },
     options: {
-      responsive: true
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Sales by Product Type ($K)'
+        },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              return `${context.label}: $${context.raw}K`
+            }
+          }
+        }
+      }
     }
   })
 })

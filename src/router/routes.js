@@ -13,6 +13,8 @@ const routes = [
       { path: 'leadEdit', component: () => import('pages/Lead/leadEdit.vue') },
       { path: 'Proposal', component: () => import('pages/Proposal/Proposal.vue') },
       { path: 'ProposalAdd', component: () => import('pages/Proposal/ProposalAdd.vue') },
+      { path: 'Subscription', component: () => import('pages/Subscription/Subscription.vue') },
+      { path: 'SubscriptionAdd', component: () => import('pages/Subscription/SubscriptionAdd.vue') },
       { path: 'New_Subscription', component: () => import('pages/New_Subscription/New_Subscription.vue') },
       { path: 'New_SubscriptionAdd', component: () => import('pages/New_Subscription/New_SubscriptionAdd.vue') },
       { path: 'Trial_Request', component: () => import('pages/Trial_Request/Trial_Request.vue') },
@@ -41,7 +43,13 @@ const routes = [
       { path: 'OpportunityAdd', component: () => import('pages/Opportunity/OpportunityAdd.vue')},
       { path: 'OpportunityEdit', component: () => import('pages/Opportunity/OpportunityEdit.vue')},
       { path: 'Smart_Login_Import', component: () => import('pages/Smart_Login_Import/Smart_Login_Import.vue') },
-      { path: 'Smart_Login_ImportAdd', component: () => import('pages/Smart_Login_Import/Smart_Login_ImportAdd.vue') }
+      { path: 'Smart_Login_ImportAdd', component: () => import('pages/Smart_Login_Import/Smart_Login_ImportAdd.vue') },
+      { path: 'UserGroups', component: () => import('pages/Security/UserGroups/UserGroups.vue') },
+      { path: 'UserGroupAdd', component: () => import('pages/Security/UserGroups/UserGroupAdd.vue') },
+      { path: 'UserGroupEdit', component: () => import('pages/Security/UserGroups/UserGroupEdit.vue') },
+      { path: 'Users', component: () => import('pages/Security/Users/Users.vue') },
+      { path: 'UserAdd', component: () => import('pages/Security/Users/UserAdd.vue') },
+      { path: 'UserEdit', component: () => import('pages/Security/Users/UserEdit.vue') }
     ]
   },
 

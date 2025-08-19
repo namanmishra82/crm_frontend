@@ -12,15 +12,22 @@
 
   onMounted(() => {
     new Chart(chartCanvas.value, {
-      type: 'bar',
+      type: 'line',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green'],
+        labels: ['Q1 2023', 'Q2 2023', 'Q3 2023', 'Q4 2023', 'Q1 2024', 'Q2 2024'],
         datasets: [{
-          label: 'Votes',
-          data: [12, 19, 3, 5],
-          backgroundColor: ['#f87171', '#60a5fa', '#facc15', '#34d399'],
-          borderRadius: 6,
-          borderSkipped: false
+          label: 'Sales Target',
+          data: [800, 850, 900, 950, 1000, 1050],
+          borderColor: '#ff9800',
+          backgroundColor: 'transparent',
+          borderWidth: 2
+        }, {
+          label: 'Actual Sales',
+          data: [750, 920, 880, 1020, 980, 1100],
+          borderColor: '#4caf50',
+          backgroundColor: 'rgba(76, 175, 80, 0.1)',
+          borderWidth: 2,
+          fill: true
         }]
       },
       options: {
@@ -28,12 +35,12 @@
         plugins: {
           title: {
             display: true,
-            text: 'Votes by Color'
+            text: 'Sales Performance vs Target'
           },
           tooltip: {
             callbacks: {
               label: function (context) {
-                return `${context.label}: ${context.raw} votes`
+                return `${context.dataset.label}: $${context.raw}K`
               }
             }
           }
@@ -43,13 +50,13 @@
             beginAtZero: true,
             title: {
               display: true,
-              text: 'Votes'
+              text: 'Revenue ($K)'
             }
           },
           x: {
             title: {
               display: true,
-              text: 'Colors'
+              text: 'Quarter'
             }
           }
         }

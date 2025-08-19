@@ -15,15 +15,30 @@ onMounted(() => {
   new Chart(chartCanvas.value, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green'],
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
       datasets: [{
-        label: 'Votes',
-        data: [12, 19, 3, 5],
-        backgroundColor: ['#f87171', '#60a5fa', '#facc15', '#34d399']
+        label: 'Monthly Sales ($K)',
+        data: [120, 190, 300, 250, 220, 350],
+        backgroundColor: '#1976d2'
       }]
     },
     options: {
-      responsive: true
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Monthly Sales Revenue'
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Revenue ($K)'
+          }
+        }
+      }
     }
   })
 })

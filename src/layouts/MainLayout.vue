@@ -82,6 +82,11 @@
         <q-item-section>Proposal</q-item-section>
       </q-item>
 
+      <q-item clickable v-ripple to="/Subscription" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="subscriptions" /></q-item-section>
+        <q-item-section>Subscription Form</q-item-section>
+      </q-item>
+
       <q-item clickable v-ripple to="/Smart_Login_Import" class="q-pl-lg">
         <q-item-section avatar><q-icon name="cloud_download" /></q-item-section>
         <q-item-section>Smart Login Import</q-item-section>
@@ -245,6 +250,17 @@
       </q-item>
       <q-item clickable v-ripple to="/AuditReports" class="q-pl-lg">
         <q-item-section>Audit Reports</q-item-section>
+      </q-item>
+    </q-expansion-item>
+
+    <q-expansion-item icon="security" label="Security" dense >
+      <q-item clickable v-ripple to="/UserGroups" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="group" /></q-item-section>
+        <q-item-section>User Groups</q-item-section>
+      </q-item>
+      <q-item clickable v-ripple to="/Users" class="q-pl-lg">
+        <q-item-section avatar><q-icon name="person" /></q-item-section>
+        <q-item-section>Users</q-item-section>
       </q-item>
     </q-expansion-item>
   </q-list>

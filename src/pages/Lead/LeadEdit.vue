@@ -244,6 +244,73 @@
                     </q-item-section>
 
                     <q-item-section>
+                      Follow Up Activity
+                    </q-item-section>
+                  </template>
+
+                  <q-card class="q-pa-md" style="max-height: 400px; overflow-y: auto;">
+                    <q-card-section>
+                      <div class="row q-my-md q-col-gutter-md items-center">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                          <q-checkbox v-model="hasNextActivity" label="Follow up Activity" @update:model-value="onNextActivityChange" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                          
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <q-select dense outlined v-model="followUpActivityType" :options="activityTypes" label="Select Follow up activity Type" :disable="!hasNextActivity" />
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                          <div class="row q-col-gutter-sm">
+                            <div class="col-6">
+                              <q-input dense outlined v-model="followUpDate" label="Follow up Date" :disable="!hasNextActivity" :hide-bottom-space="true">
+                                <template v-slot:append>
+                                  <q-icon name="event" class="cursor-pointer">
+                                    <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                                      <q-date v-model="followUpDate">
+                                        <div class="row items-center justify-end">
+                                          <q-btn v-close-popup label="Close" color="primary" flat />
+                                        </div>
+                                      </q-date>
+                                    </q-popup-proxy>
+                                  </q-icon>
+                                </template>
+                              </q-input>
+                            </div>
+                            <div class="col-6">
+                              <q-input dense outlined v-model="followUpTime" label="Follow up Time" :disable="!hasNextActivity" :hide-bottom-space="true">
+                                <template v-slot:append>
+                                  <q-icon name="access_time" class="cursor-pointer">
+                                    <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                                      <q-time v-model="followUpTime" format24h>
+                                        <div class="row items-center justify-end">
+                                          <q-btn v-close-popup label="Close" color="primary" flat />
+                                        </div>
+                                      </q-time>
+                                    </q-popup-proxy>
+                                  </q-icon>
+                                </template>
+                              </q-input>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      
+                    </q-card-section>
+                  </q-card>
+
+                  
+                </q-expansion-item>
+                <q-separator />
+
+                <q-expansion-item default-opened>
+                  <template v-slot:header>
+                    <q-item-section avatar>
+                      <q-avatar icon="attractions" color="primary" text-color="white" />
+                    </q-item-section>
+
+                    <q-item-section>
                       Remarks
                     </q-item-section>
                   </template>
@@ -305,6 +372,13 @@
           { name: 'email', label: 'Email', align: 'left', field: 'email' },
           { name: 'company', label: 'Company', align: 'left', field: 'company' },
         ],
+        hasNextActivity: true,
+        followUpDate: '2025/06/15',
+        followUpTime: '10:00',
+        followUpActivityType: 'Call',
+        activityTypes: [
+          'Call', 'Email', 'Meeting', 'Demo', 'Proposal', 'Follow-up'
+        ],
         text: '',
         date: '',
         Number: '',
@@ -315,6 +389,14 @@
     methods: {
       onClientSelect(client) {
         console.log('Selected client:', client)
+      },
+      onNextActivityChange(value) {
+        console.log('Next activity:', value);
+        if (!value) {
+          this.followUpDate = '';
+          this.followUpTime = '';
+          this.followUpActivityType = null;
+        }
       }
     }
   }

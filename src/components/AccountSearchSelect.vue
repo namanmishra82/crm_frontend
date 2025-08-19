@@ -1,0 +1,123 @@
+<template>
+  <div class="searchable-select">
+    <q-input
+      dense
+      outlined
+      v-model="search"
+      :label="label"
+      @focus="showDropdown"
+      @input="showDropdown"
+      ref="searchInput">
+      <template v-slot:append>
+        <q-icon name="search" />
+      </template>
+    </q-input>
+
+    <q-card v-if="dropdown" class="dropdown-card">
+      <q-table
+        :rows="filteredData"
+        :columns="columns"
+        row-key="id"
+        dense
+        flat
+        hide-bottom
+        separator="horizontal"
+        @row-click="selectItem">
+      </q-table>
+    </q-card>
+
+    <div v-if="selectedItem && showSelected" class="q-mt-md">
+      <strong>Selected:</strong>
+      <div v-for="col in columns" :key="col.name">
+        {{ col.label }}: {{ selectedItem[col.field] }}
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'AccountSearchSelect',
+  props: {
+    label: {
+      type: String,
+      default: 'Search Account'
+    },
+    modelValue: {
+      type: Object,
+      default: null
+    },
+    showSelected: {
+      type: Boolean,
+      default: false
+    }
+  },
+  emits: ['update:modelValue', 'select'],
+  data() {
+    return {
+      search: '',
+      dropdown: false,
+      selectedItem: this.modelValue,
+      accounts: [
+        { id: 1, name: 'Acme Corporation', category: 'Enterprise', industry: 'Manufacturing' },
+        { id: 2, name: 'Globex Corporation', category: 'Enterprise', industry: 'Technology' },
+        { id: 3, name: 'Initech', category: 'SMB', industry: 'Software' },
+        { id: 4, name: 'Umbrella Corporation', category: 'Enterprise', industry: 'Pharmaceuticals' },
+        { id: 5, name: 'Stark Industries', category: 'Enterprise', industry: 'Defense' },
+      ],
+      columns: [
+        { name: 'name', required: true, label: 'Account Name', align: 'left', field: 'name' },
+        { name: 'category', label: 'Category', align: 'left', field: 'category' },
+        { name: 'industry', label: 'Industry', align: 'left', field: 'industry' },
+      ]
+    }
+  },
+  computed: {
+    filteredData() {
+      const term = this.search.toLowerCase()
+      if (!term) return this.accounts
+      
+      return this.accounts.filter(item => {
+        return this.columns.some(col => {
+          const value = item[col.field]
+          return value && value.toString().toLowerCase().includes(term)
+        })
+      })
+    }
+  },
+  methods: {
+    selectItem(evt, row) {
+      this.selectedItem = row
+      this.search = row[this.columns[0].field] || row.name || ''
+      this.dropdown = false
+      this.$emit('update:modelValue', row)
+      this.$emit('select', row)
+    },
+    showDropdown() {
+      this.dropdown = true
+    }
+  },
+  mounted() {
+    document.addEventListener('click', (e) => {
+      if (!this.$el.contains(e.target)) {
+        this.dropdown = false
+      }
+    })
+  }
+}
+</script>
+
+<style scoped>
+.searchable-select {
+  position: relative;
+}
+
+.dropdown-card {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 4px;
+}
+</style>

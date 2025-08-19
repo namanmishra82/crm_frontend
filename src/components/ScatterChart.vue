@@ -16,42 +16,54 @@
       type: 'scatter',
       data: {
         datasets: [{
-          label: 'Votes',
+          label: 'Opportunities',
           data: [
-            { x: 0, y: 12 },  // Red
-            { x: 1, y: 19 },  // Blue
-            { x: 2, y: 3 },   // Yellow
-            { x: 3, y: 5 }    // Green
+            { x: 25, y: 20 },
+            { x: 45, y: 35 },
+            { x: 65, y: 50 },
+            { x: 80, y: 75 },
+            { x: 90, y: 85 },
+            { x: 30, y: 15 },
+            { x: 55, y: 40 },
+            { x: 75, y: 65 }
           ],
-          backgroundColor: ['#f87171', '#60a5fa', '#facc15', '#34d399'],
-          pointRadius: 6
+          backgroundColor: '#ff9800',
+          borderColor: '#f57c00',
+          pointRadius: 8,
+          pointHoverRadius: 10
         }]
       },
       options: {
         responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Deal Size vs Win Probability'
+          },
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                return `Deal Size: $${context.raw.x}K, Win Probability: ${context.raw.y}%`
+              }
+            }
+          }
+        },
         scales: {
           x: {
             title: {
               display: true,
-              text: 'Label Index (0 = Red, etc.)'
-            }
+              text: 'Deal Size ($K)'
+            },
+            min: 0,
+            max: 100
           },
           y: {
             title: {
               display: true,
-              text: 'Votes'
-            }
-          }
-        },
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label: function (context) {
-                const labels = ['Red', 'Blue', 'Yellow', 'Green']
-                const index = context.dataIndex
-                return `${labels[index]}: ${context.raw.y} votes`
-              }
-            }
+              text: 'Win Probability (%)'
+            },
+            min: 0,
+            max: 100
           }
         }
       }

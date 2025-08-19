@@ -35,8 +35,20 @@
                 </template>
 
                 <template v-slot:body-cell-rate="props">
+                  <q-td :props="props" width="200" class="text-right">
+                    {{ props.row.rate }}
+                  </q-td>
+                </template>
+
+                <template v-slot:body-cell-quoted_price="props">
                   <q-td :props="props" width="200">
-                    <q-input v-model.number="props.row.rate" input-class="text-right" type="number" outlined dense borderless />
+                    <q-input v-model.number="props.row.quoted_price" input-class="text-right" type="number" outlined dense borderless />
+                  </q-td>
+                </template>
+
+                <template v-slot:body-cell-discount="props">
+                  <q-td :props="props" width="150" class="text-right">
+                    {{ (props.row.rate - props.row.quoted_price) || 0 }}
                   </q-td>
                 </template>
 
@@ -46,9 +58,15 @@
                   </q-td>
                 </template>
 
+                <template v-slot:body-cell-currency="props">
+                  <q-td :props="props" width="100" class="text-center">
+                    {{ props.row.currency }}
+                  </q-td>
+                </template>
+
                 <template v-slot:body-cell-total="props">
                   <q-td :props="props" width="200" outlined>
-                    {{ (props.row.rate * props.row.quantity) || 0 }}
+                    {{ (props.row.quoted_price * props.row.quantity) || 0 }}
                   </q-td>
                 </template>
 
@@ -63,11 +81,7 @@
                   <q-btn label="Add Row" icon="add" color="primary" @click="addRow" />
                 </div>
 
-                <div class="q-mt-md text-right">
-                  <div>Subtotal: <strong>{{ subtotal }}</strong></div>
-                  <div>Tax (18%): <strong>{{ tax }}</strong></div>
-                  <div>Grand Total: <strong>{{ grandTotal }}</strong></div>
-                </div>
+
               </div>
             </div>
           </div>
@@ -95,34 +109,28 @@ export default {
       productOptions: ['Equity', 'Mobile', 'Finance', 'Agri'],
       productTypeOptions: ['Package', 'Add On', 'Other Charges'],
       rows: this.initialRows.length > 0 ? this.initialRows : [
-        { id: 1, product_type: "Package", name: 'Equity', rate: 250, quantity: 2 },
-        { id: 2, product_type: "Add On", name: 'Mobile', rate: 300, quantity: 5 }
+        { id: 1, product_type: "Package", name: 'Equity', rate: 250, quoted_price: 250, quantity: 2, currency: 'INR' },
+        { id: 2, product_type: "Add On", name: 'Mobile', rate: 300, quoted_price: 300, quantity: 5, currency: 'USD' }
       ],
       tableColumns: [
         { name: 'product_type', label: 'Product Type', field: 'product_type', align: 'left' },  
         { name: 'name', label: 'Product', field: 'name', align: 'left' },
-        { name: 'rate', label: 'Rate', field: 'rate', align: 'right' },
+        { name: 'rate', label: 'MRP', field: 'rate', align: 'right' },
+        { name: 'quoted_price', label: 'Quoted Price', field: 'quoted_price', align: 'right' },
+        { name: 'discount', label: 'Discount', field: 'discount', align: 'right' },
         { name: 'quantity', label: 'No Of Ids', field: 'quantity', align: 'right' },
+        { name: 'currency', label: 'Currency', field: 'currency', align: 'center' },
         { name: 'total', label: 'Total', field: 'total', align: 'right' },
         { name: 'actions', label: '', field: 'actions', align: 'center' }
       ]
     };
   },
-  computed: {
-    subtotal() {
-      return this.rows.reduce((acc, row) => acc + (parseFloat(row.rate || 0) * parseFloat(row.quantity || 0)), 0).toFixed(2);
-    },
-    tax() {
-      return (parseFloat(this.subtotal) * 0.18).toFixed(2);
-    },
-    grandTotal() {
-      return (parseFloat(this.subtotal) + parseFloat(this.tax)).toFixed(2);
-    }
-  },
+
   methods: {
     addRow() {
       const maxId = this.rows.reduce((max, row) => Math.max(max, row.id), 0);
-      this.rows.push({ id: maxId + 1, product_type: null, name: null, rate: 0, quantity: 1 });
+      const currency = this.rows.length % 2 === 0 ? 'INR' : 'USD';
+      this.rows.push({ id: maxId + 1, product_type: null, name: null, rate: 0, quoted_price: 0, quantity: 1, currency: currency });
       this.$emit('update:rows', this.rows);
     },
     removeRow(idToRemove) {
