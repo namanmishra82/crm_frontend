@@ -48,7 +48,7 @@
               <q-item clickable v-close-popup>
                 <q-item-section>Profile</q-item-section>
               </q-item>
-              <q-item clickable v-close-popup>
+              <q-item clickable v-close-popup @click="logout">
                 <q-item-section>Logout</q-item-section>
               </q-item>
             </q-list>
@@ -65,25 +65,25 @@
     <q-item>
       <q-input dense outlined v-model="text" label="Search Menu" style="width:100%;" />
     </q-item>
-    <q-expansion-item icon="group" label="CRM" dense default-opened>
+    <q-expansion-item icon="business_center" label="CRM" dense default-opened>
      
       <q-item clickable v-ripple to="/Lead" class="q-pl-lg">
-        <q-item-section avatar><q-icon name="layers" /></q-item-section>
+        <q-item-section avatar><q-icon name="person_search" /></q-item-section>
         <q-item-section>Leads</q-item-section>
       </q-item>
 
       <q-item clickable v-ripple to="/Opportunity" class="q-pl-lg">
-        <q-item-section avatar><q-icon name="online_prediction" /></q-item-section>
+        <q-item-section avatar><q-icon name="trending_up" /></q-item-section>
         <q-item-section>Opportunities</q-item-section>
       </q-item>
 
       <q-item clickable v-ripple to="/Proposal" class="q-pl-lg">
-        <q-item-section avatar><q-icon name="flight" /></q-item-section>
+        <q-item-section avatar><q-icon name="description" /></q-item-section>
         <q-item-section>Proposal</q-item-section>
       </q-item>
 
       <q-item clickable v-ripple to="/Subscription" class="q-pl-lg">
-        <q-item-section avatar><q-icon name="subscriptions" /></q-item-section>
+        <q-item-section avatar><q-icon name="card_membership" /></q-item-section>
         <q-item-section>Subscription Form</q-item-section>
       </q-item>
 
@@ -92,53 +92,53 @@
         <q-item-section>Smart Login Import</q-item-section>
       </q-item>
       <q-item clickable v-ripple to="/Trial_Request" class="q-pl-lg">
-        <q-item-section avatar><q-icon name="person" /></q-item-section>
+        <q-item-section avatar><q-icon name="free_breakfast" /></q-item-section>
         <q-item-section>Trial Management</q-item-section>
       </q-item>
       <q-item clickable v-ripple to="/Trial_Extend" class="q-pl-lg">
-        <q-item-section avatar><q-icon name="person" /></q-item-section>
+        <q-item-section avatar><q-icon name="schedule" /></q-item-section>
         <q-item-section>Trial Extend</q-item-section>
       </q-item>
       <q-item clickable v-ripple to="/Action_Log" class="q-pl-lg">
-        <q-item-section avatar><q-icon name="timeline" /></q-item-section>
+        <q-item-section avatar><q-icon name="history" /></q-item-section>
         <q-item-section>Action Log</q-item-section>
       </q-item>
     </q-expansion-item>
 
     
-    <q-expansion-item icon="assignment" label="Requests" dense >
+    <q-expansion-item icon="request_quote" label="Requests" dense >
       <q-item clickable v-ripple to="/New_Subscription" class="q-pl-lg">
-        <q-item-section avatar><q-icon name="workspace_premium" /></q-item-section>
+        <q-item-section avatar><q-icon name="add_circle" /></q-item-section>
         <q-item-section>New Subscription</q-item-section>
       </q-item>
 
       <q-item clickable v-ripple to="/Commercial" class="q-pl-lg">
-        <q-item-section avatar><q-icon name="receipt" /></q-item-section>
+        <q-item-section avatar><q-icon name="business" /></q-item-section>
         <q-item-section>Change Bill Commercial</q-item-section>
       </q-item>
 
       <q-item clickable v-ripple to="/NonCommercial" class="q-pl-lg">
-        <q-item-section avatar><q-icon name="receipt" /></q-item-section>
+        <q-item-section avatar><q-icon name="home" /></q-item-section>
         <q-item-section>Change Bill Non-Commercial</q-item-section>
       </q-item>
 
       <q-item clickable v-ripple to="/StopBill" class="q-pl-lg">
-        <q-item-section avatar><q-icon name="request_page" /></q-item-section>
+        <q-item-section avatar><q-icon name="stop_circle" /></q-item-section>
         <q-item-section>Stop Bill</q-item-section>
       </q-item>
 
       <q-item clickable v-ripple to="/Salvage_Disconnect" class="q-pl-lg">
-        <q-item-section avatar><q-icon name="call_missed_outgoing" /></q-item-section>
+        <q-item-section avatar><q-icon name="power_off" /></q-item-section>
         <q-item-section>Salvage Disconnect</q-item-section>
       </q-item>
     </q-expansion-item>
 
     <q-item clickable v-ripple to="/Client_Master">
-      <q-item-section avatar><q-icon name="attribution" /></q-item-section>
+      <q-item-section avatar><q-icon name="account_circle" /></q-item-section>
       <q-item-section>Accounts</q-item-section>
     </q-item>
 
-    <q-expansion-item icon="receipt_long" label="Finance" dense >
+    <q-expansion-item icon="account_balance_wallet" label="Finance" dense >
       <q-item clickable v-ripple to="/Currency_Conversion" class="q-pl-lg">
         <q-item-section avatar><q-icon name="currency_exchange" /></q-item-section>
         <q-item-section>Currency Conversion</q-item-section>
@@ -159,7 +159,7 @@
         <q-item-section avatar><q-icon name="hub" /></q-item-section>
         <q-item-section>Subscriber Mapping</q-item-section>
       </q-item>
-      <q-item clickable v-ripple to="/Start_Bill_Invoice" class="q-pl-lg">
+      <q-item clickable v-ripple to="/StartBill" class="q-pl-lg">
         <q-item-section avatar><q-icon name="play_arrow" /></q-item-section>
         <q-item-section>Start Bill Invoice</q-item-section>
       </q-item>
@@ -197,7 +197,7 @@
       </q-item>
     </q-expansion-item>
 
-    <q-expansion-item icon="payments" label="Payments" dense >
+    <q-expansion-item icon="payment" label="Payments" dense >
       <q-item clickable v-ripple to="/Payments" class="q-pl-lg">
         <q-item-section avatar><q-icon name="account_balance" /></q-item-section>
         <q-item-section>Payment Receipt</q-item-section>
@@ -208,7 +208,7 @@
       </q-item>
     </q-expansion-item>
 
-    <q-expansion-item icon="bar_chart" label="Reports" dense >
+    <q-expansion-item icon="analytics" label="Reports" dense >
       <q-item clickable v-ripple to="/SalesRegister" class="q-pl-lg">
         <q-item-section>Sales Register</q-item-section>
       </q-item>
@@ -253,7 +253,7 @@
       </q-item>
     </q-expansion-item>
 
-    <q-expansion-item icon="security" label="Security" dense >
+    <q-expansion-item icon="shield" label="Security" dense >
       <q-item clickable v-ripple to="/UserGroups" class="q-pl-lg">
         <q-item-section avatar><q-icon name="group" /></q-item-section>
         <q-item-section>User Groups</q-item-section>
@@ -274,14 +274,38 @@
 </template>
 
 <script>
-  export default {
-    name: 'MainLayout',
-    data() {
-      return {
-        leftDrawerOpen: false
-      }
+import { useRouter } from 'vue-router'
+import { useQuasar } from 'quasar'
+
+export default {
+  name: 'MainLayout',
+  setup() {
+    const router = useRouter()
+    const $q = useQuasar()
+
+    const logout = () => {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      $q.notify({
+        type: 'positive',
+        message: 'Logged out successfully'
+      })
+      router.push('/login')
+    }
+
+    return {
+      logout
+    }
+  },
+  data() {
+    return {
+      leftDrawerOpen: false,
+      search: '',
+      text: '',
+      menu: false
     }
   }
+}
 </script>
 <style scoped>
   .q-expansion-item .q-item {
