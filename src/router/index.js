@@ -28,13 +28,13 @@ export default defineRouter(function (/* { store, ssrContext } */) {
 
   // Navigation guard for authentication
   Router.beforeEach((to, from, next) => {
-    const token = localStorage.getItem('token')
+    const token = sessionStorage.getItem('token')
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
     
     if (requiresAuth && !token) {
       next('/login')
     } else if (to.path === '/login' && token) {
-      next('/dashboard')
+      next('/app/dashboard')
     } else {
       next()
     }

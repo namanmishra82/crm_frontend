@@ -1,235 +1,189 @@
 <template>
   <br />
-  <router-link to="/" class="text-primary q-ma-lg">
-    <q-icon name="west" /> Back to Dashboard
-  </router-link>
 
-  <q-card class="my-card q-ma-md">
+  <router-link to="/app/Users" class="text-primary q-ma-lg">
+    <q-icon name="west" /> Back to Users
+  </router-link>
+  <q-card class="my-card q-ma-sm col-auto">
     <q-card-section class="q-pb-none">
+      <!-- Header Row with Title and Button on Right -->
       <div class="row items-center justify-between">
         <div class="text-h6">Add User</div>
-        <q-btn color="primary text-capitalize" label="Save" icon="save" />
+        <q-btn color="primary text-capitalize" label="Save User" icon="save" @click="saveUser" />
       </div>
-      <div class="text-subtitle2">User Management</div>
+      <!-- Subtitle -->
+      <div class="text-subtitle2">Create New User</div>
     </q-card-section>
-
     <q-separator dark inset />
 
     <q-card-section class="q-px-none">
-      <div class="q-px-none field-add-tab">
-        <div class="row q-col-gutter-md items-center">
-          <div class="col-12 col-sm-6 col-md-4 col-lg-12">
-
-            <div class="q-pa-md">
-              <q-list bordered class="rounded-borders">
-                <q-expansion-item default-opened>
-                  <template v-slot:header>
-                    <q-item-section avatar>
-                      <q-avatar icon="info" color="primary" text-color="white" />
-                    </q-item-section>
-
-                    <q-item-section>
-                      User Information
-                    </q-item-section>
-
-                  </template>
-
-                  <q-card class="q-pa-md">
-                    <q-card-section>
-                      <div class="row q-col-gutter-md items-center">
-
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="First Name" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Last Name" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Username" />
-                        </div>
-                      </div>
-                      <div class="row q-my-md q-col-gutter-md items-center">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Email Address" type="email" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="Number" label="Phone Number" type="tel" maxlength="10" mask="##########" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Employee ID" />
-                        </div>
-                      </div>
-
-                    </q-card-section>
-                  </q-card>
-                </q-expansion-item>
-
-                <q-separator />
-
-                <q-expansion-item default-opened>
-                  <template v-slot:header>
-                    <q-item-section avatar>
-                      <q-avatar icon="security" color="primary" text-color="white" />
-                    </q-item-section>
-
-                    <q-item-section>
-                      Security & Access
-                    </q-item-section>
-                  </template>
-
-                  <q-card class="q-pa-md">
-                    <q-card-section>
-                      <div class="row q-col-gutter-md items-center">
-
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="password" label="Password" type="password" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="confirmPassword" label="Confirm Password" type="password" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="UserGroups" label="Select User Group" />
-                        </div>
-                      </div>
-                      <div class="row q-my-md q-col-gutter-md items-center">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="Roles" label="Select Role" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-select dense outlined v-model="model" :options="Status" label="Select Status" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Account Expiry Date" :hide-bottom-space="true">
-                            <template v-slot:append>
-                              <q-icon name="event" class="cursor-pointer">
-                                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                                  <q-date v-model="date">
-                                    <div class="row items-center justify-end">
-                                      <q-btn v-close-popup label="Close" color="primary" flat />
-                                    </div>
-                                  </q-date>
-                                </q-popup-proxy>
-                              </q-icon>
-                            </template>
-                          </q-input>
-                        </div>
-                      </div>
-                    </q-card-section>
-                  </q-card>
-                </q-expansion-item>
-
-                <q-separator />
-
-                <q-expansion-item default-opened>
-                  <template v-slot:header>
-                    <q-item-section avatar>
-                      <q-avatar icon="contact_support" color="primary" text-color="white" />
-                    </q-item-section>
-
-                    <q-item-section>
-                      Additional Information
-                    </q-item-section>
-                  </template>
-
-                  <q-card class="q-pa-md">
-                    <q-card-section>
-                      <div class="row q-col-gutter-md items-center">
-
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Department" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Job Title" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Manager" />
-                        </div>
-                      </div>
-                      <div class="row q-my-md q-col-gutter-md items-center">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="text" label="Office Location" />
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                          <q-input dense outlined v-model="date" mask="date" :rules="['date']" label="Join Date" :hide-bottom-space="true">
-                            <template v-slot:append>
-                              <q-icon name="event" class="cursor-pointer">
-                                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                                  <q-date v-model="date">
-                                    <div class="row items-center justify-end">
-                                      <q-btn v-close-popup label="Close" color="primary" flat />
-                                    </div>
-                                  </q-date>
-                                </q-popup-proxy>
-                              </q-icon>
-                            </template>
-                          </q-input>
-                        </div>
-                      </div>
-                    </q-card-section>
-                  </q-card>
-                </q-expansion-item>
-
-                <q-separator />
-
-                <q-expansion-item default-opened>
-                  <template v-slot:header>
-                    <q-item-section avatar>
-                      <q-avatar icon="attractions" color="primary" text-color="white" />
-                    </q-item-section>
-
-                    <q-item-section>
-                      Remarks
-                    </q-item-section>
-                  </template>
-
-                  <q-card class="q-pa-md">
-                    <q-card-section>
-                      <div class="row q-col-gutter-md items-center">
-                        <div class="col-12">
-                          <q-input 
-                            type="textarea" 
-                            outlined 
-                            v-model="remarks" 
-                            label="Remarks" 
-                            autogrow 
-                            :rows="4" 
-                          />
-                        </div>
-                      </div>
-                    </q-card-section>
-                  </q-card>
-                </q-expansion-item>
-              </q-list>
-            </div>
+      <!-- User Form -->
+      <div class="q-pa-md">
+        <q-form @submit.prevent="saveUser" class="q-gutter-md">
+          <div class="row q-gutter-md">
+            <q-input 
+              v-model="form.employee_id" 
+              label="Employee ID" 
+              outlined
+              class="col" 
+              :rules="[val => !!val || 'Employee ID is required']"
+            />
+            <q-input 
+              v-model="form.username" 
+              label="Username" 
+              outlined
+              class="col"
+              :rules="[val => !!val || 'Username is required']"
+            />
           </div>
-        </div>
+          
+          <div class="row q-gutter-md">
+            <q-input 
+              v-model="form.first_name" 
+              label="First Name" 
+              outlined
+              class="col"
+              :rules="[val => !!val || 'First Name is required']"
+            />
+            <q-input 
+              v-model="form.last_name" 
+              label="Last Name" 
+              outlined
+              class="col"
+              :rules="[val => !!val || 'Last Name is required']"
+            />
+          </div>
+          
+          <div class="row q-gutter-md">
+            <q-input 
+              v-model="form.email" 
+              label="Email" 
+              type="email" 
+              outlined
+              class="col"
+              :rules="[val => !!val || 'Email is required']"
+            />
+            <q-input 
+              v-model="form.mobile" 
+              label="Mobile" 
+              outlined
+              class="col"
+              :rules="[val => !!val || 'Mobile is required']"
+            />
+          </div>
+          
+          <div class="row q-gutter-md">
+            <q-input 
+              v-model="form.password" 
+              label="Password" 
+              type="password" 
+              outlined
+              class="col"
+              :rules="[val => !!val || 'Password is required']"
+            />
+            <q-input 
+              v-model="form.date_of_birth" 
+              label="Date of Birth" 
+              type="date" 
+              outlined
+              class="col"
+            />
+          </div>
+          
+          <div class="row q-gutter-md">
+            <q-select 
+              v-model="form.otp_type" 
+              :options="otpOptions" 
+              label="OTP Type" 
+              outlined
+              class="col"
+            />
+            <q-select 
+              v-model="form.data_visibility" 
+              :options="visibilityOptions" 
+              label="Data Visibility" 
+              outlined
+              class="col"
+            />
+          </div>
 
+          <div class="row q-gutter-md q-pt-md">
+            <q-btn 
+              type="submit" 
+              color="primary" 
+              label="Save User" 
+              icon="save"
+              :loading="loading"
+            />
+            <q-btn 
+              color="grey" 
+              label="Cancel" 
+              icon="cancel"
+              @click="$router.push('/app/Users')"
+            />
+          </div>
+        </q-form>
       </div>
     </q-card-section>
   </q-card>
 </template>
+
 <script>
-  export default {
-    name: 'UserAddPage',
-    data() {
-      return {
-        Status: [
-          'Active', 'Inactive', 'Pending', 'Suspended'
-        ],
-        UserGroups: [
-          'Admin Group', 'Manager Group', 'User Group', 'Guest Group'
-        ],
-        Roles: [
-          'Administrator', 'Manager', 'User', 'Guest', 'Viewer'
-        ],
-        text: '',
-        Number: '',
-        password: '',
-        confirmPassword: '',
-        date: '',
-        model: null,
-        remarks: ''
-      };
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import apiService from '../../../services/apiService'
+
+export default {
+  name: 'UserAddPage',
+  setup() {
+    const router = useRouter()
+    const loading = ref(false)
+    
+    const form = ref({
+      employee_id: '',
+      username: '',
+      first_name: '',
+      last_name: '',
+      email: '',
+      mobile: '',
+      password: '',
+      date_of_birth: '',
+      otp_type: 'N',
+      data_visibility: 'S'
+    })
+
+    const otpOptions = [
+      { label: 'None', value: 'N' },
+      { label: 'SMS', value: 'S' },
+      { label: 'Email', value: 'E' },
+      { label: 'Both', value: 'B' }
+    ]
+
+    const visibilityOptions = [
+      { label: 'Self & Reporting', value: 'S' },
+      { label: 'All', value: 'A' }
+    ]
+
+    const saveUser = async () => {
+      try {
+        loading.value = true
+        await apiService.addUser(form.value)
+        console.log('User saved successfully')
+        router.push('/app/Users')
+      } catch (error) {
+        console.error('Error saving user:', error)
+      } finally {
+        loading.value = false
+      }
+    }
+
+    return {
+      form,
+      loading,
+      otpOptions,
+      visibilityOptions,
+      saveUser
     }
   }
+}
 </script>

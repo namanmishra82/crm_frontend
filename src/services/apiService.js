@@ -1,5 +1,5 @@
 import axios from 'axios'
-import API_CONFIG, { API_ENDPOINTS } from '../config/api.js'
+import API_CONFIG from '../config/api.js'
 
 // Create axios instance
 const apiClient = axios.create({
@@ -11,9 +11,14 @@ const apiClient = axios.create({
 // Request interceptor
 apiClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token')
+    const token = sessionStorage.getItem('token')
+    const deviceId = sessionStorage.getItem('device_id')
+    
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
+    }
+    if (deviceId) {
+      config.headers['Device-ID'] = deviceId
     }
     return config
   },
@@ -25,8 +30,8 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
+      sessionStorage.removeItem('token')
+      sessionStorage.removeItem('user')
       window.location.href = '/login'
     }
     return Promise.reject(error)
@@ -35,110 +40,110 @@ apiClient.interceptors.response.use(
 
 // Generic API service class
 class ApiService {
+  // Common list handler - ensures array response and error handling
+  async handleListAPI(apiCall) {
+    try {
+      const response = await apiCall()
+      // Ensure response is always an array
+      if (Array.isArray(response)) {
+        return response
+      } else if (response && Array.isArray(response.data)) {
+        return response.data
+      } else {
+        console.warn('API response is not an array:', response)
+        return []
+      }
+    } catch (error) {
+      console.error('List API error:', error)
+      return []
+    }
+  }
+
+  // Generic module-based API call
+  async callAPI(module, action, data = null, id = null) {
+    const config = {
+      headers: {
+        'Module': module,
+        'Action': action
+      }
+    }
+    
+    let url = API_CONFIG.BASE_URL
+    if (id) url += `/${id}`
+    
+    if (action === 'list' || action === 'view') {
+      const response = await apiClient.get(url, config)
+      return response.data
+    } else {
+      const response = await apiClient.post(url, data, config)
+      return response.data
+    }
+  }
+
   // Authentication methods
-  async login(credentials) {
-    const response = await apiClient.post(API_ENDPOINTS.AUTH.LOGIN, credentials)
+  async login(credentials, deviceId) {
+    // Use centralized auth URL with device_id in headers
+    const response = await axios.post(`${API_CONFIG.AUTH_URL}/login`, credentials, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Device-ID': deviceId
+      }
+    })
     return response.data
   }
 
   async logout() {
-    const response = await apiClient.post(API_ENDPOINTS.AUTH.LOGOUT)
-    return response.data
+    return this.callAPI('auth', 'logout')
   }
 
-  // Generic CRUD operations
-  async list(endpoint) {
-    const response = await apiClient.get(endpoint)
-    return response.data
+  // Users module methods
+  async getUsers() {
+    return this.handleListAPI(() => this.callAPI('users', 'list'))
   }
 
-  async create(endpoint, data) {
-    const response = await apiClient.post(endpoint, data)
-    return response.data
+  async addUser(userData) {
+    return this.callAPI('users', 'add', userData)
   }
 
-  async view(endpoint, id) {
-    const url = endpoint.replace(':id', id)
-    const response = await apiClient.get(url)
-    return response.data
+  async updateUser(id, userData) {
+    return this.callAPI('users', 'update', userData, id)
   }
 
-  async update(endpoint, id, data) {
-    const url = endpoint.replace(':id', id)
-    const response = await apiClient.put(url, data)
-    return response.data
+  async deleteUser(id) {
+    return this.callAPI('users', 'delete', null, id)
   }
 
-  async delete(endpoint, id) {
-    const url = endpoint.replace(':id', id)
-    const response = await apiClient.delete(url)
-    return response.data
+  async getUser(id) {
+    return this.callAPI('users', 'view', null, id)
   }
 
-  // Start Bill
+  // Common list methods for other modules
+  async getAccounts() {
+    return this.handleListAPI(() => this.callAPI('accounts', 'list'))
+  }
+
+  async getLeads() {
+    return this.handleListAPI(() => this.callAPI('leads', 'list'))
+  }
+
+  async getOpportunities() {
+    return this.handleListAPI(() => this.callAPI('opportunities', 'list'))
+  }
+
   async getStartBills() {
-    return this.list(API_ENDPOINTS.START_BILL.LIST)
+    return this.handleListAPI(() => this.callAPI('start_bill', 'list'))
   }
 
-  async createStartBill(data) {
-    return this.create(API_ENDPOINTS.START_BILL.CREATE, data)
-  }
-
-  async getStartBill(id) {
-    return this.view(API_ENDPOINTS.START_BILL.VIEW, id)
-  }
-
-  async updateStartBill(id, data) {
-    return this.update(API_ENDPOINTS.START_BILL.UPDATE, id, data)
-  }
-
-  async deleteStartBill(id) {
-    return this.delete(API_ENDPOINTS.START_BILL.DELETE, id)
-  }
-
-  async generateStartBill(id) {
-    const url = API_ENDPOINTS.START_BILL.GENERATE.replace(':id', id)
-    const response = await apiClient.post(url)
-    return response.data
-  }
-
-  // Stop Bill
   async getStopBills() {
-    return this.list(API_ENDPOINTS.STOP_BILL.LIST)
+    return this.handleListAPI(() => this.callAPI('stop_bill', 'list'))
   }
 
-  async createStopBill(data) {
-    return this.create(API_ENDPOINTS.STOP_BILL.CREATE, data)
-  }
-
-  async updateStopBill(id, data) {
-    return this.update(API_ENDPOINTS.STOP_BILL.UPDATE, id, data)
-  }
-
-  // Change Bill Commercial
   async getCommercialBills() {
-    return this.list(API_ENDPOINTS.CHANGE_BILL.COMMERCIAL.LIST)
+    return this.handleListAPI(() => this.callAPI('commercial_bill', 'list'))
   }
 
-  async createCommercialBill(data) {
-    return this.create(API_ENDPOINTS.CHANGE_BILL.COMMERCIAL.CREATE, data)
-  }
-
-  async updateCommercialBill(id, data) {
-    return this.update(API_ENDPOINTS.CHANGE_BILL.COMMERCIAL.UPDATE, id, data)
-  }
-
-  // Change Bill Non-Commercial
   async getNonCommercialBills() {
-    return this.list(API_ENDPOINTS.CHANGE_BILL.NON_COMMERCIAL.LIST)
-  }
-
-  async createNonCommercialBill(data) {
-    return this.create(API_ENDPOINTS.CHANGE_BILL.NON_COMMERCIAL.CREATE, data)
-  }
-
-  async updateNonCommercialBill(id, data) {
-    return this.update(API_ENDPOINTS.CHANGE_BILL.NON_COMMERCIAL.UPDATE, id, data)
+    return this.handleListAPI(() => this.callAPI('non_commercial_bill', 'list'))
   }
 }
 

@@ -1,6 +1,11 @@
+// Environment-based server configuration
+const SERVER_URL = process.env.VUE_APP_SERVER_URL || 'http://localhost:3000'
+
 // API Configuration
 const API_CONFIG = {
-  BASE_URL: 'http://localhost:3000/api',
+  SERVER_URL: SERVER_URL,
+  BASE_URL: `${SERVER_URL}/api`,
+  AUTH_URL: `${SERVER_URL}/auth`,
   TIMEOUT: 10000,
   HEADERS: {
     'Content-Type': 'application/json',

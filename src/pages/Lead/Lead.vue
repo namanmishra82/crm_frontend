@@ -138,10 +138,10 @@
       const router = useRouter()
 
       const leadadd = () => {
-        router.push('/LeadAdd') // This route must be defined in your router
+        router.push('/app/leadadd')
       }
       const leadEdit = () => {
-        router.push('/leadEdit') // This route must be defined in your router
+        router.push('/app/leadEdit')
       }
 
       const selected = ref([])

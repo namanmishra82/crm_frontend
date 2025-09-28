@@ -141,15 +141,13 @@
       const router = useRouter()
 
         const OpportunityAdd = () => {
-        router.push('/OpportunityAdd') // This route must be defined in your router
-         
+        router.push('/app/OpportunityAdd')
         }
       const OpportunityEdit = () => {
-        router.push('/OpportunityEdit') // This route must be defined in your router
-         
+        router.push('/app/OpportunityEdit')
         }
       const Proposal = () => {
-        router.push('/Proposal') // This route must be defined in your router
+        router.push('/app/Proposal')
       }
       const selected = ref([])
       const date = ref('2019/02/01')

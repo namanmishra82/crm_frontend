@@ -1,17 +1,27 @@
 const routes = [
+  // Root redirect
+  {
+    path: '/',
+    redirect: () => {
+      const token = sessionStorage.getItem('token')
+      return token ? '/app/dashboard' : '/login'
+    }
+  },
+  
   // Login route (no layout)
   {
     path: '/login',
-    component: () => import('pages/Login.vue')
+    component: () => import('pages/LoginPage.vue')
   },
   
   {
-    path: '/',
+    path: '/app',
     component: () => import('layouts/MainLayout.vue'),
     meta: { requiresAuth: true },
     children: [
-      { path: '', redirect: '/dashboard' },
-      { path: 'dashboard', component: () => import('pages/Dashboard.vue') },
+      { path: '', redirect: '/app/dashboard' },
+      { path: 'dashboard', component: () => import('pages/IndexPage.vue') },
+
       { path: 'Client_Master', component: () => import('pages/Client_Master/Client_Master.vue') },
       { path: 'Client_Master_View', component: () => import('pages/Client_Master/Client_Master_View.vue') },
       { path: 'Lead', component: () => import('pages/Lead/Lead.vue') },
@@ -46,7 +56,7 @@ const routes = [
       { path: 'Action_LogAdd', component: () => import('pages/Action_Log/Action_LogAdd.vue') },
       { path: 'StartBill', component: () => import('pages/Finance/StartBill.vue') },
       { path: 'StartBillUpdate/:id', component: () => import('pages/Finance/StartBillUpdate.vue') },
-      { path: 'login', component: () => import('pages/login.vue') },
+
       { path: 'Opportunity', component: () => import('pages/Opportunity/Opportunity.vue') },
       { path: 'OpportunityAdd', component: () => import('pages/Opportunity/OpportunityAdd.vue')},
       { path: 'OpportunityEdit', component: () => import('pages/Opportunity/OpportunityEdit.vue')},

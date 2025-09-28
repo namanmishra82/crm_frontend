@@ -8,7 +8,7 @@
           </q-card-section>
 
           <q-card-section>
-            <q-form @submit="onSubmit" class="q-gutter-md">
+            <q-form @submit.prevent="onSubmit" class="q-gutter-md">
               <q-input
                 v-model="username"
                 label="Username"
@@ -23,6 +23,10 @@
                 outlined
                 :rules="[val => !!val || 'Password is required']"
               />
+
+              <div v-if="errorMessage" class="text-negative q-mb-md">
+                {{ errorMessage }}
+              </div>
 
               <q-btn
                 type="submit"
@@ -42,45 +46,48 @@
 <script>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useQuasar } from 'quasar'
-import apiService from '../services/apiService'
+import apiService from '../services/apiService.js'
 
 export default {
   name: 'LoginPage',
   setup() {
     const router = useRouter()
-    const $q = useQuasar()
     
     const username = ref('')
     const password = ref('')
     const loading = ref(false)
+    const errorMessage = ref('')
+
+    // Generate device ID
+    const generateDeviceId = () => {
+      return 'web_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now()
+    }
 
     const onSubmit = async () => {
       loading.value = true
+      errorMessage.value = ''
       
       try {
-        const response = await apiService.login({
+        const deviceId = generateDeviceId()
+        const credentials = {
           username: username.value,
           password: password.value
-        })
+        }
         
-        // Store token in localStorage
-        localStorage.setItem('token', response.token)
-        localStorage.setItem('user', JSON.stringify(response.user))
+        const response = await apiService.login(credentials, deviceId)
         
-        $q.notify({
-          type: 'positive',
-          message: 'Login successful'
-        })
-        
-        // Redirect to dashboard
-        router.push('/dashboard')
+        if (response.token) {
+          sessionStorage.setItem('token', response.token)
+          sessionStorage.setItem('user', JSON.stringify(response.user))
+          sessionStorage.setItem('device_id', deviceId)
+          
+          console.log('Login successful')
+          router.push('/app/dashboard')
+        }
         
       } catch (error) {
-        $q.notify({
-          type: 'negative',
-          message: error.response?.data?.message || 'Login failed'
-        })
+        errorMessage.value = 'Invalid Username/Password'
+        console.error('Login failed:', error.response?.data?.message || error.message)
       } finally {
         loading.value = false
       }
@@ -90,6 +97,7 @@ export default {
       username,
       password,
       loading,
+      errorMessage,
       onSubmit
     }
   }

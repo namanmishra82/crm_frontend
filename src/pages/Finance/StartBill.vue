@@ -67,7 +67,7 @@
 
 <script>
 import { useRouter } from 'vue-router'
-import apiService from '../services/apiService.js'
+import apiService from '../../services/apiService.js'
 
 export default {
   name: 'StartBillPage',
